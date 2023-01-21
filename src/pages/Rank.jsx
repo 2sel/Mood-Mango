@@ -1,36 +1,54 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { authenticate, loadClient, execute } from "../api/youtubeapi";
 import styled from "styled-components";
 import { getMusic } from "../redux/modules/rank";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
-import MusicContainer from "../components/common/Rank/MusicContainer";
+import MusicContainer from "../components/Rank/MusicContainer";
+import BeatLoader from "react-spinners/BeatLoader";
+import Musicplayer from "../components/common/Musicplayer";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Rank = () => {
+  const [PlayerDis, SetPlayerDis] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { rank } = useAppSelector((state) => state.rank);
+  const { rank, isLoading } = useAppSelector((state) => state.rank);
 
   useEffect(() => {
     dispatch(getMusic());
+    Aos.init();
   }, []);
+
+  const MusicList = () => {};
 
   // console.log(rank);
   return (
     <Background>
-      <RankWrap>
+      <RankWrap data-aos="fade-up">
         <TitleWrap>인기차트</TitleWrap>
         <MusicListWrap>
-          {rank.map((data, index) => (
-            <MusicContainer
-              key={index}
-              index={index + 1}
-              data={data}
-            ></MusicContainer>
-          ))}
+          {isLoading ? (
+            <LoadingWrap>
+              <BeatLoader color="#FF830A" />
+            </LoadingWrap>
+          ) : (
+            <>
+              {rank.map((data, index) => (
+                <MusicContainer
+                  SetPlayerDis={SetPlayerDis}
+                  key={index}
+                  index={index + 1}
+                  data={data}
+                ></MusicContainer>
+              ))}
+            </>
+          )}
         </MusicListWrap>
       </RankWrap>
+      {PlayerDis && <Musicplayer SetPlayerDis={SetPlayerDis}></Musicplayer>}
     </Background>
   );
 };
@@ -42,7 +60,7 @@ const Button = styled.button``;
 const Background = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   background-color: #000000;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
 `;
@@ -60,6 +78,15 @@ const TitleWrap = styled.div`
 const MusicListWrap = styled.div`
   margin-top: 108px;
   display: flex;
+  flex-direction: column;
+`;
+const LoadingWrap = styled.div`
+  color: white;
+  margin-top: 108px;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 `;
 

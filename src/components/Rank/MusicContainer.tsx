@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { useEffect } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 interface MusicdataType {
   id: string;
@@ -14,9 +17,17 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index }: any) => {
+const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
+  useEffect(() => {
+    Aos.init();
+  }, []);
   return (
-    <MusicContainerWrap>
+    <MusicContainerWrap
+      data-aos="fade-in"
+      onClick={() => {
+        SetPlayerDis(true);
+      }}
+    >
       <img src={data.thumbnail}></img>
       <RankNumber>{index}</RankNumber>
       <MusicInfo>
@@ -72,16 +83,17 @@ const MusicTitle = styled.div`
   width: 400px;
   display: flex;
 `;
+const MusicViewCount = styled.div`
+  font-size: 12px;
+  color: #9096a2;
+  width: 400px;
+  display: flex;
+`;
+
 const ChannelTitle = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
   margin-left: auto;
   margin-right: 10px;
-`;
-const MusicViewCount = styled.div`
-  font-size: 12px;
-  color: #9096a2;
-  width: 400px;
-  display: flex;
 `;
