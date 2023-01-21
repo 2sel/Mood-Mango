@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillSmile } from "react-icons/ai";
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
+import { BsBarChart } from "react-icons/bs";
+
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -32,6 +34,16 @@ const Navbar = () => {
         </StyleBtnWrap>
         <StyleBtnWrap
           onClick={() => {
+            navigate("/Main");
+          }}
+        >
+          <StyleIconWrap>
+            <BsBarChart></BsBarChart>
+          </StyleIconWrap>
+          <StyleText>인기차트</StyleText>
+        </StyleBtnWrap>
+        <StyleBtnWrap
+          onClick={() => {
             navigate("/MyPage");
           }}
         >
@@ -56,9 +68,10 @@ const Navbar = () => {
 };
 
 const StyleNav = styled.div`
-  background-color: #2d2d2d;
+  background-color: #121212;
   position: fixed;
   height: 100%;
+  top: 0;
   left: 0;
   width: 100px;
   display: flex;
