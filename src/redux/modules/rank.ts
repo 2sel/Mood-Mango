@@ -19,14 +19,11 @@ export const getMusic = createAsyncThunk(
     try {
       let finaldata = [];
       const data = await axios.get(playlistApi);
-      console.log(data.data.items);
       for (let listvideodata of data.data.items) {
         const videoid = listvideodata.contentDetails.videoId;
         const videodata = await axios.get(videoApi(videoid));
-        console.log(videodata);
         finaldata.push(videodata.data.items[0]);
       }
-      console.log(DataFilter(finaldata));
       return thunkAPI.fulfillWithValue(DataFilter(finaldata));
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
