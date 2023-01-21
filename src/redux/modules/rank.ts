@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AppDispatch } from "../config/configStore";
 import { RootState } from "../config/configStore";
+import { playlistApi } from "../../api/apihttp";
+import { videoApi, DataFilter } from "../../api/apihttp";
 
 interface datatype {
   id: string;
@@ -15,8 +17,14 @@ export const getMusic = createAsyncThunk(
   "todos/getTodo",
   async (_, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3003/todos");
-      return thunkAPI.fulfillWithValue(data.data);
+      let finaldata = [];
+      const data = await axios.get(playlistApi);
+      for (let listvideodata of data.data.items) {
+        const videoid = listvideodata.contentDetails.videoId;
+        const videodata = await axios.get(videoApi(videoid));
+        finaldata.push(videodata.data.items[0]);
+      }
+      return thunkAPI.fulfillWithValue(DataFilter(finaldata));
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -38,7 +46,7 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(getMusic.fulfilled, (state, action) => {
+    builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.rank = action.payload;
     });
