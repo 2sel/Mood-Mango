@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { useAppDispatch } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
+import { PlayerToggle } from "../../redux/modules/musicplayer";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -17,7 +20,9 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
+const MusicContainer = ({ data, index }: any) => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     Aos.init();
   }, []);
@@ -25,7 +30,7 @@ const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
     <MusicContainerWrap
       data-aos="fade-in"
       onClick={() => {
-        SetPlayerDis(true);
+        dispatch(PlayerToggle(true));
       }}
     >
       <img src={data.thumbnail}></img>

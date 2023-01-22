@@ -10,6 +10,8 @@ import {
   IoChevronDown,
 } from "react-icons/io5";
 import ReactPlayer from "react-player";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { PlayerToggle } from "../../redux/modules/musicplayer";
 
 // const customStyles = {
 //   content: {
@@ -21,43 +23,51 @@ import ReactPlayer from "react-player";
 //   },
 // };
 
-const Musicplayer = ({ SetPlayerDis }) => {
+const Musicplayer = () => {
+  const { playerdisplay } = useAppSelector((state) => state.musicplayer);
+
+  const dispatch = useAppDispatch();
+
   return (
-    <MusicplayerWrap>
-      <img src="https://i.ytimg.com/vi/fgSXAKsq-Vo/maxresdefault.jpg"></img>
-      <MusicInfo>
-        <MusicTitle>리와인드 (RE:WIND)</MusicTitle>
-        <MusicChannelTitle>이세계아이돌</MusicChannelTitle>
-      </MusicInfo>
-      <MusicControl>
-        <IoPlaySkipBack width="20px"></IoPlaySkipBack>
-        <IoPlay></IoPlay>
-        <IoPlaySkipForward></IoPlaySkipForward>
-      </MusicControl>
-      <MusicTime>0:00/3:00</MusicTime>
-      <MusicTimeBar
-        type="range"
-        min="0"
-        max="1000"
-        // ref={seekBar}
-        // onChange={(e) => changeProgress(e.target.value)}
-      />
-      <SoundWrap>
-        <IoVolumeHigh></IoVolumeHigh>
-        <SoundBar
-          type="range"
-          min="0"
-          max="1000"
-          // ref={seekBar}
-          // onChange={(e) => changeProgress(e.target.value)}
-        />
-        <IoChevronDown
-          onClick={() => {
-            SetPlayerDis(false);
-          }}
-        ></IoChevronDown>
-      </SoundWrap>
-    </MusicplayerWrap>
+    <>
+      {playerdisplay && (
+        <MusicplayerWrap>
+          <img src="https://i.ytimg.com/vi/fgSXAKsq-Vo/maxresdefault.jpg"></img>
+          <MusicInfo>
+            <MusicTitle>리와인드 (RE:WIND)</MusicTitle>
+            <MusicChannelTitle>이세계아이돌</MusicChannelTitle>
+          </MusicInfo>
+          <MusicControl>
+            <IoPlaySkipBack width="20px"></IoPlaySkipBack>
+            <IoPlay></IoPlay>
+            <IoPlaySkipForward></IoPlaySkipForward>
+          </MusicControl>
+          <MusicTime>0:00/3:00</MusicTime>
+          <MusicTimeBar
+            type="range"
+            min="0"
+            max="1000"
+            // ref={seekBar}
+            // onChange={(e) => changeProgress(e.target.value)}
+          />
+          <SoundWrap>
+            <IoVolumeHigh></IoVolumeHigh>
+            <SoundBar
+              type="range"
+              min="0"
+              max="1000"
+              // ref={seekBar}
+              // onChange={(e) => changeProgress(e.target.value)}
+            />
+            <IoChevronDown
+              onClick={() => {
+                dispatch(PlayerToggle(false));
+              }}
+            ></IoChevronDown>
+          </SoundWrap>
+        </MusicplayerWrap>
+      )}
+    </>
   );
 };
 

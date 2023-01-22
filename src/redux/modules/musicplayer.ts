@@ -13,12 +13,12 @@ interface datatype {
   displaytoggle: boolean;
 }
 
-export const getMusic = createAsyncThunk(
-  "todos/getTodo",
-  async (_, thunkAPI) => {
+export const getPlayerMusic = createAsyncThunk(
+  "musics/getMusic",
+  async (payload: string, thunkAPI) => {
     try {
       let finaldata = [];
-      const data = await axios.get(playlistApi);
+      const data = await axios.get(playlistApi(payload));
       for (let listvideodata of data.data.items) {
         const videoid = listvideodata.contentDetails.videoId;
         const videodata = await axios.get(videoApi(videoid));
@@ -32,31 +32,34 @@ export const getMusic = createAsyncThunk(
 );
 
 const initialState = {
-  rank: [],
+  selectedmusic: [],
   isLoading: false,
-  //   error: null,
+  playerdisplay: false,
 };
 
 const todosSlice = createSlice({
-  name: "rank",
+  name: "musicplayer",
   initialState,
-  reducers: {},
+  reducers: {
+    PlayerToggle: (state, action) => {
+      state.playerdisplay = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // getTodo
-    builder.addCase(getMusic.pending, (state, action) => {
+    builder.addCase(getPlayerMusic.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(getMusic.fulfilled, (state: any, action) => {
+    builder.addCase(getPlayerMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
-      state.rank = action.payload;
+      state.musics = action.payload;
     });
-    builder.addCase(getMusic.rejected, (state, action) => {
+    builder.addCase(getPlayerMusic.rejected, (state, action) => {
       state.isLoading = false;
       //   state.error = action.payload;
     });
   },
 });
 
-// export const { addTodo, deleteTodo, toggleTodo, updateTodo, toggleDisplay } =
-//   todosSlice.actions;
+export const { PlayerToggle } = todosSlice.actions;
 export default todosSlice.reducer;

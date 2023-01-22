@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
-import rank from "../modules/rank";
+import musics from "../modules/musics";
+import musicplayer from "../modules/musicplayer";
 
 const store = configureStore({
-  reducer: { rank: rank },
+  reducer: { musics, musicplayer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
