@@ -5,7 +5,7 @@ import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
 import { BsBarChart } from "react-icons/bs";
 
 import { useNavigate } from "react-router-dom";
-
+import Icon from "./Icon";
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -17,9 +17,7 @@ const Navbar = () => {
             navigate("/");
           }}
         >
-          <StyleIconWrap>
-            <AiFillSmile></AiFillSmile>
-          </StyleIconWrap>
+          <Icon kind={"smile"} />
           <StyleText>무드선택</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
@@ -27,14 +25,12 @@ const Navbar = () => {
             navigate("/Main");
           }}
         >
-          <StyleIconWrap>
-            <BiMusic></BiMusic>
-          </StyleIconWrap>
+          <Icon kind={"music"} />
           <StyleText>무드플레이</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
           onClick={() => {
-            navigate("/Main");
+            navigate("/");
           }}
         >
           <StyleIconWrap>
@@ -47,9 +43,7 @@ const Navbar = () => {
             navigate("/MyPage");
           }}
         >
-          <StyleIconWrap>
-            <BiCloud></BiCloud>
-          </StyleIconWrap>
+          <Icon kind={"cloud"} />
           <StyleText>마이플레이</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
@@ -57,9 +51,7 @@ const Navbar = () => {
             navigate("/Search");
           }}
         >
-          <StyleIconWrap>
-            <BiSearch></BiSearch>
-          </StyleIconWrap>
+          <Icon kind={"search"} />
           <StyleText>검색</StyleText>
         </StyleBtnWrap>
       </StyleNavWrap>

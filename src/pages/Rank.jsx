@@ -2,27 +2,25 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { authenticate, loadClient, execute } from "../api/youtubeapi";
 import styled from "styled-components";
-import { getMusic } from "../redux/modules/rank";
+import { getMusic } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import MusicContainer from "../components/Rank/MusicContainer";
 import BeatLoader from "react-spinners/BeatLoader";
-import Musicplayer from "../components/common/Musicplayer";
+import Musicplayer from "../components/Rank/Musicplayer";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
 const Rank = () => {
   const [PlayerDis, SetPlayerDis] = useState(false);
   const dispatch = useAppDispatch();
-
-  const { rank, isLoading } = useAppSelector((state) => state.rank);
+  const { musics, isLoading } = useAppSelector((state) => state.musics);
+  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   useEffect(() => {
-    dispatch(getMusic());
+    dispatch(getMusic(playlistId));
     Aos.init();
   }, []);
-
-  const MusicList = () => {};
 
   // console.log(rank);
   return (
@@ -36,10 +34,10 @@ const Rank = () => {
             </LoadingWrap>
           ) : (
             <>
-              {rank.map((data, index) => (
+              {musics.map((data, index) => (
                 <MusicContainer
                   SetPlayerDis={SetPlayerDis}
-                  key={index}
+                  key={data.id}
                   index={index + 1}
                   data={data}
                 ></MusicContainer>
@@ -48,7 +46,7 @@ const Rank = () => {
           )}
         </MusicListWrap>
       </RankWrap>
-      {PlayerDis && <Musicplayer SetPlayerDis={SetPlayerDis}></Musicplayer>}
+      <Musicplayer SetPlayerDis={SetPlayerDis}></Musicplayer>
     </Background>
   );
 };

@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { useAppDispatch } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
+import { PlayerToggle } from "../../redux/modules/musicplayer";
 import Aos from "aos";
+import Icon from "../common/Icon";
+import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 
 interface MusicdataType {
@@ -17,7 +22,9 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
+const MusicContainer = ({ data, index }: any) => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     Aos.init();
   }, []);
@@ -25,7 +32,8 @@ const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
     <MusicContainerWrap
       data-aos="fade-in"
       onClick={() => {
-        SetPlayerDis(true);
+        dispatch(PlayerToggle(true));
+        moodStorage.addMangoHistory(data);
       }}
     >
       <img src={data.thumbnail}></img>
@@ -35,6 +43,13 @@ const MusicContainer = ({ data, index, SetPlayerDis }: any) => {
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
       </MusicInfo>
       <ChannelTitle>{data.channeltitle}</ChannelTitle>
+      <Icon
+        kind={"cloud"}
+        style={{
+          height: "60px",
+        }}
+        handler={() => moodStorage.addMangoPlayList(data)}
+      />
     </MusicContainerWrap>
   );
 };
