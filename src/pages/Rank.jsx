@@ -7,7 +7,7 @@ import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import MusicContainer from "../components/Rank/MusicContainer";
 import BeatLoader from "react-spinners/BeatLoader";
-import Musicplayer from "../components/common/Musicplayer";
+import Musicplayer from "../components/Rank/Musicplayer";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
