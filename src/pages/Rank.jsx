@@ -15,14 +15,15 @@ const Rank = () => {
   const [PlayerDis, SetPlayerDis] = useState(false);
   const dispatch = useAppDispatch();
   const { musics, isLoading } = useAppSelector((state) => state.musics);
-  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
   useEffect(() => {
     dispatch(getMusic(playlistId));
     Aos.init();
   }, []);
 
-  // console.log(rank);
+  console.log(musics);
   return (
     <Background>
       <RankWrap data-aos="fade-up">

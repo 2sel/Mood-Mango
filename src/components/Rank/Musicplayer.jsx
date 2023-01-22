@@ -13,16 +13,6 @@ import ReactPlayer from "react-player";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { PlayerToggle } from "../../redux/modules/musicplayer";
 
-// const customStyles = {
-//   content: {
-//     left: "0%",
-//     bottom: "0",
-//     height: " 80px",
-//     width: "100%",
-//     transform: "translate(-50%, -50%)",
-//   },
-// };
-
 const Musicplayer = () => {
   const { playerdisplay } = useAppSelector((state) => state.musicplayer);
 
@@ -38,9 +28,9 @@ const Musicplayer = () => {
             <MusicChannelTitle>이세계아이돌</MusicChannelTitle>
           </MusicInfo>
           <MusicControl>
-            <IoPlaySkipBack width="20px"></IoPlaySkipBack>
-            <IoPlay></IoPlay>
-            <IoPlaySkipForward></IoPlaySkipForward>
+            <IoPlaySkipBack size="20px"></IoPlaySkipBack>
+            <IoPlay size="20px"></IoPlay>
+            <IoPlaySkipForward size="20px"></IoPlaySkipForward>
           </MusicControl>
           <MusicTime>0:00/3:00</MusicTime>
           <MusicTimeBar
@@ -51,20 +41,23 @@ const Musicplayer = () => {
             // onChange={(e) => changeProgress(e.target.value)}
           />
           <SoundWrap>
-            <IoVolumeHigh></IoVolumeHigh>
+            <IoVolumeHigh size="20px"></IoVolumeHigh>
             <SoundBar
               type="range"
               min="0"
               max="1000"
               // ref={seekBar}
               // onChange={(e) => changeProgress(e.target.value)}
-            />
-            <IoChevronDown
-              onClick={() => {
-                dispatch(PlayerToggle(false));
-              }}
-            ></IoChevronDown>
-          </SoundWrap>
+            />{" "}
+            <DownButton>
+              <IoChevronDown
+                size="30px"
+                onClick={() => {
+                  dispatch(PlayerToggle(false));
+                }}
+              ></IoChevronDown>
+            </DownButton>
+          </SoundWrap>{" "}
         </MusicplayerWrap>
       )}
     </>
@@ -114,13 +107,14 @@ const MusicTime = styled.div`
   color: #9096a2;
 `;
 const MusicTimeBar = styled.input`
-  width: 60%;
+  width: 70%;
   background-color: #f7f0f0;
   height: 20px;
 `;
 const SoundBar = styled.input`
   margin-left: 10px;
-  width: 80%;
+  margin-right: 20px;
+  width: 120px;
   background-color: #f7f0f0;
   height: 20px;
 `;
@@ -142,12 +136,14 @@ const MusicChannelTitle = styled.div`
   display: flex;
 `;
 const SoundWrap = styled.div`
+  padding-left: 20px;
   align-items: center;
   margin-left: auto;
-  margin-right: 20px;
   display: flex;
-  width: 200px;
+  width: 240px;
   font-size: 14px;
   color: #9096a2;
   display: flex;
 `;
+
+const DownButton = styled.div``;
