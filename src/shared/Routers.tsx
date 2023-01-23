@@ -9,18 +9,19 @@ import Search from "../pages/Search";
 import { moodStorage } from "../components/common/MoodStorage";
 
 const Routers = () => {
-  return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Rank />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Layout>
+                <Routes>
+                    <Route path='/' element={<Moods />} />
+                    <Route path='/main' element={<Main />} />
+                    <Route path='/mypage' element={<Mypage />} />
+                    <Route path='/rank' element={<Rank />} />
+                    <Route path="/search" element={<Search />} />
+                </Routes>
+            </Layout>
+        </BrowserRouter>
+    );
 };
 
 export default Routers;
