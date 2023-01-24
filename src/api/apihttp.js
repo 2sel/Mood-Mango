@@ -4,7 +4,7 @@ const apiKey = "AIzaSyCvc869BKpKTJLBt0j5mlzP4QB7y4I5KfA";
 const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
 export function playlistApi(playlistid) {
-  return `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=100&playlistId=${playlistid}&key=${apiKey} `;
+  return `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistid}&key=${apiKey} `;
 }
 export function videoApi(videoid) {
   return `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&id=${videoid}&key=${apiKey}`;

@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { authenticate, loadClient, execute } from "../api/youtubeapi";
 import styled from "styled-components";
 import { getMusic } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
@@ -23,7 +22,6 @@ const Rank = () => {
     Aos.init();
   }, []);
 
-  console.log(musics);
   return (
     <Background>
       <RankWrap data-aos="fade-up">
@@ -37,7 +35,6 @@ const Rank = () => {
             <>
               {musics.map((data, index) => (
                 <MusicContainer
-                  SetPlayerDis={SetPlayerDis}
                   key={data.id}
                   index={index + 1}
                   data={data}
@@ -47,7 +44,7 @@ const Rank = () => {
           )}
         </MusicListWrap>
       </RankWrap>
-      <Musicplayer SetPlayerDis={SetPlayerDis}></Musicplayer>
+      <Musicplayer></Musicplayer>
     </Background>
   );
 };

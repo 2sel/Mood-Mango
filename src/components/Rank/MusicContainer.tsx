@@ -45,6 +45,7 @@ const MusicContainer = ({ data, index }: any) => {
       <ChannelTitle>{data.channeltitle}</ChannelTitle>
       <Icon
         kind={"cloud"}
+        size={25}
         style={{
           height: "60px",
         }}

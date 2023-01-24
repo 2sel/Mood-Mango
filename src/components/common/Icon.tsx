@@ -1,6 +1,15 @@
 import React from "react";
 import { AiFillSmile } from "react-icons/ai";
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
+import {
+  IoPlay,
+  IoPlaySkipBack,
+  IoPlaySkipForward,
+  IoVolumeHigh,
+  IoChevronDown,
+  IoPause,
+} from "react-icons/io5";
+
 import styled, { CSSObject } from "styled-components";
 
 interface IconType {
@@ -34,6 +43,42 @@ const Icon = (props: IconType) => {
       return (
         <StyleIconWrap>
           <BiSearch style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "play":
+      return (
+        <StyleIconWrap>
+          <IoPlay style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "skipback":
+      return (
+        <StyleIconWrap>
+          <IoPlaySkipBack style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "skipforward":
+      return (
+        <StyleIconWrap>
+          <IoPlaySkipForward style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "volume":
+      return (
+        <StyleIconWrap>
+          <IoVolumeHigh style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "playerhide":
+      return (
+        <StyleIconWrap>
+          <IoChevronDown style={props.style} size={props.size} />
+        </StyleIconWrap>
+      );
+    case "pause":
+      return (
+        <StyleIconWrap>
+          <IoPause style={props.style} size={props.size} />
         </StyleIconWrap>
       );
     default:
