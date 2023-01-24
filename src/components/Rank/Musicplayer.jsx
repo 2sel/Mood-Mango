@@ -4,12 +4,16 @@ import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { PlayerToggle } from "../../redux/modules/musicplayer";
+import {
+  PlayerToggle,
+  togglePlay,
+  getMusicNum,
+} from "../../redux/modules/musicplayer";
 import Icon from "../common/Icon";
+import Marquee from "react-fast-marquee";
 
 const Musicplayer = () => {
   const [percentage, setPercentage] = useState(0);
-  const [playstate, setplaystate] = useState(false);
   const [position, setPosition] = useState(0);
   const [marginLeft, setMarginLeft] = useState(0);
   const [progressBarWidth, setProgressBarWidth] = useState(0);
@@ -17,14 +21,65 @@ const Musicplayer = () => {
     width: undefined,
     height: undefined,
   });
-  const { playerdisplay } = useAppSelector((state) => state.musicplayer);
-  const dispatch = useAppDispatch();
+  const [duration, setDuration] = useState("0:00");
+  const [current, setCurrent] = useState("0:00");
 
   const rangeRef = useRef();
   const thumbRef = useRef();
+  const reactplayerRef = useRef();
+
+  const { playerdisplay, isPlay, musicnum } = useAppSelector(
+    (state) => state.musicplayer
+  );
+  const { playlist, musics } = useAppSelector((state) => state.musics);
+
+  const dispatch = useAppDispatch();
+
+  const durationSet = () => {
+    let seconds = Math.floor(reactplayerRef.current?.getDuration());
+    let min = parseInt((seconds % 3600) / 60);
+    let sec = seconds % 60;
+    if (sec < 10) {
+      setDuration(`${min}:0${sec}`);
+    } else {
+      setDuration(`${min}:${sec}`);
+    }
+  };
+
+  const currentSet = ({ playedSeconds }) => {
+    let Seconds = Math.floor(playedSeconds);
+    let min = parseInt((Seconds % 3600) / 60);
+    let sec = Seconds % 60;
+    if (sec < 10) {
+      setCurrent(`${min}:0${sec}`);
+    } else {
+      setCurrent(`${min}:${sec}`);
+    }
+  };
 
   const onChange = (e) => {
     setPercentage(e.target.value);
+    reactplayerRef.current.seekTo(e.target.value / 100, "fraction");
+  };
+
+  const getCurrDuration = (data) => {
+    const percent = (data.played * 100).toFixed(2);
+    setPercentage(+percent);
+  };
+
+  const skipForward = () => {
+    if (musicnum + 1 == playlist.length) {
+      dispatch(getMusicNum(0));
+    } else {
+      dispatch(getMusicNum(musicnum + 1));
+    }
+  };
+  const skipBackward = () => {
+    if (musicnum == 0) {
+      dispatch(getMusicNum(playlist.length - 1));
+    } else {
+      dispatch(getMusicNum(musicnum - 1));
+    }
   };
 
   useEffect(() => {
@@ -42,7 +97,6 @@ const Musicplayer = () => {
   useEffect(() => {
     const rangeWidth = rangeRef.current?.getBoundingClientRect().width;
     const thumbWidth = thumbRef.current?.getBoundingClientRect().width; //전체 픽셀치
-
     const centerThumb = (thumbWidth / 100) * percentage * -1;
     const centerProgressBar =
       thumbWidth +
@@ -51,33 +105,46 @@ const Musicplayer = () => {
     setPosition(percentage);
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
+    durationSet();
   }, [percentage, windowSize]);
 
   return (
     <>
       {playerdisplay && (
         <MusicplayerWrap>
-          <img src="https://i.ytimg.com/vi/fgSXAKsq-Vo/maxresdefault.jpg"></img>
-          <MusicInfo>
-            <MusicTitle>리와인드 (RE:WIND)</MusicTitle>
-            <MusicChannelTitle>이세계아이돌</MusicChannelTitle>
-          </MusicInfo>
+          <img src={musics[musicnum].thumbnail}></img>
+          <MarqueeWrap>
+            <Marquee gradientWidth={0}>
+              <MusicInfo>
+                <MusicTitle>{musics[musicnum].title}</MusicTitle>
+                <MusicChannelTitle>
+                  {musics[musicnum].channeltitle}
+                </MusicChannelTitle>
+              </MusicInfo>
+            </Marquee>
+          </MarqueeWrap>
           <MusicControl>
-            <Icon kind="skipback" size={16} />
+            <div onClick={skipBackward}>
+              <Icon kind="skipback" size={16} />
+            </div>
             <div
               onClick={() => {
-                setplaystate((e) => !e);
+                dispatch(togglePlay(!isPlay));
               }}
             >
-              {playstate ? (
-                <Icon kind="play" size={28} />
-              ) : (
+              {isPlay ? (
                 <Icon kind="pause" size={28} />
+              ) : (
+                <Icon kind="play" size={28} />
               )}
             </div>
-            <Icon kind="skipforward" size={16} />
+            <div onClick={skipForward}>
+              <Icon kind="skipforward" size={16} />
+            </div>
           </MusicControl>
-          <MusicTime>0:00/3:00</MusicTime>
+          <MusicTime>
+            {current}/{duration}
+          </MusicTime>
           <SliderWrap>
             <SliderCover
               style={{
@@ -97,7 +164,6 @@ const Musicplayer = () => {
               value={position}
               ref={rangeRef}
               step="0.01"
-              className="range"
               onChange={onChange}
             ></MusicRange>
           </SliderWrap>
@@ -111,17 +177,32 @@ const Musicplayer = () => {
             >
               <Icon kind="playerhide" size={30} />
             </DownButton>
-          </SoundWrap>{" "}
+          </SoundWrap>
+          <ReactPlayerWrap>
+            <ReactPlayer
+              url={playlist[musicnum]}
+              ref={reactplayerRef}
+              onEnded={skipForward}
+              onProgress={(e) => {
+                getCurrDuration(e);
+                currentSet(e);
+              }}
+              playing={isPlay}
+              width={480}
+              height={320}
+            ></ReactPlayer>
+          </ReactPlayerWrap>
         </MusicplayerWrap>
       )}
-      <ReactPlayerWrap>
-        <ReactPlayer url="https://www.youtube.com/watch?v=ysz5S6PUM-U"></ReactPlayer>
-      </ReactPlayerWrap>
     </>
   );
 };
 
 export default Musicplayer;
+
+const MarqueeWrap = styled.div`
+  width: 150px;
+`;
 
 const MusicplayerWrap = styled.div`
   font-family: "Noto Sans KR", sans-serif;
@@ -147,7 +228,6 @@ const MusicplayerWrap = styled.div`
 const MusicInfo = styled.div`
   padding: 15px;
   margin-left: 20px;
-  width: 150px;
   height: 60px;
   display: flex;
   flex-direction: column;

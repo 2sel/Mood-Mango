@@ -1,8 +1,5 @@
 const apiKey = "AIzaSyCvc869BKpKTJLBt0j5mlzP4QB7y4I5KfA";
 
-// const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
-
 export function playlistApi(playlistid) {
   return `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistid}&key=${apiKey} `;
 }
@@ -15,6 +12,7 @@ export function DataFilter(array) {
   array.map((data) => {
     let videodata = {
       id: data.id,
+      url: `https://www.youtube.com/watch?v=${data.id}`,
       title: data.snippet.title,
       channeltitle: data.snippet.channelTitle,
       time: data.snippet.publishedAt,
@@ -25,4 +23,12 @@ export function DataFilter(array) {
     returnarray.push(videodata);
   });
   return returnarray;
+}
+
+export function playlisturl(musics) {
+  let returndata = [];
+  musics.map((data) => {
+    returndata.push(data.url);
+  });
+  return returndata;
 }

@@ -6,6 +6,7 @@ import Moods from "../pages/Moods";
 import Rank from "../pages/Rank";
 import Mypage from "../pages/Mypage";
 import { moodStorage } from "../components/common/MoodStorage";
+import Musicplayer from "../components/Rank/Musicplayer";
 
 const Routers = () => {
   return (
@@ -16,6 +17,7 @@ const Routers = () => {
           <Route path="/main" element={<Main />} />
           <Route path="/mypage" element={<Mypage />} />
         </Routes>
+        <Musicplayer></Musicplayer>
       </Layout>
     </BrowserRouter>
   );

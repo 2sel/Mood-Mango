@@ -9,13 +9,15 @@ import BeatLoader from "react-spinners/BeatLoader";
 import Musicplayer from "../components/Rank/Musicplayer";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { getPlaylist } from "../redux/modules/musicplayer";
 
 const Rank = () => {
-  const [PlayerDis, SetPlayerDis] = useState(false);
   const dispatch = useAppDispatch();
-  const { musics, isLoading } = useAppSelector((state) => state.musics);
-  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
+  const { musics, playlist, isLoading } = useAppSelector(
+    (state) => state.musics
+  );
+  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  // const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
   useEffect(() => {
     dispatch(getMusic(playlistId));
@@ -36,15 +38,15 @@ const Rank = () => {
               {musics.map((data, index) => (
                 <MusicContainer
                   key={data.id}
-                  index={index + 1}
+                  index={index}
                   data={data}
+                  playlist={playlist}
                 ></MusicContainer>
               ))}
             </>
           )}
         </MusicListWrap>
       </RankWrap>
-      <Musicplayer></Musicplayer>
     </Background>
   );
 };

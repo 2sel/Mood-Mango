@@ -3,7 +3,7 @@ import axios from "axios";
 import { AppDispatch } from "../config/configStore";
 import { RootState } from "../config/configStore";
 import { playlistApi } from "../../api/apihttp";
-import { videoApi, DataFilter } from "../../api/apihttp";
+import { videoApi, DataFilter, playlisturl } from "../../api/apihttp";
 interface datatype {
   id: string;
   title: string;
@@ -36,6 +36,7 @@ export const getMusic = createAsyncThunk(
 const initialState = {
   musics: [],
   isLoading: false,
+  playlist: [],
   //   error: null,
 };
 
@@ -51,6 +52,7 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.musics = action.payload;
+      state.playlist = playlisturl(action.payload);
     });
     builder.addCase(getMusic.rejected, (state, action) => {
       state.isLoading = false;

@@ -8,6 +8,7 @@ import Aos from "aos";
 import Icon from "../common/Icon";
 import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
+import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
 
 interface MusicdataType {
   id: string;
@@ -33,11 +34,14 @@ const MusicContainer = ({ data, index }: any) => {
       data-aos="fade-in"
       onClick={() => {
         dispatch(PlayerToggle(true));
+        dispatch(togglePlay(true));
+        dispatch(getMusicNum(index));
+
         moodStorage.addMangoHistory(data);
       }}
     >
       <img src={data.thumbnail}></img>
-      <RankNumber>{index}</RankNumber>
+      <RankNumber>{index + 1}</RankNumber>
       <MusicInfo>
         <MusicTitle>{data.title}</MusicTitle>
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
@@ -88,7 +92,7 @@ const RankNumber = styled.div`
   align-items: center;
 `;
 const MusicInfo = styled.div`
-  width: 400px;
+  width: 800px;
   height: 60px;
   display: flex;
   flex-direction: column;
@@ -96,7 +100,6 @@ const MusicInfo = styled.div`
 `;
 const MusicTitle = styled.div`
   font-size: 14px;
-  width: 400px;
   display: flex;
 `;
 const MusicViewCount = styled.div`

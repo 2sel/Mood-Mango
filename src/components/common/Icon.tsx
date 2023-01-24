@@ -19,66 +19,66 @@ interface IconType {
   handler?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Icon = (props: IconType) => {
-  switch (props.kind) {
+const Icon = ({ kind, style, size = 25, handler }: IconType) => {
+  switch (kind) {
     case "smile":
       return (
         <StyleIconWrap>
-          <AiFillSmile style={props.style} size={props.size} />
+          <AiFillSmile style={style} size={size} />
         </StyleIconWrap>
       );
     case "music":
       return (
         <StyleIconWrap>
-          <BiMusic style={props.style} size={props.size} />
+          <BiMusic style={style} size={size} />
         </StyleIconWrap>
       );
     case "cloud":
       return (
-        <StyleIconWrap onClick={props.handler}>
-          <BiCloud style={props.style} size={props.size} />
+        <StyleIconWrap onClick={handler}>
+          <BiCloud style={style} size={size} />
         </StyleIconWrap>
       );
     case "search":
       return (
         <StyleIconWrap>
-          <BiSearch style={props.style} size={props.size} />
+          <BiSearch style={style} size={size} />
         </StyleIconWrap>
       );
     case "play":
       return (
         <StyleIconWrap>
-          <IoPlay style={props.style} size={props.size} />
+          <IoPlay style={style} size={size} />
         </StyleIconWrap>
       );
     case "skipback":
       return (
         <StyleIconWrap>
-          <IoPlaySkipBack style={props.style} size={props.size} />
+          <IoPlaySkipBack style={style} size={size} />
         </StyleIconWrap>
       );
     case "skipforward":
       return (
         <StyleIconWrap>
-          <IoPlaySkipForward style={props.style} size={props.size} />
+          <IoPlaySkipForward style={style} size={size} />
         </StyleIconWrap>
       );
     case "volume":
       return (
         <StyleIconWrap>
-          <IoVolumeHigh style={props.style} size={props.size} />
+          <IoVolumeHigh style={style} size={size} />
         </StyleIconWrap>
       );
     case "playerhide":
       return (
         <StyleIconWrap>
-          <IoChevronDown style={props.style} size={props.size} />
+          <IoChevronDown style={style} size={size} />
         </StyleIconWrap>
       );
     case "pause":
       return (
         <StyleIconWrap>
-          <IoPause style={props.style} size={props.size} />
+          <IoPause style={style} size={size} />
         </StyleIconWrap>
       );
     default:
@@ -86,7 +86,6 @@ const Icon = (props: IconType) => {
   }
 };
 const StyleIconWrap = styled.div`
-  font-size: 25px;
   color: #fff;
   text-align: center;
 `;
