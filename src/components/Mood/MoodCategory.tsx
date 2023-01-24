@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const MoodCategory = () => {
     return (
-        <MoodCategoryWrap>
-            <CategoryWrap>
+        <BackgroundForm>
+            <MoodCategoryWrap>
                 <CategoryList>
                     <CategoryListBtn>우울한</CategoryListBtn>
                 </CategoryList>
@@ -20,24 +20,23 @@ const MoodCategory = () => {
                 <CategoryList>
                     <CategoryListBtn>격렬한</CategoryListBtn>
                 </CategoryList>
-            </CategoryWrap>
+            </MoodCategoryWrap>
             <MoodPlayDiv>
                 <MoodPlayBtn type='submit'>Mood Play</MoodPlayBtn>
             </MoodPlayDiv>
-        </MoodCategoryWrap>
+        </BackgroundForm>
     );
 };
 
 export default MoodCategory;
 
-const MoodCategoryWrap = styled.form`
+const BackgroundForm = styled.form`
     width: 100%;
-    box-sizing: border-box;
-    margin-top: 70px;
+    margin-top: 80px;
     color: white;
 `;
 
-const CategoryWrap = styled.ul`
+const MoodCategoryWrap = styled.ul`
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -50,7 +49,8 @@ const CategoryList = styled.li`
 `;
 
 const CategoryListBtn = styled.button`
-    width: 180px;
+    font-family: "Noto Sans KR", sans-serif;
+    width: 160px;
     background-color: #2a2a2a;
     color: white;
     font-size: 18px;
@@ -59,6 +59,11 @@ const CategoryListBtn = styled.button`
     border-radius: 15px;
 
     cursor: pointer;
+
+    &:hover {
+        border: 2px #ffb52b solid;
+        transform: translateY(3px);
+    }
 `;
 
 const MoodPlayDiv = styled.div`
@@ -68,7 +73,8 @@ const MoodPlayDiv = styled.div`
 `;
 
 const MoodPlayBtn = styled.button`
-    width: 180px;
+    font-family: "Noto Sans KR", sans-serif;
+    width: 160px;
     background-color: #ffb52b;
     color: white;
     padding: 25px 20px;
@@ -79,4 +85,8 @@ const MoodPlayBtn = styled.button`
     border-radius: 15px;
 
     cursor: pointer;
+
+    &:hover {
+        transform: translateY(3px);
+    }
 `;

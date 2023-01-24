@@ -5,19 +5,25 @@ import MoodCategory from "../components/Mood/MoodCategory";
 
 const Moods = () => {
     return (
-        <MoodsPageWrap>
+        <Background>
             <MoodsPageHeaderTitle>
-                <Title>당신이 듣고 싶은 무드를 선택해주세요 </Title>
-                <Icon kind={"smile"} />
+                <Title>
+                    당신이 듣고 싶은 무드를 선택해주세요 &nbsp;
+                    <Icon kind={"smile"} style={{fontSize: '27px'}} />
+                </Title>
             </MoodsPageHeaderTitle>
+
+            {/* 무드 카테고리 리스트 버튼 컴포넌트 */}
             <MoodCategory />
-        </MoodsPageWrap>
+            
+        </Background>
     );
 };
 
 export default Moods;
 
-const MoodsPageWrap = styled.div`
+const Background = styled.div`
+    font-family: "Noto Sans KR", sans-serif;
     background-color: #000000;
     height: 100vh;
     width: 100%;
@@ -35,6 +41,7 @@ const MoodsPageHeaderTitle = styled.div`
 
 const Title = styled.div`
     color: white;
-    font-size: 25px;
+    display: flex;
+    font-size: 27px;
     font-weight: 600;
 `;
