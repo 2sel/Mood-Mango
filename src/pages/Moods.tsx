@@ -9,13 +9,12 @@ const Moods = () => {
             <MoodsPageHeaderTitle>
                 <Title>
                     당신이 듣고 싶은 무드를 선택해주세요 &nbsp;
-                    <Icon kind={"smile"} style={{fontSize: '27px'}} />
+                    <Icon kind={"smile"} style={{ fontSize: "27px" }} />
                 </Title>
             </MoodsPageHeaderTitle>
 
             {/* 무드 카테고리 리스트 버튼 컴포넌트 */}
             <MoodCategory />
-            
         </Background>
     );
 };
