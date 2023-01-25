@@ -8,8 +8,8 @@ const Moods = () => {
         <Background>
             <MoodsPageHeaderTitle>
                 <Title>
-                    당신이 듣고 싶은 무드를 선택해주세요 &nbsp;
-                    <Icon kind={"smile"} style={{ fontSize: "27px" }} />
+                    당신이 듣고 싶은 무드의 키워드를 선택해주세요 &nbsp;
+                    <Icon kind="smile" size={27} />
                 </Title>
             </MoodsPageHeaderTitle>
 
@@ -32,7 +32,7 @@ const Background = styled.div`
 
 const MoodsPageHeaderTitle = styled.div`
     width: 100%;
-    margin-top: 15%;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
