@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import MusicBox from "./../components/Main/MusicBox";
+import Icon from "./../components/common/Icon";
 
 const Search = () => {
   return (
     <Background>
       <SearchWrap>
         <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
-        <SearchInput
-          placeholder="분위기를 입력해주세요"
-          type="search"
-        ></SearchInput>
+        <SearchInputBox>
+          <SearchInput placeholder="분위기를 입력해주세요" type="text" />
+          <InputButton type="submit">
+            <Icon kind={"search"} />
+          </InputButton>
+        </SearchInputBox>
       </SearchWrap>
-      <MusicBox></MusicBox>
     </Background>
   );
 };
@@ -38,13 +39,25 @@ const SearchTitle = styled.div`
   font-size: 2rem;
   color: #ffffff;
 `;
-
+const SearchInputBox = styled.div`
+  position: relative;
+  width: 100%;
+`;
 const SearchInput = styled.input`
   width: 90%;
-  height: 4.0625rem;
+  height: 65px;
   margin-top: 35px;
   background-color: #2a2a2a;
   border-radius: 15px;
   font-size: 1.25rem;
   padding: 0 50px 0 35px;
+`;
+
+const InputButton = styled.button`
+  width: 6%;
+  height: 65px;
+  position: absolute;
+  top: 35%;
+  right: 2%;
+  /* background-color: transparent; */
 `;
