@@ -36,7 +36,6 @@ export const getMusic = createAsyncThunk(
 const initialState = {
   musics: [],
   isLoading: false,
-  playlist: [],
   //   error: null,
 };
 
@@ -52,7 +51,6 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.musics = action.payload;
-      state.playlist = playlisturl(action.payload);
     });
     builder.addCase(getMusic.rejected, (state, action) => {
       state.isLoading = false;

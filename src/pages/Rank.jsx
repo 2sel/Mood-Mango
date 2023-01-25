@@ -6,18 +6,16 @@ import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import MusicContainer from "../components/Rank/MusicContainer";
 import BeatLoader from "react-spinners/BeatLoader";
-import Musicplayer from "../components/Rank/Musicplayer";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { getPlaylist } from "../redux/modules/musicplayer";
 
 const Rank = () => {
   const dispatch = useAppDispatch();
   const { musics, playlist, isLoading } = useAppSelector(
     (state) => state.musics
   );
-  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-  // const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
+  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
   useEffect(() => {
     dispatch(getMusic(playlistId));

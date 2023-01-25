@@ -31,7 +31,7 @@ const Musicplayer = () => {
   const { playerdisplay, isPlay, musicnum } = useAppSelector(
     (state) => state.musicplayer
   );
-  const { playlist, musics } = useAppSelector((state) => state.musics);
+  const { musics } = useAppSelector((state) => state.musics);
 
   const dispatch = useAppDispatch();
 
@@ -68,7 +68,7 @@ const Musicplayer = () => {
   };
 
   const skipForward = () => {
-    if (musicnum + 1 == playlist.length) {
+    if (musicnum + 1 == musics.length) {
       dispatch(getMusicNum(0));
     } else {
       dispatch(getMusicNum(musicnum + 1));
@@ -76,7 +76,7 @@ const Musicplayer = () => {
   };
   const skipBackward = () => {
     if (musicnum == 0) {
-      dispatch(getMusicNum(playlist.length - 1));
+      dispatch(getMusicNum(musics.length - 1));
     } else {
       dispatch(getMusicNum(musicnum - 1));
     }
@@ -180,7 +180,7 @@ const Musicplayer = () => {
           </SoundWrap>
           <ReactPlayerWrap>
             <ReactPlayer
-              url={playlist[musicnum]}
+              url={musics[musicnum].url}
               ref={reactplayerRef}
               onEnded={skipForward}
               onProgress={(e) => {
