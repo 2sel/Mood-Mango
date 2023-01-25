@@ -3,13 +3,32 @@ import styled from "styled-components";
 import Icon from "./../components/common/Icon";
 
 const Search = () => {
+  // const [searchText, setSearchText] = useState("");
+  // const [value, setValue] = useState("");
+  // const inputRef = useRef<HTMLInputElement>(null);
+
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setSearchText(value);
+  // };
+
   return (
     <Background>
       <SearchWrap>
         <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
         <SearchInputBox>
-          <SearchInput placeholder="분위기를 입력해주세요" type="text" />
-          <InputButton type="submit">
+          <SearchInput
+            type="text"
+            // reaf={inputRef}
+            // onChange={handleChangeSearchText}
+            placeholder="분위기를 입력해주세요"
+          />
+          <InputButton
+            type="submit"
+            onClick={() => {
+              alert("확인");
+            }}
+          >
             <Icon kind={"search"} />
           </InputButton>
         </SearchInputBox>
@@ -21,7 +40,6 @@ const Search = () => {
 export default Search;
 
 const Background = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
   background-color: #000000;
   height: 100vh;
   width: 100%;
@@ -39,6 +57,7 @@ const SearchTitle = styled.div`
   font-size: 2rem;
   color: #ffffff;
 `;
+
 const SearchInputBox = styled.div`
   position: relative;
   width: 100%;
@@ -59,5 +78,8 @@ const InputButton = styled.button`
   position: absolute;
   top: 35%;
   right: 2%;
-  /* background-color: transparent; */
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  background-color: #2a2a2a;
 `;
