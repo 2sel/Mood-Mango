@@ -32,9 +32,11 @@ export const getPlayerMusic = createAsyncThunk(
 );
 
 const initialState = {
-  selectedmusic: [],
-  isLoading: false,
+  musicnum: 0,
+  musicdata: "",
   playerdisplay: false,
+  isPlay: false,
+  isLoading: false,
 };
 
 const todosSlice = createSlice({
@@ -43,6 +45,12 @@ const todosSlice = createSlice({
   reducers: {
     PlayerToggle: (state, action) => {
       state.playerdisplay = action.payload;
+    },
+    getMusicNum: (state, action) => {
+      state.musicnum = action.payload;
+    },
+    togglePlay: (state, action) => {
+      state.isPlay = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -61,5 +69,5 @@ const todosSlice = createSlice({
   },
 });
 
-export const { PlayerToggle } = todosSlice.actions;
+export const { PlayerToggle, getMusicNum, togglePlay } = todosSlice.actions;
 export default todosSlice.reducer;
