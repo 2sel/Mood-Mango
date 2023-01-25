@@ -36,26 +36,28 @@ const MoodCategory = () => {
     },
   ];
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e?.preventDefault();
-    if (isClick === false) return alert("메뉴고르셈");
+  const handleSubmit = () => {
+    if (isClick === false) return alert("메뉴고르셈요");
+    // 로직 추가 예정
 
     navigate("/Main");
   };
 
   return (
     <Background>
-      <MoodCategoryForm onSubmit={handleSubmit}>
+      <MoodCategoryForm>
         <MoodCategoryWrap>
           {categoryKeword.map((li) => {
             return (
               <CategoryList key={li.id}>
                 <CategoryListBtn
                   type="button"
-                  onClick={() => {
+                  onMouseDown={() => {
                     setIsClick(true);
                   }}
-                  onBlur={() => setIsClick(false)}
+                  onBlur={() => {
+                    setIsClick(false);
+                  }}
                 >
                   {li.keyword}
                 </CategoryListBtn>
@@ -64,7 +66,14 @@ const MoodCategory = () => {
           })}
         </MoodCategoryWrap>
         <MoodPlayDiv>
-          <MoodPlayBtn type="submit">Mood Play</MoodPlayBtn>
+          <MoodPlayBtn
+            type="button"
+            onMouseDown={() => {
+              handleSubmit();
+            }}
+          >
+            Mood Play
+          </MoodPlayBtn>
         </MoodPlayDiv>
       </MoodCategoryForm>
     </Background>
@@ -78,7 +87,7 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const MoodCategoryForm = styled.form`
+const MoodCategoryForm = styled.div`
   width: 900px;
   margin-top: 80px;
   color: white;
@@ -105,9 +114,7 @@ const CategoryListBtn = styled.button`
   text-align: center;
   padding: 25px 20px;
   border-radius: 15px;
-
   cursor: pointer;
-
   &:hover {
     border: 2px #ffb52b solid;
     transform: translateY(3px);
