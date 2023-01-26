@@ -1,6 +1,7 @@
 import { FormEvent, useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 const MoodCategory = () => {
   const navigate = useNavigate();
@@ -37,13 +38,11 @@ const MoodCategory = () => {
   ];
 
   const onClcikhandler = () => {
-    console.log("moseclick");
     setIsClick(true);
   };
 
   const handleSubmit = () => {
     if (isClick === false) return alert("메뉴고르셈요");
-    // 로직 추가 예정
 
     navigate("/Main");
   };
@@ -59,7 +58,6 @@ const MoodCategory = () => {
                   type="button"
                   onClick={onClcikhandler}
                   onBlur={() => {
-                    console.log("moseblur");
                     setIsClick(false);
                   }}
                 >
