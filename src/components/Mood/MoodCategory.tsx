@@ -3,60 +3,44 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import MoodPlayBtnModal from "./MoodPlayBtnModal";
+import { getCategories } from "../../redux/modules/categories";
+
+const categories = ["감성", "드라이브", "공부", "운동", "기분전환"];
 
 const MoodCategory = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
-
   const [isClick, setIsClick] = useState<boolean>(false);
-  const categoryKeword = [
-    {
-      id: 1,
-      keyword: "감성",
-    },
-    {
-      id: 2,
-      keyword: "드라이브",
-    },
-    {
-      id: 3,
-      keyword: "노동요",
-    },
-    {
-      id: 4,
-      keyword: "운동",
-    },
-    {
-      id: 5,
-      keyword: "기분전환",
-    },
-  ];
+  const [clickedCategory, setClickedCategory] = useState(categories[0]);
 
-  const onClcikhandler = () => {
+  const onClcikhandler = (keyword: string) => {
     setIsClick(true);
+    setClickedCategory(keyword);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (keyword: string) => {
     if (isClick === false) return setModalOpen(true);
-    // 로직 추가 예정
-
+    dispatch(getCategories(keyword));
     navigate("/Main");
   };
 
   return (
     <MoodCategoryForm>
       <MoodCategoryWrap>
-        {categoryKeword.map((li) => {
+        {categories.map((category) => {
           return (
-            <CategoryList key={li.id}>
+            <CategoryList key={category}>
               <CategoryListBtn
-                onClick={onClcikhandler}
+                onClick={() => {
+                  onClcikhandler(category);
+                }}
                 onBlur={() => {
                   setIsClick(false);
                 }}
               >
-                {li.keyword}
+                {category}
               </CategoryListBtn>
             </CategoryList>
           );
@@ -66,7 +50,7 @@ const MoodCategory = () => {
         <MoodPlayBtn
           type="button"
           onMouseDown={() => {
-            handleSubmit();
+            handleSubmit(clickedCategory);
           }}
         >
           Mood Play
