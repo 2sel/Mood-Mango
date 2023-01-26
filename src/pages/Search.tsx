@@ -13,7 +13,7 @@ const Search = () => {
   const { musics } = useAppSelector((state) => state.musics);
 
   const dispatch = useAppDispatch();
-  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
+  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   useEffect(() => {
     console.log("asdasd");
