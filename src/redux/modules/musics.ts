@@ -45,6 +45,7 @@ const todosSlice = createSlice({
   reducers: {
     getPlaylist: (state, action) => {
       state.musics = action.payload;
+      console.log(state.musics);
     },
   },
   extraReducers: (builder) => {

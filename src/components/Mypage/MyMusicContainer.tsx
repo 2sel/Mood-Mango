@@ -9,9 +9,10 @@ import Icon from "../common/Icon";
 
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
-import Modal from "./Modal";
+import Modal from "../Rank/Modal";
 import { moodStorage } from "../common/MoodStorage";
 import { getPlaylist } from "../../redux/modules/musics";
+
 interface MusicdataType {
   id: string;
   title: string;
@@ -25,7 +26,7 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index }: any) => {
+const MyMusicContainer = ({ data, index }: any) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // 모달창 노출
@@ -41,11 +42,12 @@ const MusicContainer = ({ data, index }: any) => {
     <MusicContainerWrap
       data-aos="fade-in"
       onClick={() => {
+        dispatch(getPlaylist(moodStorage.getMangoHistory()));
         dispatch(PlayerToggle(true));
         dispatch(togglePlay(true));
         dispatch(getMusicNum(index));
 
-        moodStorage.addMangoHistory(data);
+        // moodStorage.addMangoHistory(data);
       }}
     >
       <MusicContainerOuter>
@@ -73,7 +75,7 @@ const MusicContainer = ({ data, index }: any) => {
   );
 };
 
-export default MusicContainer;
+export default MyMusicContainer;
 
 const MusicContainerOuter = styled.div`
   display: flex;

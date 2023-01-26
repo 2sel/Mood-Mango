@@ -5,6 +5,9 @@ import { useAppDispatch } from "../../hooks/hooks";
 
 import { moodStorage } from "../common/MoodStorage";
 import { useCallback, useEffect } from "react";
+import { getPlaylist } from "../../redux/modules/musics";
+import MyMusicContainer from "./MyMusicContainer";
+
 // interface ImageCircleType {
 //   item: any;
 //   circleStyle: { [key: string]: number };
@@ -14,11 +17,12 @@ const Item = ({
   item,
 
   circleStyle,
-}: {
-  item: DataType;
+}: // {
+//   item: DataType;
 
-  circleStyle: { [key: string]: number | string };
-}): JSX.Element => {
+//   circleStyle: { [key: string]: number | string };
+// }
+any): JSX.Element => {
   // const dispatch = useAppDispatch();
 
   // useEffect(() => {
@@ -34,7 +38,7 @@ const Item = ({
           marginLeft: circleStyle.marginLeft,
         }}
       >
-        <MusicContainer data={item} index={item.index} key={item.id}>
+        <MyMusicContainer data={item} index={item.index} key={item.id}>
           <img
             src={item.thumbnail}
             style={{
@@ -42,7 +46,7 @@ const Item = ({
               height: circleStyle.height,
             }}
           />
-        </MusicContainer>
+        </MyMusicContainer>
       </Circle>
       <Info>
         <Title style={{ width: circleStyle.width }}>{item.title}</Title>

@@ -6,6 +6,7 @@ import MusicContainer from "../Rank/MusicContainer";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks/hooks";
 import { getMusic } from "../../redux/modules/musics";
+import MyMusicContainer from "./MyMusicContainer";
 
 export const allPlay = (playList: DataType[]) => {};
 const MyHistory = () => {
@@ -168,7 +169,7 @@ const MyHistory = () => {
                 {mangoHistory.map((item, idx) => {
                   return (
                     <>
-                      <MusicContainer
+                      <MyMusicContainer
                         data={item}
                         index={item.index}
                         key={idx}

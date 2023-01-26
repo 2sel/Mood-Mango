@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DataType } from "../common/MoodStorage";
 import styled from "styled-components";
 import { moodStorage } from "../common/MoodStorage";
-import MusicContainer from "../Rank/MusicContainer";
+import MyMusicContainer from "./MyMusicContainer";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks/hooks";
 import { getMusic } from "../../redux/modules/musics";
@@ -47,7 +47,9 @@ const MyPlayList = ({
   };
 
   const getlist = () => {
-    dispatch(getPlaylist(folderListData));
+    console.log(folderListData);
+
+    // dispatch(getPlaylist(folderListData));
   };
 
   return (
@@ -80,11 +82,10 @@ const MyPlayList = ({
                       {folderListData[index].map((item, idx) => {
                         return (
                           <>
-                            <MusicContainer
+                            <MyMusicContainer
                               data={item}
                               index={item.index}
                               key={idx}
-                              getlist={getlist}
                             />
                             <button onClick={() => popItem(name, item.id)}>
                               x
