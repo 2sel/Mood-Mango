@@ -11,12 +11,14 @@ import "aos/dist/aos.css";
 const Search = () => {
   const [userInput, setUserInput] = useState("");
   const { musics } = useAppSelector((state) => state.musics);
-
   const dispatch = useAppDispatch();
   const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
+  // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
+  const [searchMusic, setsearchMusic] = useState([]);
+  const [searched, setsearched] = useState<any>([]);
+
   useEffect(() => {
-    console.log("asdasd");
     dispatch(getMusic(playlistId));
     Aos.init();
   }, []);
@@ -24,16 +26,18 @@ const Search = () => {
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setUserInput(e.target.value.toLowerCase());
+    setsearched(() => {
+      console.log(userInput);
+      console.log(musics);
+
+      return musics.filter((item: any) =>
+        item.title.toLowerCase().includes(userInput)
+      );
+    });
   };
-
-  // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
-  const [searchMusic, setsearchMusic] = useState([]);
-
   // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
   // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-  const searched = searchMusic.filter((item: any) =>
-    item.title.toLowerCase().includes(userInput)
-  );
+  console.log(searched);
 
   return (
     <Background>
@@ -50,8 +54,8 @@ const Search = () => {
           </InputButton>
         </SearchInputBox>
       </SearchWrap>
-      {searched.map((item: any) => (
-        <SearchList key={item.id} {...item} /> // 잔여연산자 사용
+      {searched?.map((item: any) => (
+        <SearchList key={item.id} /> // 잔여연산자 사용
       ))}
     </Background>
   );
