@@ -36,7 +36,6 @@ const MusicContainer = ({ data, index }: any) => {
         dispatch(PlayerToggle(true));
         dispatch(togglePlay(true));
         dispatch(getMusicNum(index));
-
         moodStorage.addMangoHistory(data);
       }}
     >
