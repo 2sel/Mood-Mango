@@ -4,32 +4,13 @@ import Icon from "./../components/common/Icon";
 import SearchList from "./../components/Search/SearchList";
 
 const Search = () => {
-  // const [searchText, setSearchText] = useState("");
-  // const [value, setValue] = useState("");
-  // const inputRef = useRef<HTMLInputElement>(null);
-
-  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setSearchText(value);
-  // };
-
   return (
     <Background>
       <SearchWrap>
         <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
         <SearchInputBox>
-          <SearchInput
-            type="text"
-            // reaf={inputRef}
-            // onChange={handleChangeSearchText}
-            placeholder="분위기를 입력해주세요"
-          />
-          <InputButton
-            type="submit"
-            onClick={() => {
-              alert("확인");
-            }}
-          >
+          <SearchInput type="text" placeholder="분위기를 입력해주세요" />
+          <InputButton type="submit">
             <Icon kind={"search"} />
           </InputButton>
         </SearchInputBox>

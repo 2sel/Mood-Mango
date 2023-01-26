@@ -1,19 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getMusic } from "../redux/modules/musics";
-import { useAppDispatch } from "../hooks/hooks";
-import { useAppSelector } from "../hooks/hooks";
-import MusicContainer from "../components/Rank/MusicContainer";
+import { getMusic } from "../../redux/modules/musics";
+import { useAppDispatch } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
+import MusicContainer from "../../components/Rank/MusicContainer";
 import BeatLoader from "react-spinners/BeatLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
 const SearchList = () => {
   const dispatch = useAppDispatch();
-  const { musics, playlist, isLoading } = useAppSelector(
-    (state) => state.musics
-  );
+  const { musics, isLoading } = useAppSelector((state) => state.musics);
   // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
   const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
@@ -21,6 +19,7 @@ const SearchList = () => {
     dispatch(getMusic(playlistId));
     Aos.init();
   }, []);
+
   return (
     <RankWrap data-aos="fade-up">
       <MusicListWrap>
@@ -32,10 +31,9 @@ const SearchList = () => {
           <>
             {musics.map((data, index) => (
               <MusicContainer
-                key={data.id}
+                // key={data.id}
                 index={index}
                 data={data}
-                playlist={playlist}
               ></MusicContainer>
             ))}
           </>
