@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/hooks";
 import { useAppSelector } from "../../hooks/hooks";
 import { PlayerToggle } from "../../redux/modules/musicplayer";
 import Aos from "aos";
 import Icon from "../common/Icon";
-import { moodStorage } from "../common/MoodStorage";
+
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
-
+import Modal from "./Modal";
+import { moodStorage } from "../common/MoodStorage";
 interface MusicdataType {
   id: string;
   title: string;
@@ -24,6 +25,12 @@ interface Type {
 }
 
 const MusicContainer = ({ data, index }: any) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,26 +46,37 @@ const MusicContainer = ({ data, index }: any) => {
         moodStorage.addMangoHistory(data);
       }}
     >
-      <img src={data.thumbnail}></img>
-      <RankNumber>{index + 1}</RankNumber>
-      <MusicInfo>
-        <MusicTitle>{data.title}</MusicTitle>
-        <MusicViewCount>{data.viewconut} 회</MusicViewCount>
-      </MusicInfo>
-      <ChannelTitle>{data.channeltitle}</ChannelTitle>
-      <Icon
-        kind={"cloud"}
-        size={25}
-        style={{
-          height: "60px",
-        }}
-        handler={() => moodStorage.addMangoPlayList(data)}
-      />
+      <MusicContainerOuter>
+        <img src={data.thumbnail}></img>
+        <RankNumber>{index + 1}</RankNumber>
+        <MusicInfo>
+          <MusicTitle>{data.title}</MusicTitle>
+          <MusicViewCount>{data.viewconut} 회</MusicViewCount>
+        </MusicInfo>
+        <ChannelTitle>{data.channeltitle}</ChannelTitle>
+        <Icon
+          kind={"cloud"}
+          size={25}
+          style={{
+            height: "80px",
+          }}
+          //  handler={() => moodStorage.addMangoPlayList(data)}
+          handler={showModal}
+        />
+        {modalOpen && (
+          <Modal setModalOpen={setModalOpen} data={{ ...data, index: index }} />
+        )}
+      </MusicContainerOuter>
     </MusicContainerWrap>
   );
 };
 
 export default MusicContainer;
+
+const MusicContainerOuter = styled.div`
+  display: flex;
+  background: #121212;
+`;
 
 const MusicContainerWrap = styled.div`
   font-family: "Noto Sans KR", sans-serif;

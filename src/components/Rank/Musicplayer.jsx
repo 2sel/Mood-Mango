@@ -1,5 +1,3 @@
-import React from "react";
-import Modal from "react-modal";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
@@ -9,10 +7,12 @@ import {
   togglePlay,
   getMusicNum,
 } from "../../redux/modules/musicplayer";
+import { DataType } from "../common/MoodStorage";
 import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
 import { BiColorFill } from "react-icons/bi";
 import { BsLockFill } from "react-icons/bs";
+import { moodStorage } from "../common/MoodStorage";
 
 const Musicplayer = () => {
   const [videodiplay, setVideodiplay] = useState(false);
@@ -46,10 +46,15 @@ const Musicplayer = () => {
   const { playerdisplay, isPlay, musicnum } = useAppSelector(
     (state) => state.musicplayer
   );
+
   const { musics } = useAppSelector((state) => state.musics);
-
   const [musicsdata, setMusicsData] = useState(musics.slice());
-
+  ///
+  const historyList = moodStorage.getMangoHistory();
+  const playList = moodStorage.getMangoPlayList();
+  const pathName = window.location.pathname;
+  console.log(pathName);
+  //
   const dispatch = useAppDispatch();
 
   const durationSet = () => {
@@ -135,33 +140,30 @@ const Musicplayer = () => {
     durationSet();
   }, [percentage, windowSize]);
 
-  useEffect(() => {
-    const soundrangeWidth =
-      SoundrangeRef.current?.getBoundingClientRect().width;
-    const soundthumbWidth =
-      SoundthumbRef.current?.getBoundingClientRect().width; //전체 픽셀치
-    const soundcenterThumb = (soundthumbWidth / 100) * soundpercentage * -1;
-    const centersoundBar =
-      soundthumbWidth +
-      (soundrangeWidth / 100) * soundpercentage -
-      (soundthumbWidth / 100) * soundpercentage;
-    setSoundPosition(soundpercentage);
-    setSoundMarginLeft(soundcenterThumb);
-    setSoundBarWidth(centersoundBar);
-  }, [soundpercentage]);
-
   return (
     <>
       {playerdisplay && (
         <>
           <MusicplayerWrap>
-            <img src={musics[musicnum].thumbnail}></img>
+            <img
+              src={
+                pathName === "rank"
+                  ? musics[musicnum].thumbnail
+                  : historyList[musicnum].thumbnail
+              }
+            ></img>
             <MarqueeWrap>
               <Marquee gradientWidth={0}>
                 <MusicInfo>
-                  <MusicTitle>{musics[musicnum].title}</MusicTitle>
+                  <MusicTitle>
+                    {pathName === "rank"
+                      ? musics[musicnum].title
+                      : historyList[musicnum].title}
+                  </MusicTitle>
                   <MusicChannelTitle>
-                    {musics[musicnum].channeltitle}
+                    {pathName === "rank"
+                      ? musics[musicnum].channelTitle
+                      : "sss"}
                   </MusicChannelTitle>
                 </MusicInfo>
               </Marquee>
@@ -279,7 +281,11 @@ const Musicplayer = () => {
           <ReactPlayerWrap videodiplay={videodiplay}>
             <ReactPlayer
               volume={soundpercentage / 100}
-              url={musics[musicnum].url}
+              url={
+                pathName === "rank"
+                  ? musics[musicnum].url
+                  : historyList[musicnum].url
+              }
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
