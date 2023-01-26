@@ -9,17 +9,13 @@ import BeatLoader from "react-spinners/BeatLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const SearchList = () => {
+const SearchList = ({ item }: any) => {
   const dispatch = useAppDispatch();
   const { musics, isLoading } = useAppSelector((state) => state.musics);
   // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
   const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   // console.log(musics);
-  useEffect(() => {
-    dispatch(getMusic(playlistId));
-    Aos.init();
-  }, []);
 
   return (
     <RankWrap data-aos="fade-up">
@@ -34,7 +30,7 @@ const SearchList = () => {
               <MusicContainer
                 key={data.id}
                 index={index}
-                data={data}
+                data={item}
               ></MusicContainer>
             ))}
           </>

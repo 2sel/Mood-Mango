@@ -7,6 +7,7 @@ import Icon from "./../components/common/Icon";
 import SearchList from "./../components/Search/SearchList";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import MusicContainer from "../components/Rank/MusicContainer";
 
 const Search = () => {
   const [userInput, setUserInput] = useState("");
@@ -26,18 +27,17 @@ const Search = () => {
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setUserInput(e.target.value.toLowerCase());
-    setsearched(() => {
-      console.log(userInput);
-      console.log(musics);
+    console.log(userInput);
 
-      return musics.filter((item: any) =>
-        item.title.toLowerCase().includes(userInput)
-      );
-    });
+    // setsearched(() => {
+
+    //   return musics.filter((item: any) =>
+    //     item.title.toLowerCase().includes(userInput)
+    //   );
+    // });
   };
   // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
   // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-  console.log(searched);
 
   return (
     <Background>
@@ -47,6 +47,7 @@ const Search = () => {
           <SearchInput
             type="text"
             placeholder="분위기를 입력해주세요"
+            value={userInput}
             onChange={getValue}
           />
           <InputButton type="submit">
@@ -54,9 +55,16 @@ const Search = () => {
           </InputButton>
         </SearchInputBox>
       </SearchWrap>
-      {searched?.map((item: any) => (
-        <SearchList key={item.id} /> // 잔여연산자 사용
-      ))}
+      {musics?.map(
+        (item: any, index: any) =>
+          item.title.toLowerCase().includes(userInput) && (
+            <MusicContainer
+              key={item.id}
+              index={index}
+              data={item}
+            ></MusicContainer>
+          )
+      )}
     </Background>
   );
 };
