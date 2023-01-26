@@ -48,7 +48,7 @@ const Navbar = () => {
         </StyleBtnWrap>
         <StyleBtnWrap
           onClick={() => {
-            navigate("/Search");
+            navigate("/search");
           }}
         >
           <Icon kind={"search"} />
