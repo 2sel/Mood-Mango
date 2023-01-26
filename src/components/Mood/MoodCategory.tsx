@@ -2,37 +2,33 @@ import { FormEvent, useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import MoodPlayBtnModal from "./MoodPlayBtnModal";
 
 const MoodCategory = () => {
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
   const [isClick, setIsClick] = useState<boolean>(false);
   const categoryKeword = [
     {
       id: 1,
-      keyword: "공부",
-    },
-    {
-      id: 2,
-      keyword: "수면",
-    },
-    {
-      id: 3,
       keyword: "감성",
     },
     {
-      id: 4,
+      id: 2,
       keyword: "드라이브",
     },
     {
-      id: 5,
+      id: 3,
       keyword: "노동요",
     },
     {
-      id: 6,
+      id: 4,
       keyword: "운동",
     },
     {
-      id: 7,
+      id: 5,
       keyword: "기분전환",
     },
   ];
@@ -42,55 +38,51 @@ const MoodCategory = () => {
   };
 
   const handleSubmit = () => {
-    if (isClick === false) return alert("메뉴고르셈요");
+    if (isClick === false) return setModalOpen(true);
+    // 로직 추가 예정
 
     navigate("/Main");
   };
 
   return (
-    <Background>
-      <MoodCategoryForm>
-        <MoodCategoryWrap>
-          {categoryKeword.map((li) => {
-            return (
-              <CategoryList key={li.id}>
-                <CategoryListBtn
-                  type="button"
-                  onClick={onClcikhandler}
-                  onBlur={() => {
-                    setIsClick(false);
-                  }}
-                >
-                  {li.keyword}
-                </CategoryListBtn>
-              </CategoryList>
-            );
-          })}
-        </MoodCategoryWrap>
-        <MoodPlayDiv>
-          <MoodPlayBtn
-            type="button"
-            onMouseDown={() => {
-              handleSubmit();
-            }}
-          >
-            Mood Play
-          </MoodPlayBtn>
-        </MoodPlayDiv>
-      </MoodCategoryForm>
-    </Background>
+    <MoodCategoryForm>
+      <MoodCategoryWrap>
+        {categoryKeword.map((li) => {
+          return (
+            <CategoryList key={li.id}>
+              <CategoryListBtn
+                onClick={onClcikhandler}
+                onBlur={() => {
+                  setIsClick(false);
+                }}
+              >
+                {li.keyword}
+              </CategoryListBtn>
+            </CategoryList>
+          );
+        })}
+      </MoodCategoryWrap>
+      <MoodPlayDiv>
+        <MoodPlayBtn
+          type="button"
+          onMouseDown={() => {
+            handleSubmit();
+          }}
+        >
+          Mood Play
+        </MoodPlayBtn>
+      </MoodPlayDiv>
+
+      {/* 모달창 */}
+      {modalOpen && <MoodPlayBtnModal setModalOpen={setModalOpen} />}
+    </MoodCategoryForm>
   );
 };
 
 export default MoodCategory;
 
-const Background = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const MoodCategoryForm = styled.div`
-  width: 900px;
+  width: 100%;
   margin-top: 80px;
   color: white;
 `;
@@ -99,7 +91,7 @@ const MoodCategoryWrap = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 30px;
 `;
 
