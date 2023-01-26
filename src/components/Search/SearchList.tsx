@@ -15,12 +15,6 @@ const SearchList = () => {
   // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
   const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
-  // console.log(musics);
-  useEffect(() => {
-    dispatch(getMusic(playlistId));
-    Aos.init();
-  }, []);
-
   return (
     <RankWrap data-aos="fade-up">
       <MusicListWrap>
