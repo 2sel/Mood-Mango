@@ -9,6 +9,7 @@ import Icon from "../common/Icon";
 import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
+import { shuffleMusic } from "../../redux/modules/musicplayer";
 
 interface MusicdataType {
   id: string;
@@ -36,6 +37,7 @@ const MusicContainer = ({ data, index }: any) => {
         dispatch(PlayerToggle(true));
         dispatch(togglePlay(true));
         dispatch(getMusicNum(index));
+        dispatch(shuffleMusic(false));
         moodStorage.addMangoHistory(data);
       }}
     >

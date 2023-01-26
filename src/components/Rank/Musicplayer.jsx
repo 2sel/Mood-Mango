@@ -13,6 +13,8 @@ import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
 import { BiColorFill } from "react-icons/bi";
 import { BsLockFill } from "react-icons/bs";
+import { shuffleMusic } from "../../redux/modules/musicplayer";
+import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
   const [videodiplay, setVideodiplay] = useState(false);
@@ -43,12 +45,12 @@ const Musicplayer = () => {
 
   const reactplayerRef = useRef();
 
-  const { playerdisplay, isPlay, musicnum } = useAppSelector(
+  const { playerdisplay, isPlay, musicnum, musicshuffled } = useAppSelector(
     (state) => state.musicplayer
   );
-  const { musics } = useAppSelector((state) => state.musics);
+  const { musics, isLoading } = useAppSelector((state) => state.musics);
 
-  const [musicsdata, setMusicsData] = useState(musics.slice());
+  const [musicdata, setMusicdata] = useState([]);
 
   const dispatch = useAppDispatch();
 
@@ -105,10 +107,12 @@ const Musicplayer = () => {
   };
 
   const shuffle = (array) => {
-    array.sort(() => Math.random() - 0.5);
+    let newarray = [...array];
+    return newarray.sort(() => Math.random() - 0.5);
   };
 
   useEffect(() => {
+    setMusicdata([...musics]);
     function handleResize() {
       setWindowSize({
         width: window.innerWidth,
@@ -118,7 +122,7 @@ const Musicplayer = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isLoading, musicshuffled]);
 
   useEffect(() => {
     const rangeWidth = rangeRef.current?.getBoundingClientRect().width;
@@ -155,13 +159,25 @@ const Musicplayer = () => {
       {playerdisplay && (
         <>
           <MusicplayerWrap>
-            <img src={musics[musicnum].thumbnail}></img>
+            <img
+              src={
+                musicshuffled
+                  ? musicdata[musicnum]?.thumbnail
+                  : musics[musicnum]?.thumbnail
+              }
+            ></img>
             <MarqueeWrap>
               <Marquee gradientWidth={0}>
                 <MusicInfo>
-                  <MusicTitle>{musics[musicnum].title}</MusicTitle>
+                  <MusicTitle>
+                    {musicshuffled
+                      ? musicdata[musicnum]?.title
+                      : musics[musicnum]?.title}
+                  </MusicTitle>
                   <MusicChannelTitle>
-                    {musics[musicnum].channeltitle}
+                    {musicshuffled
+                      ? musicdata[musicnum]?.channeltitle
+                      : musics[musicnum]?.channeltitle}
                   </MusicChannelTitle>
                 </MusicInfo>
               </Marquee>
@@ -224,9 +240,8 @@ const Musicplayer = () => {
               </Toggle>
               <Shuffle
                 onClick={() => {
-                  setMusicsData((e) => {
-                    return shuffle(e);
-                  });
+                  dispatch(shuffleMusic(true));
+                  setMusicdata((e) => shuffle(e));
                 }}
               >
                 <Icon kind="shuffle" size={20} />
@@ -276,10 +291,12 @@ const Musicplayer = () => {
               ></DownButton>
             </SoundWrap>
           </MusicplayerWrap>
-          <ReactPlayerWrap videodiplay={videodiplay}>
+          <PlayerandList videodiplay={videodiplay}>
             <ReactPlayer
               volume={soundpercentage / 100}
-              url={musics[musicnum].url}
+              url={
+                musicshuffled ? musicdata[musicnum]?.url : musics[musicnum]?.url
+              }
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
@@ -294,11 +311,16 @@ const Musicplayer = () => {
                 dispatch(togglePlay(false));
               }}
               playing={isPlay}
-              width={480}
-              height={320}
+              width={640}
+              height={400}
               pip={true}
             ></ReactPlayer>
-          </ReactPlayerWrap>
+            {musicshuffled ? (
+              <PlayerList musicsdata={musicdata} />
+            ) : (
+              <PlayerList musicsdata={musics} />
+            )}
+          </PlayerandList>
         </>
       )}
     </>
@@ -306,6 +328,13 @@ const Musicplayer = () => {
 };
 
 export default Musicplayer;
+
+const PlayerListWrap = styled.div`
+  margin-left: 50px;
+  width: 40%;
+  background-color: whitesmoke;
+  height: 70%;
+`;
 
 const Toggle = styled.div`
   color: #ff830a;
@@ -535,9 +564,15 @@ const SoundThumb = styled.div`
   user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
 `;
 
-const ReactPlayerWrap = styled.div`
+const PlayerandList = styled.div`
   position: fixed;
-  right: 20px;
-  bottom: ${(props) => (props.videodiplay ? "100px" : "-500px")};
-  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  background-color: hsl(100 0% 0% / 0.75);
+  bottom: ${(props) => (props.videodiplay ? "0" : "-100vh")};
+  transition: all 0.5s;
 `;
