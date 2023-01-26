@@ -29,7 +29,6 @@ const Search = () => {
     setsearched(() => {
       console.log(userInput);
       console.log(musics);
-
       return musics.filter((item: any) =>
         item.title.toLowerCase().includes(userInput)
       );
