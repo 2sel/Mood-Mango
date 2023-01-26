@@ -3,9 +3,10 @@ import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 import musics from "../modules/musics";
 import musicplayer from "../modules/musicplayer";
+import categories from "../modules/categories";
 
 const store = configureStore({
-  reducer: { musics, musicplayer },
+  reducer: { musics, musicplayer, categories },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
