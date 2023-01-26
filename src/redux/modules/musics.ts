@@ -16,6 +16,7 @@ export const getMusic = createAsyncThunk(
   "musics/getMusic",
   async (payload: string, thunkAPI) => {
     try {
+      console.log(payload);
       let finaldata = [];
       const data = await axios.get(playlistApi(payload));
       console.log(data);
@@ -56,6 +57,7 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.musics = action.payload;
+      console.log(action.payload);
     });
     builder.addCase(getMusic.rejected, (state, action) => {
       state.isLoading = false;

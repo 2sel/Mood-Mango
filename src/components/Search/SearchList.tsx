@@ -29,9 +29,9 @@ const SearchList = () => {
           </LoadingWrap>
         ) : (
           <>
-            {musics.map((data, index) => (
+            {musics.map((data: any, index) => (
               <MusicContainer
-                // key={data.id}
+                key={data.id}
                 index={index}
                 data={data}
               ></MusicContainer>

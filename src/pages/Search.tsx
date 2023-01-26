@@ -1,21 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getMusic } from "../redux/modules/musics";
+import { useAppDispatch } from "../hooks/hooks";
+import { useAppSelector } from "../hooks/hooks";
 import Icon from "./../components/common/Icon";
 import SearchList from "./../components/Search/SearchList";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Search = () => {
+  const [userInput, setUserInput] = useState("");
+  const { musics } = useAppSelector((state) => state.musics);
+
+  const dispatch = useAppDispatch();
+  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
+
+  useEffect(() => {
+    console.log("asdasd");
+    dispatch(getMusic(playlistId));
+    Aos.init();
+  }, []);
+
+  // 입력값을 가져와서 소문자로변경
+  const getValue = (e: any) => {
+    setUserInput(e.target.value.toLowerCase());
+  };
+
+  // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
+  const [searchMusic, setsearchMusic] = useState([]);
+
+  // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
+  // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
+  const searched = searchMusic.filter((item: any) =>
+    item.title.toLowerCase().includes(userInput)
+  );
+
   return (
     <Background>
       <SearchWrap>
         <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
         <SearchInputBox>
-          <SearchInput type="text" placeholder="분위기를 입력해주세요" />
+          <SearchInput
+            type="text"
+            placeholder="분위기를 입력해주세요"
+            onChange={getValue}
+          />
           <InputButton type="submit">
             <Icon kind={"search"} />
           </InputButton>
         </SearchInputBox>
       </SearchWrap>
-      <SearchList />
+      {searched.map((item: any) => (
+        <SearchList key={item.id} {...item} /> // 잔여연산자 사용
+      ))}
     </Background>
   );
 };
@@ -24,7 +61,7 @@ export default Search;
 
 const Background = styled.div`
   background-color: #000000;
-  min-height: 110vh;
+  min-height: 100vh;
   width: 100%;
 `;
 const SearchWrap = styled.div`
@@ -42,7 +79,7 @@ const SearchTitle = styled.div`
   padding-bottom: 30px;
 `;
 
-const SearchInputBox = styled.div`
+const SearchInputBox = styled.form`
   position: relative;
   width: 100%;
 `;
