@@ -48,11 +48,7 @@ const Musicplayer = () => {
   );
   const { musics } = useAppSelector((state) => state.musics);
 
-  console.log(musics);
-
   const [musicsdata, setMusicsData] = useState(musics.slice());
-
-  console.log(musicsdata);
 
   const dispatch = useAppDispatch();
 
