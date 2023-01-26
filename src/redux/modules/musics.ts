@@ -42,7 +42,12 @@ const initialState = {
 const todosSlice = createSlice({
   name: "musics",
   initialState,
-  reducers: {},
+  reducers: {
+    getPlaylist: (state, action) => {
+      state.musics = action.payload;
+      console.log(state.musics);
+    },
+  },
   extraReducers: (builder) => {
     // getTodo
     builder.addCase(getMusic.pending, (state, action) => {
@@ -59,6 +64,5 @@ const todosSlice = createSlice({
   },
 });
 
-// export const { addTodo, deleteTodo, toggleTodo, updateTodo, toggleDisplay } =
-//   todosSlice.actions;
+export const { getPlaylist } = todosSlice.actions;
 export default todosSlice.reducer;

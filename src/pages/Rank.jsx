@@ -14,8 +14,7 @@ const Rank = () => {
   const { musics, playlist, isLoading } = useAppSelector(
     (state) => state.musics
   );
-  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
+  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   useEffect(() => {
     dispatch(getMusic(playlistId));
@@ -38,7 +37,6 @@ const Rank = () => {
                   key={data.id}
                   index={index}
                   data={data}
-                  playlist={playlist}
                 ></MusicContainer>
               ))}
             </>
