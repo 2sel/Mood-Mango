@@ -8,6 +8,7 @@ import Mypage from "../pages/Mypage";
 import Search from "../pages/Search";
 import { moodStorage } from "../components/common/MoodStorage";
 import Musicplayer from "../components/Rank/Musicplayer";
+import SearchList from "./../components/Search/SearchList";
 
 const Routers = () => {
   return (
@@ -19,6 +20,7 @@ const Routers = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/rank" element={<Rank />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/searchlist" element={<SearchList />} />
         </Routes>
         <Musicplayer></Musicplayer>
       </Layout>

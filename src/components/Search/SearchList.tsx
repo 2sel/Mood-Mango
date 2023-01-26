@@ -15,6 +15,7 @@ const SearchList = () => {
   // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
   const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
 
+  console.log(musics);
   useEffect(() => {
     dispatch(getMusic(playlistId));
     Aos.init();
