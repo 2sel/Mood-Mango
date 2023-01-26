@@ -36,6 +36,11 @@ const MoodCategory = () => {
     },
   ];
 
+  const onClcikhandler = () => {
+    console.log("moseclick");
+    setIsClick(true);
+  };
+
   const handleSubmit = () => {
     if (isClick === false) return alert("메뉴고르셈요");
     // 로직 추가 예정
@@ -52,10 +57,9 @@ const MoodCategory = () => {
               <CategoryList key={li.id}>
                 <CategoryListBtn
                   type="button"
-                  onMouseDown={() => {
-                    setIsClick(true);
-                  }}
+                  onClick={onClcikhandler}
                   onBlur={() => {
+                    console.log("moseblur");
                     setIsClick(false);
                   }}
                 >
