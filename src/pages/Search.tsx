@@ -24,11 +24,11 @@ export default Search;
 
 const Background = styled.div`
   background-color: #000000;
-  height: 100vh;
+  min-height: 110vh;
   width: 100%;
 `;
 const SearchWrap = styled.div`
-  padding: 100px;
+  padding: 100px 100px 0px 100px;
 `;
 
 const SearchTitle = styled.div`
@@ -39,6 +39,7 @@ const SearchTitle = styled.div`
   font-weight: 600;
   font-size: 32px;
   color: #ffffff;
+  padding-bottom: 30px;
 `;
 
 const SearchInputBox = styled.div`

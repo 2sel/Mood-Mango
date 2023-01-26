@@ -53,13 +53,13 @@ const RankWrap = styled.div`
 `;
 
 const MusicListWrap = styled.div`
-  margin-top: 108px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 `;
 const LoadingWrap = styled.div`
   color: white;
-  margin-top: 108px;
+  margin-top: 50px;
   height: 60vh;
   display: flex;
   justify-content: center;
