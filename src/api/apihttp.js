@@ -1,5 +1,5 @@
-// const apiKey = "AIzaSyCvc869BKpKTJLBt0j5mlzP4QB7y4I5KfA";
-const apiKey = "AIzaSyAVadHEsVxVE6GURzxc58hmoh7n_gauLLY";
+const apiKey = "AIzaSyCvc869BKpKTJLBt0j5mlzP4QB7y4I5KfA";
+// const apiKey = "AIzaSyAVadHEsVxVE6GURzxc58hmoh7n_gauLLY";
 
 export function playlistApi(playlistid) {
   return `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistid}&key=${apiKey} `;
