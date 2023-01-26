@@ -24,7 +24,7 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index }: any) => {
+const MusicContainer = ({ data, index, getlist }: any) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // 모달창 노출
@@ -43,6 +43,8 @@ const MusicContainer = ({ data, index }: any) => {
         dispatch(PlayerToggle(true));
         dispatch(togglePlay(true));
         dispatch(getMusicNum(index));
+        getlist();
+
         moodStorage.addMangoHistory(data);
       }}
     >
@@ -51,7 +53,7 @@ const MusicContainer = ({ data, index }: any) => {
         <RankNumber>{index + 1}</RankNumber>
         <MusicInfo>
           <MusicTitle>{data.title}</MusicTitle>
-          <MusicViewCount>{data.viewconut} 회</MusicViewCount>
+          <MusicViewCount>{data.viewconut}</MusicViewCount>
         </MusicInfo>
         <ChannelTitle>{data.channeltitle}</ChannelTitle>
         <Icon

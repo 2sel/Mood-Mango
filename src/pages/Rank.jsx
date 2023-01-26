@@ -37,7 +37,6 @@ const Rank = () => {
                   key={data.id}
                   index={index}
                   data={data}
-                  playlist={playlist}
                 ></MusicContainer>
               ))}
             </>

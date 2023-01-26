@@ -8,6 +8,8 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { getMusic } from "../../redux/modules/musics";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { getPlaylist } from "../../redux/modules/musics";
+
 const MyPlayList = ({
   props,
 }: {
@@ -43,6 +45,11 @@ const MyPlayList = ({
     moodStorage.popMangoPlayList(folderName);
     initList();
   };
+
+  const getlist = () => {
+    dispatch(getPlaylist(folderListData));
+  };
+
   return (
     <>
       <div>내 플레이 리스트</div>
@@ -51,7 +58,7 @@ const MyPlayList = ({
           <>
             {foldersNameData.map((name, index) => {
               return (
-                <PlayList>
+                <PlayList key={index}>
                   <div style={{ display: "flex", margin: 30 }}>
                     <Title>{name}</Title>
                     <p
@@ -77,6 +84,7 @@ const MyPlayList = ({
                               data={item}
                               index={item.index}
                               key={idx}
+                              getlist={getlist}
                             />
                             <button onClick={() => popItem(name, item.id)}>
                               x

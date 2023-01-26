@@ -53,7 +53,7 @@ const Musicplayer = () => {
   const historyList = moodStorage.getMangoHistory();
   const playList = moodStorage.getMangoPlayList();
   const pathName = window.location.pathname;
-  console.log(pathName);
+  // console.log(pathName);
   //
   const dispatch = useAppDispatch();
 
@@ -145,25 +145,13 @@ const Musicplayer = () => {
       {playerdisplay && (
         <>
           <MusicplayerWrap>
-            <img
-              src={
-                pathName === "rank"
-                  ? musics[musicnum].thumbnail
-                  : historyList[musicnum].thumbnail
-              }
-            ></img>
+            <img src={musics[musicnum].thumbnail}></img>
             <MarqueeWrap>
               <Marquee gradientWidth={0}>
                 <MusicInfo>
-                  <MusicTitle>
-                    {pathName === "rank"
-                      ? musics[musicnum].title
-                      : historyList[musicnum].title}
-                  </MusicTitle>
+                  <MusicTitle>{musics[musicnum].title}</MusicTitle>
                   <MusicChannelTitle>
-                    {pathName === "rank"
-                      ? musics[musicnum].channelTitle
-                      : "sss"}
+                    {musics[musicnum].channelTitle}
                   </MusicChannelTitle>
                 </MusicInfo>
               </Marquee>
@@ -281,11 +269,7 @@ const Musicplayer = () => {
           <ReactPlayerWrap videodiplay={videodiplay}>
             <ReactPlayer
               volume={soundpercentage / 100}
-              url={
-                pathName === "rank"
-                  ? musics[musicnum].url
-                  : historyList[musicnum].url
-              }
+              url={musics[musicnum].url}
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
