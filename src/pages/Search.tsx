@@ -1,38 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "./../components/common/Icon";
+import SearchList from "./../components/Search/SearchList";
 
 const Search = () => {
-  // const [searchText, setSearchText] = useState("");
-  // const [value, setValue] = useState("");
-  // const inputRef = useRef<HTMLInputElement>(null);
-
-  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setSearchText(value);
-  // };
-
   return (
     <Background>
       <SearchWrap>
         <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
         <SearchInputBox>
-          <SearchInput
-            type="text"
-            // reaf={inputRef}
-            // onChange={handleChangeSearchText}
-            placeholder="분위기를 입력해주세요"
-          />
-          <InputButton
-            type="submit"
-            onClick={() => {
-              alert("확인");
-            }}
-          >
+          <SearchInput type="text" placeholder="분위기를 입력해주세요" />
+          <InputButton type="submit">
             <Icon kind={"search"} />
           </InputButton>
         </SearchInputBox>
       </SearchWrap>
+      <SearchList />
     </Background>
   );
 };
@@ -45,7 +28,7 @@ const Background = styled.div`
   width: 100%;
 `;
 const SearchWrap = styled.div`
-  padding: 6.25rem;
+  padding: 100px;
 `;
 
 const SearchTitle = styled.div`
@@ -54,7 +37,7 @@ const SearchTitle = styled.div`
   align-items: center;
   width: 100%;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 32px;
   color: #ffffff;
 `;
 
@@ -68,8 +51,9 @@ const SearchInput = styled.input`
   margin-top: 35px;
   background-color: #2a2a2a;
   border-radius: 15px;
-  font-size: 1.25rem;
+  font-size: 20px;
   padding: 0 50px 0 35px;
+  border: none;
 `;
 
 const InputButton = styled.button`

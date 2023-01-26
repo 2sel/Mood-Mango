@@ -32,6 +32,11 @@ const MoodCategory = () => {
         },
     ];
 
+    const onClcikhandler = () => {
+        console.log("moseclick");
+        setIsClick(true);
+    };
+
     const handleSubmit = () => {
         if (isClick === false) return setModalOpen(true);
         // 로직 추가 예정
@@ -46,11 +51,9 @@ const MoodCategory = () => {
                     return (
                         <CategoryList key={li.id}>
                             <CategoryListBtn
-                                type='button'
-                                onMouseDown={() => {
-                                    setIsClick(true);
-                                }}
+                                onClick={onClcikhandler}
                                 onBlur={() => {
+                                    console.log("moseblur");
                                     setIsClick(false);
                                 }}
                             >
@@ -70,7 +73,7 @@ const MoodCategory = () => {
                     Mood Play
                 </MoodPlayBtn>
             </MoodPlayDiv>
-            
+
             {/* 모달창 */}
             {modalOpen && <MoodPlayBtnModal setModalOpen={setModalOpen} />}
         </MoodCategoryForm>
