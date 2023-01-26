@@ -79,27 +79,8 @@ const Musicplayer = () => {
     reactplayerRef.current.seekTo(e.target.value / 100, "fraction");
   };
 
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-  let audioContext = new AudioContext();
-
-  // window.onload = () => {
-  //   audioContext = new AudioContext();
-  // };
-  const gainNode = audioContext.createGain();
-
   const SoundonChange = (e) => {
     setSoundPercentage(e.target.value);
-
-    gainNode.gain.value = e.target.value / 50;
-
-    console.log(gainNode.gain.value);
-
-    // audioContext.resume().then(() => {
-    //   const gainNode = audioContext.createGain();
-    //   gainNode.gain.value = soundpercentage / 50;
-    // });
-    // console.log(audioContext.createGain().gain.value);
   };
 
   const getCurrDuration = (data) => {
