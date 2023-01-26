@@ -8,6 +8,7 @@ import Mypage from "../pages/Mypage";
 import Search from "../pages/Search";
 import { moodStorage } from "../components/common/MoodStorage";
 import Musicplayer from "../components/Rank/Musicplayer";
+import SearchList from "./../components/Search/SearchList";
 
 const Routers = () => {
   return (

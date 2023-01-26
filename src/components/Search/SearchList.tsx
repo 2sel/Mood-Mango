@@ -1,7 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getMusic } from "../../redux/modules/musics";
 import { useAppDispatch } from "../../hooks/hooks";
 import { useAppSelector } from "../../hooks/hooks";
 import MusicContainer from "../../components/Rank/MusicContainer";
@@ -9,16 +7,11 @@ import BeatLoader from "react-spinners/BeatLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const SearchList = () => {
+const SearchList = ({ item }: any) => {
   const dispatch = useAppDispatch();
   const { musics, isLoading } = useAppSelector((state) => state.musics);
   // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-  const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
-
-  useEffect(() => {
-    dispatch(getMusic(playlistId));
-    Aos.init();
-  }, []);
+  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   return (
     <RankWrap data-aos="fade-up">
@@ -29,11 +22,11 @@ const SearchList = () => {
           </LoadingWrap>
         ) : (
           <>
-            {musics.map((data, index) => (
+            {musics.map((data: any, index) => (
               <MusicContainer
-                // key={data.id}
+                key={data.id}
                 index={index}
-                data={data}
+                data={item}
               ></MusicContainer>
             ))}
           </>
@@ -53,13 +46,13 @@ const RankWrap = styled.div`
 `;
 
 const MusicListWrap = styled.div`
-  margin-top: 108px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 `;
 const LoadingWrap = styled.div`
   color: white;
-  margin-top: 108px;
+  margin-top: 50px;
   height: 60vh;
   display: flex;
   justify-content: center;

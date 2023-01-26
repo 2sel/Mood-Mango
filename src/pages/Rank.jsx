@@ -60,7 +60,7 @@ const Background = styled.div`
 `;
 const RankWrap = styled.div`
   width: 100%;
-  margin: 50px 50px 0 50px;
+  margin: 0 50px 0 50px;
   display: flex;
   flex-direction: column;
 `;
