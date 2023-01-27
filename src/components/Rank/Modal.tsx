@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { moodStorage } from "../common/MoodStorage";
 const Modal = ({
   setModalOpen,
@@ -41,11 +41,13 @@ const Modal = ({
         폴더 추가
       </button>
       <div>
-        {Object.keys(folderList).map((item) => {
+        {Object.keys(folderList).map((folderName) => {
           return (
             <>
-              <div>{item}</div>
-              <button onClick={() => moodStorage.addMangoPlayList(item, data)}>
+              <div>{folderName}</div>
+              <button
+                onClick={() => moodStorage.addMangoPlayList(folderName, data)}
+              >
                 +
               </button>
             </>
@@ -60,8 +62,8 @@ export default Modal;
 
 const Container = styled.div`
   /* 모달창 크기 */
-  width: 500px;
-  height: 600px;
+  width: 300px;
+  height: 300px;
 
   /* 최상단 위치 */
   z-index: 999;
