@@ -89,7 +89,7 @@ const MusicContainer = ({ data, index }: any) => {
         style={{
           height: "60px",
         }}
-        handler={() => moodStorage.addMangoPlayList(data)}
+        // handler={() => moodStorage.addMangoPlayList(data)}
       />
     </MusicContainerWrap>
   );
