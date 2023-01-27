@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "../components/common/Icon";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 
 const Main = () => {
+  const datas = useAppSelector((state) => state.categories);
+  // console.log(datas);
+
   return (
     <StyleBackground>
       <StyleWrap>
@@ -11,16 +15,9 @@ const Main = () => {
           <Icon kind="music" size={27} />
         </StyleTitle>
         <StyleCategoryWrap>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
-          <StyleCategoryItem>12</StyleCategoryItem>
+          {datas.map((data, index) => {
+            return <StyleCategoryItem key={index}>{data}</StyleCategoryItem>;
+          })}
         </StyleCategoryWrap>
       </StyleWrap>
     </StyleBackground>
