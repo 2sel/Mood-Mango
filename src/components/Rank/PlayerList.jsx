@@ -28,20 +28,6 @@ const PlayerList = ({ musicsdata }) => {
 
 export default PlayerList;
 
-const ImgWrap = styled.div`
-  display: flex;
-`;
-const Overview = styled.div`
-  left: -80px;
-  width: 60px;
-  height: 60px;
-  position: relative;
-  background-color: hsl(100 0% 0% / 0.75);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const PlayerListWrap = styled.div`
   margin-left: 50px;
   color: #ffffff;

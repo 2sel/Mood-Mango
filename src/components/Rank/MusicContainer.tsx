@@ -9,7 +9,7 @@ import Icon from "../common/Icon";
 import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
-import { shuffleMusic } from "../../redux/modules/musicplayer";
+import { resetMusic, getCurrentMusic } from "../../redux/modules/musicplayer";
 
 interface MusicdataType {
   id: string;
@@ -27,13 +27,24 @@ interface Type {
 const MusicContainer = ({ data, index }: any) => {
   const dispatch = useAppDispatch();
   const [overdiplay, setOverdisplay] = useState(false);
-  const { isPlay, musicnum } = useAppSelector((state) => state.musicplayer);
+  const { isPlay, musicnum, currentmusic, musicreseted } = useAppSelector(
+    (state) => state.musicplayer
+  );
 
-  const Overstate: any = ({ overdiplay, index }: any) => {
-    if (index == musicnum) {
+  const OnPlay = () => {
+    dispatch(resetMusic(!musicreseted));
+    dispatch(getMusicNum(index));
+    dispatch(PlayerToggle(true));
+    dispatch(togglePlay(true));
+    dispatch(getCurrentMusic(data.id));
+    moodStorage.addMangoHistory(data);
+  };
+
+  const Overstate: any = ({ overdiplay, id }: any) => {
+    if (id == currentmusic) {
       return (
         <Overview>
-          <Icon kind="pause" size={20}></Icon>
+          <Icon kind="playing" size={20}></Icon>
         </Overview>
       );
     }
@@ -53,11 +64,7 @@ const MusicContainer = ({ data, index }: any) => {
     <MusicContainerWrap data-aos="fade-in">
       <ImgWrap
         onClick={() => {
-          dispatch(PlayerToggle(true));
-          dispatch(togglePlay(true));
-          dispatch(getMusicNum(index));
-          dispatch(shuffleMusic(false));
-          moodStorage.addMangoHistory(data);
+          OnPlay();
         }}
         onMouseOver={() => {
           setOverdisplay(true);
@@ -69,15 +76,35 @@ const MusicContainer = ({ data, index }: any) => {
         <img src={data.thumbnail}></img>
         <Overstate
           overdiplay={overdiplay}
-          index={index}
+          id={data.id}
           musicnum={musicnum}
         ></Overstate>
       </ImgWrap>
-      <RankNumber overdiplay={overdiplay} index={index} musicnum={musicnum}>
+      <RankNumber
+        overdiplay={overdiplay}
+        id={data.id}
+        currentmusic={currentmusic}
+      >
         {index + 1}
       </RankNumber>
-      <MusicInfo overdiplay={overdiplay} index={index} musicnum={musicnum}>
-        <MusicTitle>{data.title}</MusicTitle>
+      <MusicInfo
+        overdiplay={overdiplay}
+        id={data.id}
+        currentmusic={currentmusic}
+      >
+        <MusicTitle
+          onClick={() => {
+            OnPlay();
+          }}
+          onMouseOver={() => {
+            setOverdisplay(true);
+          }}
+          onMouseLeave={() => {
+            setOverdisplay(false);
+          }}
+        >
+          {data.title}
+        </MusicTitle>
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
       </MusicInfo>
       <ChannelTitle>{data.channeltitle}</ChannelTitle>
@@ -119,7 +146,7 @@ const MusicContainerWrap = styled.div`
 const RankNumber = styled.div<any>`
   position: relative;
   left: ${(props) =>
-    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
+    props.overdiplay || props.currentmusic == props.id ? "-107px" : "0"};
   font-size: 14px;
   font-weight: 300;
   width: 72px;
@@ -131,7 +158,7 @@ const RankNumber = styled.div<any>`
 const MusicInfo = styled.div<any>`
   position: relative;
   left: ${(props) =>
-    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
+    props.overdiplay || props.currentmusic == props.id ? "-107px" : "0"};
   max-width: 800px;
   height: 60px;
   display: flex;
@@ -139,6 +166,7 @@ const MusicInfo = styled.div<any>`
   justify-content: space-around;
 `;
 const MusicTitle = styled.div`
+  cursor: pointer;
   font-size: 14px;
   display: flex;
 `;

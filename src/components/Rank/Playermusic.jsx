@@ -15,7 +15,7 @@ const Playermusic = ({ item, index }) => {
     if (index == musicnum) {
       return (
         <Overview>
-          <Icon kind="pause" size={20}></Icon>
+          <Icon kind="playing" size={20}></Icon>
         </Overview>
       );
     }

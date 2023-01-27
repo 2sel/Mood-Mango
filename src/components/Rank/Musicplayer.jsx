@@ -8,12 +8,11 @@ import {
   PlayerToggle,
   togglePlay,
   getMusicNum,
+  getCurrentMusic,
 } from "../../redux/modules/musicplayer";
 import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
-import { BiColorFill } from "react-icons/bi";
-import { BsLockFill } from "react-icons/bs";
-import { shuffleMusic } from "../../redux/modules/musicplayer";
+import { resetMusic } from "../../redux/modules/musicplayer";
 import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
@@ -46,9 +45,8 @@ const Musicplayer = () => {
 
   const reactplayerRef = useRef();
 
-  const { playerdisplay, isPlay, musicnum, musicshuffled } = useAppSelector(
-    (state) => state.musicplayer
-  );
+  const { playerdisplay, isPlay, musicnum, musicreseted, currentmusic } =
+    useAppSelector((state) => state.musicplayer);
   const { musics, isLoading } = useAppSelector((state) => state.musics);
 
   const [musicdata, setMusicdata] = useState([]);
@@ -57,6 +55,10 @@ const Musicplayer = () => {
 
   const durationSet = () => {
     let seconds = Math.floor(reactplayerRef.current?.getDuration());
+    if (seconds == undefined) {
+      setDuration("0:00");
+      return;
+    }
     let min = parseInt((seconds % 3600) / 60);
     let sec = seconds % 60;
     if (sec < 10) {
@@ -82,27 +84,8 @@ const Musicplayer = () => {
     reactplayerRef.current.seekTo(e.target.value / 100, "fraction");
   };
 
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-  let audioContext = new AudioContext();
-
-  // window.onload = () => {
-  //   audioContext = new AudioContext();
-  // };
-  const gainNode = audioContext.createGain();
-
   const SoundonChange = (e) => {
     setSoundPercentage(e.target.value);
-
-    gainNode.gain.value = e.target.value / 50;
-
-    console.log(gainNode.gain.value);
-
-    // audioContext.resume().then(() => {
-    //   const gainNode = audioContext.createGain();
-    //   gainNode.gain.value = soundpercentage / 50;
-    // });
-    // console.log(audioContext.createGain().gain.value);
   };
 
   const getCurrDuration = (data) => {
@@ -113,27 +96,36 @@ const Musicplayer = () => {
   const skipForward = () => {
     if (musicnum + 1 == musics.length) {
       dispatch(getMusicNum(0));
+      dispatch(getCurrentMusic(musicdata[musicnum]?.id));
     } else {
       dispatch(getMusicNum(musicnum + 1));
+      dispatch(getCurrentMusic(musicdata[musicnum]?.id));
     }
   };
 
-  const skipBackward = () => {
+  const skipBackward = async () => {
     if (musicnum == 0) {
       dispatch(getMusicNum(musics.length - 1));
+      dispatch(getCurrentMusic(musicdata[musicnum]?.id));
     } else {
       dispatch(getMusicNum(musicnum - 1));
+      dispatch(getCurrentMusic(musicdata[musicnum]?.id));
     }
   };
 
   const shuffle = (array) => {
     let newarray = [...array];
-    return newarray.sort(() => Math.random() - 0.5);
+    let selectmusic = newarray.find((music) => music.id == currentmusic);
+    newarray = newarray.filter((music) => music.id != currentmusic);
+    newarray = newarray.sort(() => Math.random() - 0.5);
+    newarray.unshift(selectmusic);
+    dispatch(getMusicNum(0));
+    return newarray;
   };
 
   useEffect(() => {
     setMusicdata([...musics]);
-  }, [isLoading, musicshuffled]);
+  }, [isLoading, musicreseted]);
 
   useEffect(() => {
     function handleResize() {
@@ -158,9 +150,11 @@ const Musicplayer = () => {
     setPosition(percentage);
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
+  }, [windowSize, percentage]);
 
+  useEffect(() => {
     durationSet();
-  }, [percentage, windowSize]);
+  }, [percentage]);
 
   useEffect(() => {
     const soundrangeWidth =
@@ -182,25 +176,13 @@ const Musicplayer = () => {
       {playerdisplay && (
         <>
           <MusicplayerWrap>
-            <img
-              src={
-                musicshuffled
-                  ? musicdata[musicnum]?.thumbnail
-                  : musics[musicnum]?.thumbnail
-              }
-            ></img>
+            <img src={musicdata[musicnum]?.thumbnail}></img>
             <MarqueeWrap>
               <Marquee gradientWidth={0}>
                 <MusicInfo>
-                  <MusicTitle>
-                    {musicshuffled
-                      ? musicdata[musicnum]?.title
-                      : musics[musicnum]?.title}
-                  </MusicTitle>
+                  <MusicTitle>{musicdata[musicnum]?.title}</MusicTitle>
                   <MusicChannelTitle>
-                    {musicshuffled
-                      ? musicdata[musicnum]?.channeltitle
-                      : musics[musicnum]?.channeltitle}
+                    {musicdata[musicnum]?.channeltitle}
                   </MusicChannelTitle>
                 </MusicInfo>
               </Marquee>
@@ -263,7 +245,6 @@ const Musicplayer = () => {
               </Toggle>
               <Shuffle
                 onClick={() => {
-                  dispatch(shuffleMusic(true));
                   setMusicdata((e) => shuffle(e));
                 }}
               >
@@ -330,9 +311,7 @@ const Musicplayer = () => {
             ></PlayerandListBack>
             <ReactPlayer
               volume={mute ? 0 : soundpercentage / 100}
-              url={
-                musicshuffled ? musicdata[musicnum]?.url : musics[musicnum]?.url
-              }
+              url={musicdata[musicnum]?.url}
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
@@ -342,20 +321,17 @@ const Musicplayer = () => {
               }}
               onPlay={() => {
                 dispatch(togglePlay(true));
+                dispatch(getCurrentMusic(musicdata[musicnum]?.id));
               }}
-              onPause={() => {
-                dispatch(togglePlay(false));
-              }}
+              // onPause={() => {
+              //   dispatch(togglePlay(false));
+              // }}
               playing={isPlay}
               width={480}
               height={320}
               pip={true}
             ></ReactPlayer>
-            {musicshuffled ? (
-              <PlayerList musicsdata={musicdata} />
-            ) : (
-              <PlayerList musicsdata={musics} />
-            )}
+            <PlayerList musicsdata={musicdata} />
           </PlayerandList>
         </>
       )}
