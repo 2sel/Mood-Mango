@@ -6,12 +6,11 @@ import { useAppSelector } from "../../hooks/hooks";
 import { PlayerToggle } from "../../redux/modules/musicplayer";
 import Aos from "aos";
 import Icon from "../common/Icon";
-
+import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
-import Modal from "./Modal";
-import { moodStorage } from "../common/MoodStorage";
-import { getPlaylist } from "../../redux/modules/musics";
+import { shuffleMusic } from "../../redux/modules/musicplayer";
+
 interface MusicdataType {
   id: string;
   title: string;
@@ -26,59 +25,75 @@ interface Type {
 }
 
 const MusicContainer = ({ data, index }: any) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  // 모달창 노출
-  const showModal = () => {
-    setModalOpen(true);
-  };
   const dispatch = useAppDispatch();
+  const [overdiplay, setOverdisplay] = useState(false);
+  const { isPlay, musicnum } = useAppSelector((state) => state.musicplayer);
+
+  const Overstate: any = ({ overdiplay, index }: any) => {
+    if (index == musicnum) {
+      return (
+        <Overview>
+          <Icon kind="pause" size={20}></Icon>
+        </Overview>
+      );
+    }
+    if (overdiplay) {
+      return (
+        <Overview>
+          <Icon kind="play" size={20}></Icon>
+        </Overview>
+      );
+    }
+  };
 
   useEffect(() => {
     Aos.init();
   }, []);
   return (
-    <MusicContainerWrap
-      data-aos="fade-in"
-      onClick={() => {
-        dispatch(PlayerToggle(true));
-        dispatch(togglePlay(true));
-        dispatch(getMusicNum(index));
-
-        moodStorage.addMangoHistory(data);
-      }}
-    >
-      <MusicContainerOuter>
+    <MusicContainerWrap data-aos="fade-in">
+      <ImgWrap
+        onClick={() => {
+          dispatch(PlayerToggle(true));
+          dispatch(togglePlay(true));
+          dispatch(getMusicNum(index));
+          dispatch(shuffleMusic(false));
+          moodStorage.addMangoHistory(data);
+        }}
+        onMouseOver={() => {
+          setOverdisplay(true);
+        }}
+        onMouseLeave={() => {
+          setOverdisplay(false);
+        }}
+      >
         <img src={data.thumbnail}></img>
-        <RankNumber>{index + 1}</RankNumber>
-        <MusicInfo>
-          <MusicTitle>{data.title}</MusicTitle>
-          <MusicViewCount>{data.viewconut}</MusicViewCount>
-        </MusicInfo>
-        <ChannelTitle>{data.channeltitle}</ChannelTitle>
-        <Icon
-          kind={"cloud"}
-          size={25}
-          style={{
-            height: "80px",
-          }}
-          //  handler={() => moodStorage.addMangoPlayList(data)}
-          handler={showModal}
-        />
-        {modalOpen && (
-          <Modal setModalOpen={setModalOpen} data={{ ...data, index: index }} />
-        )}
-      </MusicContainerOuter>
+        <Overstate
+          overdiplay={overdiplay}
+          index={index}
+          musicnum={musicnum}
+        ></Overstate>
+      </ImgWrap>
+      <RankNumber overdiplay={overdiplay} index={index} musicnum={musicnum}>
+        {index + 1}
+      </RankNumber>
+      <MusicInfo overdiplay={overdiplay} index={index} musicnum={musicnum}>
+        <MusicTitle>{data.title}</MusicTitle>
+        <MusicViewCount>{data.viewconut} 회</MusicViewCount>
+      </MusicInfo>
+      <ChannelTitle>{data.channeltitle}</ChannelTitle>
+      <Icon
+        kind={"cloud"}
+        size={25}
+        style={{
+          height: "60px",
+        }}
+        // handler={() => moodStorage.addMangoPlayList(data)}
+      />
     </MusicContainerWrap>
   );
 };
 
 export default MusicContainer;
-
-const MusicContainerOuter = styled.div`
-  display: flex;
-  background: #121212;
-`;
 
 const MusicContainerWrap = styled.div`
   font-family: "Noto Sans KR", sans-serif;
@@ -101,7 +116,10 @@ const MusicContainerWrap = styled.div`
     background: #1d160f;
   }
 `;
-const RankNumber = styled.div`
+const RankNumber = styled.div<any>`
+  position: relative;
+  left: ${(props) =>
+    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
   font-size: 14px;
   font-weight: 300;
   width: 72px;
@@ -110,8 +128,11 @@ const RankNumber = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const MusicInfo = styled.div`
-  width: 800px;
+const MusicInfo = styled.div<any>`
+  position: relative;
+  left: ${(props) =>
+    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
+  max-width: 800px;
   height: 60px;
   display: flex;
   flex-direction: column;
@@ -134,4 +155,20 @@ const ChannelTitle = styled.div`
   align-items: center;
   margin-left: auto;
   margin-right: 10px;
+`;
+
+const Overview = styled.div`
+  left: -107px;
+  width: 107px;
+  height: 60px;
+  position: relative;
+  background-color: hsl(100 0% 0% / 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImgWrap = styled.div`
+  cursor: pointer;
+  display: flex;
 `;

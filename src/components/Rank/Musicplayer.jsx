@@ -13,8 +13,11 @@ import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
 import { BiColorFill } from "react-icons/bi";
 import { BsLockFill } from "react-icons/bs";
+import { shuffleMusic } from "../../redux/modules/musicplayer";
+import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
+  const [mute, setMute] = useState(false);
   const [videodiplay, setVideodiplay] = useState(false);
   const [repeatestate, setRepeateState] = useState(false);
 
@@ -43,12 +46,12 @@ const Musicplayer = () => {
 
   const reactplayerRef = useRef();
 
-  const { playerdisplay, isPlay, musicnum } = useAppSelector(
+  const { playerdisplay, isPlay, musicnum, musicshuffled } = useAppSelector(
     (state) => state.musicplayer
   );
-  const { musics } = useAppSelector((state) => state.musics);
+  const { musics, isLoading } = useAppSelector((state) => state.musics);
 
-  const [musicsdata, setMusicsData] = useState(musics.slice());
+  const [musicdata, setMusicdata] = useState([]);
 
   const dispatch = useAppDispatch();
 
@@ -79,8 +82,27 @@ const Musicplayer = () => {
     reactplayerRef.current.seekTo(e.target.value / 100, "fraction");
   };
 
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+  let audioContext = new AudioContext();
+
+  // window.onload = () => {
+  //   audioContext = new AudioContext();
+  // };
+  const gainNode = audioContext.createGain();
+
   const SoundonChange = (e) => {
     setSoundPercentage(e.target.value);
+
+    gainNode.gain.value = e.target.value / 50;
+
+    console.log(gainNode.gain.value);
+
+    // audioContext.resume().then(() => {
+    //   const gainNode = audioContext.createGain();
+    //   gainNode.gain.value = soundpercentage / 50;
+    // });
+    // console.log(audioContext.createGain().gain.value);
   };
 
   const getCurrDuration = (data) => {
@@ -105,8 +127,13 @@ const Musicplayer = () => {
   };
 
   const shuffle = (array) => {
-    array.sort(() => Math.random() - 0.5);
+    let newarray = [...array];
+    return newarray.sort(() => Math.random() - 0.5);
   };
+
+  useEffect(() => {
+    setMusicdata([...musics]);
+  }, [isLoading, musicshuffled]);
 
   useEffect(() => {
     function handleResize() {
@@ -155,13 +182,25 @@ const Musicplayer = () => {
       {playerdisplay && (
         <>
           <MusicplayerWrap>
-            <img src={musics[musicnum].thumbnail}></img>
+            <img
+              src={
+                musicshuffled
+                  ? musicdata[musicnum]?.thumbnail
+                  : musics[musicnum]?.thumbnail
+              }
+            ></img>
             <MarqueeWrap>
               <Marquee gradientWidth={0}>
                 <MusicInfo>
-                  <MusicTitle>{musics[musicnum].title}</MusicTitle>
+                  <MusicTitle>
+                    {musicshuffled
+                      ? musicdata[musicnum]?.title
+                      : musics[musicnum]?.title}
+                  </MusicTitle>
                   <MusicChannelTitle>
-                    {musics[musicnum].channeltitle}
+                    {musicshuffled
+                      ? musicdata[musicnum]?.channeltitle
+                      : musics[musicnum]?.channeltitle}
                   </MusicChannelTitle>
                 </MusicInfo>
               </Marquee>
@@ -224,9 +263,8 @@ const Musicplayer = () => {
               </Toggle>
               <Shuffle
                 onClick={() => {
-                  setMusicsData((e) => {
-                    return shuffle(e);
-                  });
+                  dispatch(shuffleMusic(true));
+                  setMusicdata((e) => shuffle(e));
                 }}
               >
                 <Icon kind="shuffle" size={20} />
@@ -242,8 +280,16 @@ const Musicplayer = () => {
                   <Icon kind="repeatall" size={20} />
                 )}
               </RepeateState>
-              <VolumeState>
-                <Icon kind="volume" size={20} />
+              <VolumeState
+                onClick={() => {
+                  setMute((e) => !e);
+                }}
+              >
+                {mute ? (
+                  <Icon kind="mute" size={20} />
+                ) : (
+                  <Icon kind="volume" size={20} />
+                )}
               </VolumeState>
               <SoundSliderWrap>
                 <SoundSliderCover
@@ -276,10 +322,17 @@ const Musicplayer = () => {
               ></DownButton>
             </SoundWrap>
           </MusicplayerWrap>
-          <ReactPlayerWrap videodiplay={videodiplay}>
+          <PlayerandList videodiplay={videodiplay}>
+            <PlayerandListBack
+              onClick={() => {
+                setVideodiplay(false);
+              }}
+            ></PlayerandListBack>
             <ReactPlayer
-              volume={soundpercentage / 100}
-              url={musics[musicnum].url}
+              volume={mute ? 0 : soundpercentage / 100}
+              url={
+                musicshuffled ? musicdata[musicnum]?.url : musics[musicnum]?.url
+              }
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
@@ -298,7 +351,12 @@ const Musicplayer = () => {
               height={320}
               pip={true}
             ></ReactPlayer>
-          </ReactPlayerWrap>
+            {musicshuffled ? (
+              <PlayerList musicsdata={musicdata} />
+            ) : (
+              <PlayerList musicsdata={musics} />
+            )}
+          </PlayerandList>
         </>
       )}
     </>
@@ -306,6 +364,13 @@ const Musicplayer = () => {
 };
 
 export default Musicplayer;
+
+const PlayerListWrap = styled.div`
+  margin-left: 50px;
+  width: 40%;
+  background-color: whitesmoke;
+  height: 70%;
+`;
 
 const Toggle = styled.div`
   color: #ff830a;
@@ -322,6 +387,7 @@ const RepeateState = styled.div`
 `;
 const VolumeState = styled.div`
   margin-left: 15px;
+  cursor: pointer;
 `;
 const MarqueeWrap = styled.div`
   width: 150px;
@@ -535,9 +601,24 @@ const SoundThumb = styled.div`
   user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
 `;
 
-const ReactPlayerWrap = styled.div`
+const PlayerandList = styled.div`
   position: fixed;
-  right: 20px;
-  bottom: ${(props) => (props.videodiplay ? "100px" : "-500px")};
-  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  bottom: ${(props) => (props.videodiplay ? "0" : "-100vh")};
+  transition: all 0.5s;
+`;
+const PlayerandListBack = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  background-color: hsl(100 0% 0% / 0.84);
+  z-index: -1;
 `;

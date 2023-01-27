@@ -92,10 +92,10 @@ const CategoryListBtn = styled.button`
   text-align: center;
   padding: 25px 20px;
   border-radius: 15px;
+  box-sizing: border-box;
   cursor: pointer;
   &:hover {
     border: 2px #ffb52b solid;
-    transform: translateY(3px);
   }
 
   &:focus {

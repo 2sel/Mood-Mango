@@ -16,18 +16,16 @@ export const getMusic = createAsyncThunk(
   "musics/getMusic",
   async (payload: string, thunkAPI) => {
     try {
-      console.log(payload);
       let finaldata = [];
       const data = await axios.get(playlistApi(payload));
-      console.log(data);
       for (let listvideodata of data.data.items) {
         const videoid = listvideodata.contentDetails.videoId;
         const videodata = await axios.get(videoApi(videoid));
         finaldata.push(videodata.data.items[0]);
       }
-      console.log(finaldata);
+      let filteredData = DataFilter(finaldata);
 
-      return thunkAPI.fulfillWithValue(DataFilter(finaldata));
+      return thunkAPI.fulfillWithValue(filteredData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -46,7 +44,6 @@ const todosSlice = createSlice({
   reducers: {
     getPlaylist: (state, action) => {
       state.musics = action.payload;
-      console.log(state.musics);
     },
   },
   extraReducers: (builder) => {
@@ -57,7 +54,6 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.musics = action.payload;
-      console.log(action.payload);
     });
     builder.addCase(getMusic.rejected, (state, action) => {
       state.isLoading = false;
