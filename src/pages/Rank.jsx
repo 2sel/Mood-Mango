@@ -11,9 +11,7 @@ import "aos/dist/aos.css";
 
 const Rank = () => {
   const dispatch = useAppDispatch();
-  const { musics, playlist, isLoading } = useAppSelector(
-    (state) => state.musics
-  );
+  const { musics, isLoading } = useAppSelector((state) => state.musics);
   const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
 
   useEffect(() => {
