@@ -5,8 +5,10 @@ import { getMusic } from "../redux/modules/musics";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import BeatLoader from "react-spinners/BeatLoader";
 import MusicContainer from "../components/Rank/MusicContainer";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const datas = useAppSelector((state) => state.categories);
   const { musics, isLoading } = useAppSelector((state) => state.musics);
@@ -81,7 +83,14 @@ const Main = () => {
     <StyleBackground>
       <StyleWrap>
         {buttonState === false ? (
-          <div>hello</div>
+          <>
+            <StyleAlertWrap>
+              <StyleMoodTitle>먼저 무드를 선택해 주세요!</StyleMoodTitle>
+              <StyleMoodButton onClick={() => navigate("/")}>
+                선택하러 가기
+              </StyleMoodButton>
+            </StyleAlertWrap>
+          </>
         ) : (
           <>
             <StyleTitle>
@@ -186,6 +195,38 @@ const StyleCategoryItem = styled.button`
   }
   &:focus {
     background-color: #ffb52b;
+  }
+`;
+
+const StyleAlertWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 100px);
+`;
+
+const StyleMoodTitle = styled.div`
+  color: #fff;
+  font-weight: 700;
+  font-size: 24px;
+`;
+
+const StyleMoodButton = styled.button`
+  width: 190px;
+  background-color: #ffb52b;
+  color: white;
+  padding: 25px 20px;
+  margin-top: 70px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(3px);
   }
 `;
 

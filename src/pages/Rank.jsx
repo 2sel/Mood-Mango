@@ -13,7 +13,8 @@ import "aos/dist/aos.css";
 const Rank = () => {
   const dispatch = useAppDispatch();
   const { musics, isLoading } = useAppSelector((state) => state.musics);
-  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
   useEffect(() => {
     dispatch(getMusic(playlistId));
@@ -59,8 +60,6 @@ const Rank = () => {
 
 export default Rank;
 
-const Button = styled.button``;
-
 const Background = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   background-color: #000000;
@@ -70,7 +69,7 @@ const Background = styled.div`
 `;
 const RankWrap = styled.div`
   width: 100%;
-  margin: 0 50px 0 50px;
+  margin: 50px 50px 0 50px;
   display: flex;
   flex-direction: column;
 `;
@@ -92,16 +91,4 @@ const LoadingWrap = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const StyleNav = styled.div`
-  background-color: #2d2d2d;
-  position: fixed;
-  height: 100%;
-  top: 0;
-  left: 0;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

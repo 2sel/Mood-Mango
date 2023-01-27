@@ -13,7 +13,7 @@ const Search = () => {
   const [userInput, setUserInput] = useState("");
   const { musics } = useAppSelector((state) => state.musics);
   const dispatch = useAppDispatch();
-  const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
   // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
   const [searchMusic, setsearchMusic] = useState([]);

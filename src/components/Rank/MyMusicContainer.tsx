@@ -9,8 +9,8 @@ import Icon from "../common/Icon";
 import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
-import { shuffleMusic } from "../../redux/modules/musicplayer";
 import { getPlaylist } from "../../redux/modules/musics";
+import { resetMusic } from "../../redux/modules/musicplayer";
 
 interface MusicdataType {
   id: string;
@@ -34,7 +34,9 @@ const MusicContainer = ({ data, index, dataList, popItem, name }: any) => {
   // };
   const dispatch = useAppDispatch();
   const [overdiplay, setOverdisplay] = useState(false);
-  const { isPlay, musicnum } = useAppSelector((state) => state.musicplayer);
+  const { isPlay, musicnum, musicreseted } = useAppSelector(
+    (state) => state.musicplayer
+  );
 
   const Overstate: any = ({ overdiplay, index, showModal }: any) => {
     if (index == musicnum) {
@@ -56,6 +58,7 @@ const MusicContainer = ({ data, index, dataList, popItem, name }: any) => {
           dispatch(togglePlay(true));
           dispatch(getMusicNum(index));
           dispatch(getPlaylist(dataList));
+          dispatch(resetMusic(!musicreseted));
           moodStorage.addMangoHistory(data);
         }}
         onMouseOver={() => {

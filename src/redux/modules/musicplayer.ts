@@ -36,7 +36,8 @@ const initialState = {
   musicdata: "",
   playerdisplay: false,
   isPlay: false,
-  musicshuffled: false,
+  musicreseted: false,
+  currentmusic: "",
   isLoading: false,
 };
 
@@ -53,8 +54,11 @@ const todosSlice = createSlice({
     togglePlay: (state, action) => {
       state.isPlay = action.payload;
     },
-    shuffleMusic: (state, action) => {
-      state.musicshuffled = action.payload;
+    resetMusic: (state, action) => {
+      state.musicreseted = action.payload;
+    },
+    getCurrentMusic: (state, action) => {
+      state.currentmusic = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +77,11 @@ const todosSlice = createSlice({
   },
 });
 
-export const { PlayerToggle, getMusicNum, togglePlay, shuffleMusic } =
-  todosSlice.actions;
+export const {
+  PlayerToggle,
+  getMusicNum,
+  togglePlay,
+  resetMusic,
+  getCurrentMusic,
+} = todosSlice.actions;
 export default todosSlice.reducer;
