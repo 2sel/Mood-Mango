@@ -10,79 +10,115 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const datas = useAppSelector((state) => state.categories);
   const { musics, isLoading } = useAppSelector((state) => state.musics);
-  let id = "";
+  const buttonState = useAppSelector((state) => state.Navbar);
+
+  interface IMap {
+    [key: string]: string;
+  }
+
+  const idMap: IMap = {
+    뉴에이지: "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd",
+    발라드: "PL31nVK1Q1BfEvIGvQqw064187wHtsUaWP",
+    아이돌댄스곡: "PL31nVK1Q1BfFMgv_jjzaPHpPGpeh_5WdA",
+    시티팝: "PL31nVK1Q1BfF4pgbrGpZ11hZivbnag3Ic",
+    인디음악: "PL31nVK1Q1BfFsOJhlT2HupygWQU1L6kOv",
+    RNB힙합: "PL31nVK1Q1BfHlnPTrRFakc6Dle9aoW6Fo",
+    외국힙합: "PL31nVK1Q1BfHKuvkLSs_yR6YZ3sjp1qiR",
+    디스코펑크: "PL31nVK1Q1BfHQkWyTPYxen65D_H5XaDCo",
+    재즈: "PL31nVK1Q1BfF3rvKxLqo5FuIcMbjTf5k3",
+    로파이: "PL31nVK1Q1BfHDVl1BJAO2lb8cWe-9I2un",
+  };
+
+  // type gengre =
+  //   | "뉴에이지"
+  //   | "발라드"
+  //   | "아이돌댄스곡"
+  //   | "시티팝"
+  //   | "인디음악"
+  //   | "RNB힙합"
+  //   | "외국힙합"
+  //   | "재즈"
+  //   | "로파이";
 
   const onClickHandler = (data: any) => {
-    switch (data) {
-      case "뉴에이지":
-        id = "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd";
-        return dispatch(getMusic(id));
-      case "발라드":
-        id = "PL31nVK1Q1BfEvIGvQqw064187wHtsUaWP";
-        return dispatch(getMusic(id));
-      case "아이돌댄스곡":
-        id = "PL31nVK1Q1BfFMgv_jjzaPHpPGpeh_5WdA";
-        return dispatch(getMusic(id));
-      case "시티팝":
-        id = "PL31nVK1Q1BfF4pgbrGpZ11hZivbnag3Ic";
-        return dispatch(getMusic(id));
-      case "인디음악":
-        id = "PL31nVK1Q1BfFsOJhlT2HupygWQU1L6kOv";
-        return dispatch(getMusic(id));
-      case "RNB힙합":
-        id = "PL31nVK1Q1BfHlnPTrRFakc6Dle9aoW6Fo";
-        return dispatch(getMusic(id));
-      case "외국힙합":
-        id = "PL31nVK1Q1BfHKuvkLSs_yR6YZ3sjp1qiR";
-        return dispatch(getMusic(id));
-      case "디스코펑크":
-        id = "PL31nVK1Q1BfHQkWyTPYxen65D_H5XaDCo";
-        return dispatch(getMusic(id));
-      case "재즈":
-        id = "PL31nVK1Q1BfF3rvKxLqo5FuIcMbjTf5k3";
-        return dispatch(getMusic(id));
-      case "로파이":
-        id = "PL31nVK1Q1BfHDVl1BJAO2lb8cWe-9I2un";
-        return dispatch(getMusic(id));
-    }
+    const id = idMap[data];
+    dispatch(getMusic(id));
+    // switch (data) {
+    //   case "뉴에이지":
+    //     id = "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd";
+    //     return dispatch(getMusic(id));
+    //   case "발라드":
+    //     id = "PL31nVK1Q1BfEvIGvQqw064187wHtsUaWP";
+    //     return dispatch(getMusic(id));
+    //   case "아이돌댄스곡":
+    //     id = "PL31nVK1Q1BfFMgv_jjzaPHpPGpeh_5WdA";
+    //     return dispatch(getMusic(id));
+    //   case "시티팝":
+    //     id = "PL31nVK1Q1BfF4pgbrGpZ11hZivbnag3Ic";
+    //     return dispatch(getMusic(id));
+    //   case "인디음악":
+    //     id = "PL31nVK1Q1BfFsOJhlT2HupygWQU1L6kOv";
+    //     return dispatch(getMusic(id));
+    //   case "RNB힙합":
+    //     id = "PL31nVK1Q1BfHlnPTrRFakc6Dle9aoW6Fo";
+    //     return dispatch(getMusic(id));
+    //   case "외국힙합":
+    //     id = "PL31nVK1Q1BfHKuvkLSs_yR6YZ3sjp1qiR";
+    //     return dispatch(getMusic(id));
+    //   case "디스코펑크":
+    //     id = "PL31nVK1Q1BfHQkWyTPYxen65D_H5XaDCo";
+    //     return dispatch(getMusic(id));
+    //   case "재즈":
+    //     id = "PL31nVK1Q1BfF3rvKxLqo5FuIcMbjTf5k3";
+    //     return dispatch(getMusic(id));
+    //   case "로파이":
+    //     id = "PL31nVK1Q1BfHDVl1BJAO2lb8cWe-9I2un";
+    //     return dispatch(getMusic(id));
+    // }
   };
 
   return (
     <StyleBackground>
       <StyleWrap>
-        <StyleTitle>
-          주문하신 무드에 맞는 음악장르가 나왔습니다 &nbsp;
-          <Icon kind="music" size={27} />
-        </StyleTitle>
-        <StyleCategoryWrap>
-          {datas.map((data, index) => {
-            return (
-              <StyleCategoryItem
-                key={index}
-                onClick={() => onClickHandler(data)}
-              >
-                {data}
-              </StyleCategoryItem>
-            );
-          })}
-        </StyleCategoryWrap>
-        <MusicListWrap>
-          {isLoading ? (
-            <LoadingWrap>
-              <BeatLoader color="#FF830A" />
-            </LoadingWrap>
-          ) : (
-            <>
-              {musics.map((data, index) => (
-                <MusicContainer
-                  key={index}
-                  index={index}
-                  data={data}
-                ></MusicContainer>
-              ))}
-            </>
-          )}
-        </MusicListWrap>
+        {buttonState === false ? (
+          <div>hello</div>
+        ) : (
+          <>
+            <StyleTitle>
+              주문하신 무드에 맞는 음악장르가 나왔습니다 &nbsp;
+              <Icon kind="music" size={27} />
+            </StyleTitle>
+            <StyleCategoryWrap>
+              {datas.map((data, index) => {
+                return (
+                  <StyleCategoryItem
+                    key={index}
+                    onClick={() => onClickHandler(data)}
+                  >
+                    {data}
+                  </StyleCategoryItem>
+                );
+              })}
+            </StyleCategoryWrap>
+            <MusicListWrap>
+              {isLoading ? (
+                <LoadingWrap>
+                  <BeatLoader color="#FF830A" />
+                </LoadingWrap>
+              ) : (
+                <>
+                  {musics.map((data, index) => (
+                    <MusicContainer
+                      key={index}
+                      index={index}
+                      data={data}
+                    ></MusicContainer>
+                  ))}
+                </>
+              )}
+            </MusicListWrap>
+          </>
+        )}
       </StyleWrap>
     </StyleBackground>
   );
