@@ -50,24 +50,22 @@ const MusicContainer = ({ data, index }: any) => {
     Aos.init();
   }, []);
   return (
-    <MusicContainerWrap
-      data-aos="fade-in"
-      onClick={() => {
-        dispatch(PlayerToggle(true));
-        dispatch(togglePlay(true));
-        dispatch(getMusicNum(index));
-
-        dispatch(shuffleMusic(false));
-        moodStorage.addMangoHistory(data);
-      }}
-      onMouseOver={() => {
-        setOverdisplay(true);
-      }}
-      onMouseLeave={() => {
-        setOverdisplay(false);
-      }}
-    >
-      <ImgWrap>
+    <MusicContainerWrap data-aos="fade-in">
+      <ImgWrap
+        onClick={() => {
+          dispatch(PlayerToggle(true));
+          dispatch(togglePlay(true));
+          dispatch(getMusicNum(index));
+          dispatch(shuffleMusic(false));
+          moodStorage.addMangoHistory(data);
+        }}
+        onMouseOver={() => {
+          setOverdisplay(true);
+        }}
+        onMouseLeave={() => {
+          setOverdisplay(false);
+        }}
+      >
         <img src={data.thumbnail}></img>
         <Overstate
           overdiplay={overdiplay}
@@ -171,5 +169,6 @@ const Overview = styled.div`
 `;
 
 const ImgWrap = styled.div`
+  cursor: pointer;
   display: flex;
 `;

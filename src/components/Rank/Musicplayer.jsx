@@ -619,6 +619,6 @@ const PlayerandListBack = styled.div`
   width: 100vw;
   height: 100vh;
   right: 0;
-  background-color: hsl(100 0% 0% / 0.75);
+  background-color: hsl(100 0% 0% / 0.84);
   z-index: -1;
 `;
