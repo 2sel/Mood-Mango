@@ -54,7 +54,6 @@ const todosSlice = createSlice({
     builder.addCase(getMusic.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.musics = action.payload;
-      // console.log("hi", state.musics);
     });
     builder.addCase(getMusic.rejected, (state, action) => {
       state.isLoading = false;

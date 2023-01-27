@@ -9,7 +9,6 @@ export function videoApi(videoid) {
 }
 
 export function DataFilter(array) {
-  console.log("array", array);
   let returnarray = [];
   array.map((data) => {
     let videodata = {
@@ -20,7 +19,7 @@ export function DataFilter(array) {
       time: data.snippet.publishedAt,
       viewconut: data.statistics.viewCount,
       likecount: data.statistics.likeCount,
-      thumbnail: data.snippet.thumbnails.standard.url,
+      thumbnail: data.snippet.thumbnails.default.url,
     };
     returnarray.push(videodata);
   });
