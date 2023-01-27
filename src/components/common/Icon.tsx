@@ -15,6 +15,7 @@ import {
   IoChevronDown,
   IoPause,
   IoVolumeMute,
+  IoVolumeHighOutline,
 } from "react-icons/io5";
 import { BsTrashFill } from "react-icons/bs";
 import { RiRepeat2Fill, RiRepeatOneFill, RiShuffleFill } from "react-icons/ri";
@@ -147,7 +148,13 @@ const Icon = ({
           <IoVolumeMute style={style} size={size} color={color} />
         </StyleIconWrap>
       );
-    case "tiara":
+    case "playing":
+      return (
+        <StyleIconWrap>
+          <IoVolumeHighOutline style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+      case "tiara":
       return (
         <StyleIconWrap style={{ height: 20 }}>
           <GiTiara style={style} size={size} color={color} />
