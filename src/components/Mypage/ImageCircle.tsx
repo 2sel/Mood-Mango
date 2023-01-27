@@ -8,8 +8,11 @@ import {
 } from "../../redux/modules/musicplayer";
 
 import { getPlaylist } from "../../redux/modules/musics";
+import { resetMusic } from "../../redux/modules/musicplayer";
+import { useAppSelector } from "../../hooks/hooks";
 
 const Item = ({ item, storageData, circleStyle }: any): JSX.Element => {
+  const { musicreseted } = useAppSelector((state) => state.musicplayer);
   const dispatch = useAppDispatch();
   return (
     <Card>
@@ -28,6 +31,8 @@ const Item = ({ item, storageData, circleStyle }: any): JSX.Element => {
           }}
           onClick={() => {
             dispatch(getPlaylist(storageData));
+            dispatch(resetMusic(!musicreseted));
+
             dispatch(PlayerToggle(true));
             dispatch(togglePlay(true));
             dispatch(getMusicNum(item.index));

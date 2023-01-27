@@ -327,8 +327,8 @@ const Musicplayer = () => {
               //   dispatch(togglePlay(false));
               // }}
               playing={isPlay}
-              width={480}
-              height={320}
+              width={720}
+              height={480}
               pip={true}
             ></ReactPlayer>
             <PlayerList musicsdata={musicdata} />
