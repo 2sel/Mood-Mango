@@ -1,9 +1,10 @@
-import { FormEvent, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import MoodPlayBtnModal from "./MoodPlayBtnModal";
 import { getCategories } from "../../redux/modules/categories";
+import { getClickButton } from "../../redux/modules/Navbar";
 
 const categories = ["감성", "드라이브", "공부", "운동", "기분전환"];
 
@@ -23,6 +24,7 @@ const MoodCategory = () => {
   const handleSubmit = (keyword: string) => {
     if (isClick === false) return setModalOpen(true);
     dispatch(getCategories(keyword));
+    dispatch(getClickButton(true));
     navigate("/Main");
   };
 

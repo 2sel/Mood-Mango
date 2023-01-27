@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { AiFillSmile } from "react-icons/ai";
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
 import { BsBarChart } from "react-icons/bs";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { getClickButton } from "../../redux/modules/Navbar";
 
 import { useNavigate } from "react-router-dom";
 import Icon from "./Icon";
+
 const Navbar = () => {
   const navigate = useNavigate();
 

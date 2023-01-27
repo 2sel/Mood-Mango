@@ -10,6 +10,7 @@ import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
 import { shuffleMusic } from "../../redux/modules/musicplayer";
+import { getPlaylist } from "../../redux/modules/musics";
 
 interface MusicdataType {
   id: string;
@@ -24,7 +25,7 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index, showModal }: any) => {
+const MusicContainer = ({ data, index, dataList, popItem, name }: any) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // 모달창 노출
@@ -37,18 +38,10 @@ const MusicContainer = ({ data, index, showModal }: any) => {
 
   const Overstate: any = ({ overdiplay, index, showModal }: any) => {
     if (index == musicnum) {
-      return (
-        <Overview>
-          <Icon kind="pause" size={20}></Icon>
-        </Overview>
-      );
+      return <Overview>{/* <Icon kind="pause" size={20}></Icon> */}</Overview>;
     }
     if (overdiplay) {
-      return (
-        <Overview>
-          <Icon kind="play" size={20}></Icon>
-        </Overview>
-      );
+      return <Overview>{/* <Icon kind="play" size={20}></Icon> */}</Overview>;
     }
   };
 
@@ -62,7 +55,7 @@ const MusicContainer = ({ data, index, showModal }: any) => {
           dispatch(PlayerToggle(true));
           dispatch(togglePlay(true));
           dispatch(getMusicNum(index));
-          dispatch(shuffleMusic(false));
+          dispatch(getPlaylist(dataList));
           moodStorage.addMangoHistory(data);
         }}
         onMouseOver={() => {
@@ -87,14 +80,9 @@ const MusicContainer = ({ data, index, showModal }: any) => {
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
       </MusicInfo>
       <ChannelTitle>{data.channeltitle}</ChannelTitle>
-      <Icon
-        kind={"cloud"}
-        size={25}
-        style={{
-          height: "60px",
-        }}
-        handler={() => showModal({ ...data })}
-      />
+      <button onClick={() => popItem(name, data.id)} style={{ all: "unset" }}>
+        <Icon kind={"trash"} color={"#ffb52b"} />
+      </button>
     </MusicContainerWrap>
   );
 };
@@ -168,7 +156,7 @@ const Overview = styled.div`
   width: 107px;
   height: 60px;
   position: relative;
-  background-color: hsl(100 0% 0% / 0.75);
+
   display: flex;
   justify-content: center;
   align-items: center;

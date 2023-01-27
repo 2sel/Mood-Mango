@@ -1,7 +1,8 @@
-import React from "react";
+import Icon from "../components/common/Icon";
+import Modal from "../components/Rank/Modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getMusic } from "../redux/modules/musics";
+import { getMusic, resetPlaylist } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import MusicContainer from "../components/Rank/MusicContainer";
@@ -17,10 +18,18 @@ const Rank = () => {
   useEffect(() => {
     dispatch(getMusic(playlistId));
     Aos.init();
+    return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
   }, []);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [videoData, setVideoData] = useState({});
+  // 모달창 노출
+  const showModal = (data) => {
+    setModalOpen(true);
+    setVideoData(data);
+  };
   return (
     <Background>
+      {modalOpen && <Modal setModalOpen={setModalOpen} data={videoData} />}
       <RankWrap data-aos="fade-up">
         <TitleWrap>인기차트</TitleWrap>
         <MusicListWrap>
@@ -31,11 +40,14 @@ const Rank = () => {
           ) : (
             <>
               {musics.map((data, index) => (
-                <MusicContainer
-                  key={data.id}
-                  index={index}
-                  data={data}
-                ></MusicContainer>
+                <>
+                  <MusicContainer
+                    key={data.id}
+                    index={index}
+                    data={data}
+                    showModal={showModal}
+                  ></MusicContainer>
+                </>
               ))}
             </>
           )}

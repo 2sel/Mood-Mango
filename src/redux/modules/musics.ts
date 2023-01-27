@@ -45,6 +45,9 @@ const todosSlice = createSlice({
     getPlaylist: (state, action) => {
       state.musics = action.payload;
     },
+    resetPlaylist: (state) => {
+      state.musics = [];
+    },
   },
   extraReducers: (builder) => {
     // getTodo
@@ -62,5 +65,5 @@ const todosSlice = createSlice({
   },
 });
 
-export const { getPlaylist } = todosSlice.actions;
+export const { getPlaylist, resetPlaylist } = todosSlice.actions;
 export default todosSlice.reducer;
