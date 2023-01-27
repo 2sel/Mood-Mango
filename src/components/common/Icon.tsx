@@ -1,5 +1,11 @@
 import React from "react";
-import { AiFillSmile } from "react-icons/ai";
+import {
+  AiFillSmile,
+  AiOutlineArrowRight,
+  AiOutlineArrowLeft,
+} from "react-icons/ai";
+import { GiTiara } from "react-icons/gi";
+
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
 import {
   IoPlay,
@@ -10,6 +16,7 @@ import {
   IoPause,
   IoVolumeMute,
 } from "react-icons/io5";
+import { BsTrashFill } from "react-icons/bs";
 import { RiRepeat2Fill, RiRepeatOneFill, RiShuffleFill } from "react-icons/ri";
 import { MdVideoLabel } from "react-icons/md";
 
@@ -115,10 +122,35 @@ const Icon = ({
           <MdVideoLabel style={style} size={size} color={color} />
         </StyleIconWrap>
       );
+    case "rightArrow":
+      return (
+        <StyleIconWrap>
+          <AiOutlineArrowRight style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "leftArrow":
+      return (
+        <StyleIconWrap>
+          <AiOutlineArrowLeft style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "trash":
+      return (
+        <StyleIconWrap>
+          <BsTrashFill style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+
     case "mute":
       return (
         <StyleIconWrap>
           <IoVolumeMute style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "tiara":
+      return (
+        <StyleIconWrap style={{ height: 20 }}>
+          <GiTiara style={style} size={size} color={color} />
         </StyleIconWrap>
       );
     default:

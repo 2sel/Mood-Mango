@@ -1,4 +1,5 @@
-import React from "react";
+import Icon from "../components/common/Icon";
+import Modal from "../components/Rank/Modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMusic } from "../redux/modules/musics";
@@ -18,9 +19,16 @@ const Rank = () => {
     dispatch(getMusic(playlistId));
     Aos.init();
   }, []);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [videoData, setVideoData] = useState({});
+  // 모달창 노출
+  const showModal = (data) => {
+    setModalOpen(true);
+    setVideoData(data);
+  };
   return (
     <Background>
+      {modalOpen && <Modal setModalOpen={setModalOpen} data={videoData} />}
       <RankWrap data-aos="fade-up">
         <TitleWrap>인기차트</TitleWrap>
         <MusicListWrap>
@@ -31,11 +39,14 @@ const Rank = () => {
           ) : (
             <>
               {musics.map((data, index) => (
-                <MusicContainer
-                  key={data.id}
-                  index={index}
-                  data={data}
-                ></MusicContainer>
+                <>
+                  <MusicContainer
+                    key={data.id}
+                    index={index}
+                    data={data}
+                    showModal={showModal}
+                  ></MusicContainer>
+                </>
               ))}
             </>
           )}

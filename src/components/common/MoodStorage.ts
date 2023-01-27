@@ -109,15 +109,16 @@ export class moodStorage {
     }
   }
   // 해당 영상 삭제
-  static popMangoPlay(folderName: string, id: string) {
+  static popMangoPlay(folderName: string, id: string): boolean {
     if (window.confirm("해당 영상을 삭제 하시겠습니까?")) {
       this.mangoPlayList[folderName] = this.mangoPlayList[folderName].filter(
         (item) => item.id !== id
       );
 
       localStorage.setItem("mangoPlayList", JSON.stringify(this.mangoPlayList));
+      return true;
     } else {
-      return;
+      return false;
     }
   }
   // 해당 플레이 리스트(폴더) 삭제
