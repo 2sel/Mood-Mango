@@ -8,6 +8,7 @@ import {
   IoVolumeHigh,
   IoChevronDown,
   IoPause,
+  IoVolumeMute,
 } from "react-icons/io5";
 import { RiRepeat2Fill, RiRepeatOneFill, RiShuffleFill } from "react-icons/ri";
 import { MdVideoLabel } from "react-icons/md";
@@ -112,6 +113,12 @@ const Icon = ({
       return (
         <StyleIconWrap>
           <MdVideoLabel style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "mute":
+      return (
+        <StyleIconWrap>
+          <IoVolumeMute style={style} size={size} color={color} />
         </StyleIconWrap>
       );
     default:

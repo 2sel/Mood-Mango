@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -26,6 +26,25 @@ interface Type {
 
 const MusicContainer = ({ data, index }: any) => {
   const dispatch = useAppDispatch();
+  const [overdiplay, setOverdisplay] = useState(false);
+  const { isPlay, musicnum } = useAppSelector((state) => state.musicplayer);
+
+  const Overstate: any = ({ overdiplay, index }: any) => {
+    if (index == musicnum) {
+      return (
+        <Overview>
+          <Icon kind="pause" size={20}></Icon>
+        </Overview>
+      );
+    }
+    if (overdiplay) {
+      return (
+        <Overview>
+          <Icon kind="play" size={20}></Icon>
+        </Overview>
+      );
+    }
+  };
 
   useEffect(() => {
     Aos.init();
@@ -40,10 +59,25 @@ const MusicContainer = ({ data, index }: any) => {
         dispatch(shuffleMusic(false));
         moodStorage.addMangoHistory(data);
       }}
+      onMouseOver={() => {
+        setOverdisplay(true);
+      }}
+      onMouseLeave={() => {
+        setOverdisplay(false);
+      }}
     >
-      <img src={data.thumbnail}></img>
-      <RankNumber>{index + 1}</RankNumber>
-      <MusicInfo>
+      <ImgWrap>
+        <img src={data.thumbnail}></img>
+        <Overstate
+          overdiplay={overdiplay}
+          index={index}
+          musicnum={musicnum}
+        ></Overstate>
+      </ImgWrap>
+      <RankNumber overdiplay={overdiplay} index={index} musicnum={musicnum}>
+        {index + 1}
+      </RankNumber>
+      <MusicInfo overdiplay={overdiplay} index={index} musicnum={musicnum}>
         <MusicTitle>{data.title}</MusicTitle>
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
       </MusicInfo>
@@ -83,7 +117,10 @@ const MusicContainerWrap = styled.div`
     background: #1d160f;
   }
 `;
-const RankNumber = styled.div`
+const RankNumber = styled.div<any>`
+  position: relative;
+  left: ${(props) =>
+    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
   font-size: 14px;
   font-weight: 300;
   width: 72px;
@@ -92,8 +129,11 @@ const RankNumber = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const MusicInfo = styled.div`
-  width: 800px;
+const MusicInfo = styled.div<any>`
+  position: relative;
+  left: ${(props) =>
+    props.overdiplay || props.musicnum == props.index ? "-107px" : "0"};
+  max-width: 800px;
   height: 60px;
   display: flex;
   flex-direction: column;
@@ -106,7 +146,6 @@ const MusicTitle = styled.div`
 const MusicViewCount = styled.div`
   font-size: 12px;
   color: #9096a2;
-  width: 400px;
   display: flex;
 `;
 
@@ -116,4 +155,19 @@ const ChannelTitle = styled.div`
   align-items: center;
   margin-left: auto;
   margin-right: 10px;
+`;
+
+const Overview = styled.div`
+  left: -107px;
+  width: 107px;
+  height: 60px;
+  position: relative;
+  background-color: hsl(100 0% 0% / 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImgWrap = styled.div`
+  display: flex;
 `;

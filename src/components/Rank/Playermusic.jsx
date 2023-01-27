@@ -11,6 +11,23 @@ const Playermusic = ({ item, index }) => {
 
   const { isPlay, musicnum } = useAppSelector((state) => state.musicplayer);
 
+  const Overstate = ({ overdiplay, index }) => {
+    if (index == musicnum) {
+      return (
+        <Overview>
+          <Icon kind="pause" size={20}></Icon>
+        </Overview>
+      );
+    }
+    if (overdiplay) {
+      return (
+        <Overview>
+          <Icon kind="play" size={20}></Icon>
+        </Overview>
+      );
+    }
+  };
+
   return (
     <PlayerMusicWrap
       key={item.id}
@@ -27,20 +44,10 @@ const Playermusic = ({ item, index }) => {
     >
       <ImgWrap>
         <img src={item.thumbnail}></img>
-        {/* {overdiplay && (
-          <Overview>
-            <Icon kind="play" size={20}></Icon>
-          </Overview>
-        )}
-        {musicnum == index ? (
-          <Overview>
-            <Icon kind="pause" size={20}></Icon>
-          </Overview>
-        ) : (
-          ""
-        )} */}
+
+        <Overstate overdiplay={overdiplay} index={index}></Overstate>
       </ImgWrap>
-      <MusicInfo>
+      <MusicInfo overdiplay={overdiplay} index={index} musicnum={musicnum}>
         <MusicTitle>{item.title}</MusicTitle>
         <MusicViewCount>{item.channeltitle}</MusicViewCount>
       </MusicInfo>
@@ -65,11 +72,11 @@ const Overview = styled.div`
 `;
 
 const PlayerMusicWrap = styled.div`
+  cursor: pointer;
   padding-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   height: 80px;
   border-bottom: 0.1px solid rgba(255, 255, 255, 0.3);
   &:hover {
@@ -85,6 +92,9 @@ const PlayerMusicWrap = styled.div`
 `;
 
 const MusicInfo = styled.div`
+  position: relative;
+  left: ${(props) =>
+    props.overdiplay || props.musicnum == props.index ? "-60px" : "0"};
   width: 800px;
   height: 60px;
   display: flex;

@@ -17,6 +17,7 @@ import { shuffleMusic } from "../../redux/modules/musicplayer";
 import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
+  const [mute, setMute] = useState(false);
   const [videodiplay, setVideodiplay] = useState(false);
   const [repeatestate, setRepeateState] = useState(false);
 
@@ -113,6 +114,9 @@ const Musicplayer = () => {
 
   useEffect(() => {
     setMusicdata([...musics]);
+  }, [isLoading, musicshuffled]);
+
+  useEffect(() => {
     function handleResize() {
       setWindowSize({
         width: window.innerWidth,
@@ -122,7 +126,7 @@ const Musicplayer = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, [isLoading, musicshuffled]);
+  }, []);
 
   useEffect(() => {
     const rangeWidth = rangeRef.current?.getBoundingClientRect().width;
@@ -257,8 +261,16 @@ const Musicplayer = () => {
                   <Icon kind="repeatall" size={20} />
                 )}
               </RepeateState>
-              <VolumeState>
-                <Icon kind="volume" size={20} />
+              <VolumeState
+                onClick={() => {
+                  setMute((e) => !e);
+                }}
+              >
+                {mute ? (
+                  <Icon kind="mute" size={20} />
+                ) : (
+                  <Icon kind="volume" size={20} />
+                )}
               </VolumeState>
               <SoundSliderWrap>
                 <SoundSliderCover
@@ -292,8 +304,13 @@ const Musicplayer = () => {
             </SoundWrap>
           </MusicplayerWrap>
           <PlayerandList videodiplay={videodiplay}>
+            <PlayerandListBack
+              onClick={() => {
+                setVideodiplay(false);
+              }}
+            ></PlayerandListBack>
             <ReactPlayer
-              volume={soundpercentage / 100}
+              volume={mute ? 0 : soundpercentage / 100}
               url={
                 musicshuffled ? musicdata[musicnum]?.url : musics[musicnum]?.url
               }
@@ -311,8 +328,8 @@ const Musicplayer = () => {
                 dispatch(togglePlay(false));
               }}
               playing={isPlay}
-              width={640}
-              height={400}
+              width="40%"
+              height="50%"
               pip={true}
             ></ReactPlayer>
             {musicshuffled ? (
@@ -351,6 +368,7 @@ const RepeateState = styled.div`
 `;
 const VolumeState = styled.div`
   margin-left: 15px;
+  cursor: pointer;
 `;
 const MarqueeWrap = styled.div`
   width: 150px;
@@ -572,7 +590,16 @@ const PlayerandList = styled.div`
   width: 100vw;
   height: 100vh;
   right: 0;
-  background-color: hsl(100 0% 0% / 0.75);
   bottom: ${(props) => (props.videodiplay ? "0" : "-100vh")};
   transition: all 0.5s;
+`;
+const PlayerandListBack = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  background-color: hsl(100 0% 0% / 0.75);
+  z-index: -1;
 `;
