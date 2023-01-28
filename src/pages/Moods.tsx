@@ -25,9 +25,10 @@ const Background = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   background-color: #000000;
   height: 100vh;
-  width: 100%;
+  /* width: 100%; */
   padding: 50px;
   box-sizing: border-box;
+  min-width: 1200px;
 `;
 
 const MoodsPageHeaderTitle = styled.div`

@@ -36,7 +36,7 @@ const Icon = ({
   style,
   size = 25,
   handler,
-  color = "#ffffff",
+  color = "#ff830a",
 }: IconType) => {
   switch (kind) {
     case "smile":
@@ -154,7 +154,7 @@ const Icon = ({
           <IoVolumeHighOutline style={style} size={size} color={color} />
         </StyleIconWrap>
       );
-      case "tiara":
+    case "tiara":
       return (
         <StyleIconWrap style={{ height: 20 }}>
           <GiTiara style={style} size={size} color={color} />

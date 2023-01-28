@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getMusic } from "../redux/modules/musics";
+import { getMusic, resetPlaylist } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import Icon from "./../components/common/Icon";
@@ -19,11 +19,6 @@ const Search = () => {
   const [searchMusic, setsearchMusic] = useState([]);
   const [searched, setsearched] = useState<any>([]);
 
-  useEffect(() => {
-    dispatch(getMusic(playlistId));
-    Aos.init();
-  }, []);
-
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setUserInput(e.target.value.toLowerCase());
@@ -38,6 +33,11 @@ const Search = () => {
   };
   // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
   // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
+  useEffect((): any => {
+    dispatch(getMusic(playlistId));
+    Aos.init();
+    return () => dispatch(resetPlaylist());
+  }, []);
 
   return (
     <Background>
