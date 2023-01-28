@@ -10,25 +10,16 @@ import {
 import { getPlaylist } from "../../redux/modules/musics";
 import { resetMusic } from "../../redux/modules/musicplayer";
 import { useAppSelector } from "../../hooks/hooks";
+import { moodStorage } from "../common/MoodStorage";
 
 const Item = ({ item, storageData, circleStyle }: any): JSX.Element => {
   const { musicreseted } = useAppSelector((state) => state.musicplayer);
   const dispatch = useAppDispatch();
   return (
     <Card>
-      <Circle
-        style={{
-          width: circleStyle.width,
-          height: circleStyle.height,
-          marginLeft: circleStyle.marginLeft,
-        }}
-      >
-        <img
+      <Circle>
+        <Image
           src={item.thumbnail}
-          style={{
-            width: circleStyle.width,
-            height: circleStyle.height,
-          }}
           onClick={() => {
             dispatch(getPlaylist(storageData));
             dispatch(resetMusic(!musicreseted));
@@ -36,6 +27,7 @@ const Item = ({ item, storageData, circleStyle }: any): JSX.Element => {
             dispatch(PlayerToggle(true));
             dispatch(togglePlay(true));
             dispatch(getMusicNum(item.index));
+            moodStorage.addMangoHistory(item);
           }}
         />
         <Text>{item.title}</Text>
@@ -48,22 +40,17 @@ export default Item;
 const Circle = styled.div`
   border-radius: 100%;
   margin: 20px;
-
-  img {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-  }
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
 `;
-const Title = styled.p`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  font-size: 20px;
+const Image = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
 `;
-
-const Info = styled.div``;
 
 const Card = styled.div`
   font-size: 20px;

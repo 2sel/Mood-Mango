@@ -1,5 +1,5 @@
 import Icon from "../components/common/Icon";
-import Modal from "../components/Rank/Modal";
+import Modal from "../components/common/Modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMusic, resetPlaylist } from "../redux/modules/musics";
@@ -33,6 +33,7 @@ const Rank = () => {
       {modalOpen && <Modal setModalOpen={setModalOpen} data={videoData} />}
       <RankWrap data-aos="fade-up">
         <TitleWrap>인기차트</TitleWrap>
+
         <MusicListWrap>
           {isLoading ? (
             <LoadingWrap>
