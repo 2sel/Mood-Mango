@@ -55,10 +55,7 @@ const Musicplayer = () => {
 
   const durationSet = () => {
     let seconds = Math.floor(reactplayerRef.current?.getDuration());
-    if (seconds == undefined) {
-      setDuration("0:00");
-      return;
-    }
+
     let min = parseInt((seconds % 3600) / 60);
     let sec = seconds % 60;
     if (sec < 10) {
@@ -125,7 +122,7 @@ const Musicplayer = () => {
 
   useEffect(() => {
     setMusicdata([...musics]);
-  }, [isLoading, musicreseted]);
+  }, [isLoading, musicreseted, musics]);
 
   useEffect(() => {
     function handleResize() {
@@ -153,10 +150,6 @@ const Musicplayer = () => {
   }, [windowSize, percentage]);
 
   useEffect(() => {
-    durationSet();
-  }, [percentage]);
-
-  useEffect(() => {
     const soundrangeWidth =
       SoundrangeRef.current?.getBoundingClientRect().width;
     const soundthumbWidth =
@@ -170,6 +163,8 @@ const Musicplayer = () => {
     setSoundMarginLeft(soundcenterThumb);
     setSoundBarWidth(centersoundBar);
   }, [soundpercentage]);
+
+  console.log(windowSize);
 
   return (
     <>
@@ -315,9 +310,13 @@ const Musicplayer = () => {
               ref={reactplayerRef}
               onEnded={skipForward}
               loop={repeatestate}
+              // onDuration={(e) => {
+              //   durationSet(e);
+              // }}
               onProgress={(e) => {
                 getCurrDuration(e);
                 currentSet(e);
+                durationSet();
               }}
               onPlay={() => {
                 dispatch(togglePlay(true));
