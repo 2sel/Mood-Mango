@@ -22,7 +22,7 @@ const SearchList = ({ item }: any) => {
           </LoadingWrap>
         ) : (
           <>
-            {musics.map((data: any, index) => (
+            {musics.map((data: any, index: any) => (
               <MusicContainer
                 key={data.id}
                 index={index}

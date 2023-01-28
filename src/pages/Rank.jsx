@@ -9,17 +9,20 @@ import MusicContainer from "../components/Rank/MusicContainer";
 import BeatLoader from "react-spinners/BeatLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { PlayerToggle } from "../redux/modules/musicplayer";
 
 const Rank = () => {
   const dispatch = useAppDispatch();
-  const { musics, isLoading } = useAppSelector((state) => state.musics);
-  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
+  const { popular, isLoading } = useAppSelector((state) => state.musics);
   const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
   useEffect(() => {
-    dispatch(getMusic(playlistId));
+    // dispatch(getMusic(playlistId));
     Aos.init();
-    return () => dispatch(resetPlaylist());
+    return () => {
+      // dispatch(resetPlaylist());
+      // dispatch(PlayerToggle(false));
+    };
   }, []);
   const [modalOpen, setModalOpen] = useState(false);
   const [videoData, setVideoData] = useState({});
@@ -41,13 +44,14 @@ const Rank = () => {
             </LoadingWrap>
           ) : (
             <>
-              {musics.map((data, index) => (
+              {popular.map((data, index) => (
                 <>
                   <MusicContainer
                     key={data.id}
                     index={index}
                     data={data}
                     showModal={showModal}
+                    genre="popular"
                   ></MusicContainer>
                 </>
               ))}

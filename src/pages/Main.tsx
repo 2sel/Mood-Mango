@@ -12,8 +12,9 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const datas = useAppSelector((state) => state.categories);
-  const { musics, isLoading } = useAppSelector((state) => state.musics);
+  const musicsdata = useAppSelector((state) => state.musics);
   const buttonState = useAppSelector((state) => state.Navbar);
+  const [genre, setGenre] = useState("");
 
   interface IMap {
     [key: string]: string;
@@ -44,8 +45,11 @@ const Main = () => {
   //   | "로파이";
 
   const onClickHandler = (data: any) => {
-    const id = idMap[data];
-    dispatch(getMusic(id));
+    setGenre(data);
+    console.log(genre);
+
+    // const id = idMap[data];
+    // dispatch(getMusic(id));
     // switch (data) {
     //   case "뉴에이지":
     //     id = "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd";
@@ -87,7 +91,7 @@ const Main = () => {
     setVideoData(data);
   };
   useEffect((): any => {
-    return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
+    // return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
   }, []);
 
   return (
@@ -121,17 +125,18 @@ const Main = () => {
               })}
             </StyleCategoryWrap>
             <MusicListWrap>
-              {isLoading ? (
+              {musicsdata.isLoading ? (
                 <LoadingWrap>
                   <BeatLoader color="#FF830A" />
                 </LoadingWrap>
               ) : (
                 <>
-                  {musics.map((data, index) => (
+                  {musicsdata[genre]?.map((data: any, index: any) => (
                     <MusicContainer
                       key={index}
                       index={index}
                       data={data}
+                      genre={genre}
                     ></MusicContainer>
                   ))}
                 </>
