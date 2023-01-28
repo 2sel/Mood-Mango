@@ -22,31 +22,23 @@ const Search = () => {
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setUserInput(e.target.value.toLowerCase());
-    // console.log(userInput);
-
-    // setsearched(() => {
-
-    //   return musics.filter((item: any) =>
-    //     item.title.toLowerCase().includes(userInput)
-    //   );
-    // });
   };
-  // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
-  // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-  useEffect((): any => {
-    dispatch(getMusic(playlistId));
-    Aos.init();
-    return () => dispatch(resetPlaylist());
-  }, []);
+
+  const onclickHandler =
+    // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
+    // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
+    useEffect((): any => {
+      Aos.init(); // 애니메이션
+    }, []);
 
   return (
     <Background>
       <SearchWrap>
-        <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
+        <SearchTitle>듣고싶은 노래제목을 검색해보세요.</SearchTitle>
         <SearchInputBox>
           <SearchInput
             type="text"
-            placeholder="분위기를 입력해주세요"
+            placeholder="제목을 입력해주세요"
             value={userInput}
             onChange={getValue}
           />
