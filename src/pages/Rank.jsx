@@ -83,6 +83,7 @@ const MusicListWrap = styled.div`
   margin-top: 108px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 90px;
 `;
 const LoadingWrap = styled.div`
   color: white;

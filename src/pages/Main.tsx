@@ -49,18 +49,18 @@ const Main = () => {
 
   return (
     <StyleBackground>
-      <StyleWrap>
-        {buttonState === false ? (
-          <>
-            <StyleAlertWrap>
-              <StyleMoodTitle>먼저 무드를 선택해 주세요!</StyleMoodTitle>
-              <StyleMoodButton onClick={() => navigate("/")}>
-                선택하러 가기
-              </StyleMoodButton>
-            </StyleAlertWrap>
-          </>
-        ) : (
-          <>
+      {buttonState === false ? (
+        <>
+          <StyleAlertWrap>
+            <StyleMoodTitle>먼저 무드를 선택해 주세요!</StyleMoodTitle>
+            <StyleMoodButton onClick={() => navigate("/")}>
+              선택하러 가기
+            </StyleMoodButton>
+          </StyleAlertWrap>
+        </>
+      ) : (
+        <StyleMainWrap>
+          <StyleComponentWrap>
             <StyleTitle>
               주문하신 무드에 맞는 음악장르가 나왔습니다 &nbsp;
               <Icon kind="music" size={27} />
@@ -94,25 +94,33 @@ const Main = () => {
                 </>
               )}
             </MusicListWrap>
-          </>
-        )}
-      </StyleWrap>
+          </StyleComponentWrap>
+        </StyleMainWrap>
+      )}
     </StyleBackground>
   );
 };
 
-const StyleBackground = styled.div`
-  background-color: #000000;
-  height: 100vh;
-  width: 100%;
-  padding: 50px 50px 0 50px;
-  box-sizing: border-box;
-`;
-
-const StyleWrap = styled.div`
+const StyleComponentWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+`;
+
+const StyleMainWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const StyleBackground = styled.div`
+  background-color: #000000;
+  /* height: 100vh; */
+  padding: 50px 50px 0 50px;
+  box-sizing: border-box;
+  min-width: 1200px;
+  min-height: 100vh;
 `;
 
 const StyleTitle = styled.div`
@@ -120,12 +128,13 @@ const StyleTitle = styled.div`
   font-weight: 600;
   font-size: 25px;
   color: #ffffff;
-  margin-bottom: 30px;
+  margin-bottom: 45px;
+  margin-top: 10px;
 `;
 
 const StyleCategoryWrap = styled.div`
-  width: 100%;
-  max-width: 700px;
+  /* width: 100%; */
+  max-width: 600px;
   height: 100px;
   display: flex;
   gap: 20px;
@@ -167,6 +176,7 @@ const StyleCategoryItem = styled.button`
 `;
 
 const StyleAlertWrap = styled.div`
+  /* margin: auto 0; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,7 +195,7 @@ const StyleMoodButton = styled.button`
   background-color: #ffb52b;
   color: white;
   padding: 25px 20px;
-  margin-top: 70px;
+  margin-top: 40px;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
@@ -199,10 +209,13 @@ const StyleMoodButton = styled.button`
 `;
 
 const MusicListWrap = styled.div`
-  margin-top: 108px;
+  margin-top: 78px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 90px;
 `;
+
 const LoadingWrap = styled.div`
   color: white;
   margin-top: 108px;

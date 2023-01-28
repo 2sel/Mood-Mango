@@ -9,23 +9,23 @@ type Props = {
 const Layout = ({ children }: Props) => {
   return (
     <StyledWrap>
-      <Navbar />
       <StyleChildWrap>{children}</StyleChildWrap>
+      <Navbar />
     </StyledWrap>
   );
 };
 
 const StyledWrap = styled.div`
+  position: relative;
   width: 100%;
-  height: 100vh;
-  background-color: #fff;
+  min-height: 100%;
+  background-color: #000;
   display: flex;
   flex-direction: row;
 `;
 
 const StyleChildWrap = styled.div`
   padding-left: 100px;
-  margin-bottom: 12rem;
   width: 100%;
 `;
 
