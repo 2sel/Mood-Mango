@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Icon from "../components/common/Icon";
 import { getMusic, resetPlaylist } from "../redux/modules/musics";
@@ -6,8 +6,8 @@ import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import BeatLoader from "react-spinners/BeatLoader";
 import MusicContainer from "../components/Rank/MusicContainer";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
+import Modal from "../components/common/Modal";
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -79,7 +79,13 @@ const Main = () => {
     //     return dispatch(getMusic(id));
     // }
   };
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [videoData, setVideoData] = useState({});
+  // 모달창 노출
+  const showModal = (data: any) => {
+    setModalOpen(true);
+    setVideoData(data);
+  };
   useEffect((): any => {
     return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
   }, []);
