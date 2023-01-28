@@ -55,7 +55,6 @@ const Musicplayer = () => {
 
   const durationSet = () => {
     let Seconds = Math.floor(reactplayerRef.current?.getDuration());
-    console.log(Seconds);
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
@@ -89,7 +88,6 @@ const Musicplayer = () => {
 
   const currentSet = ({ playedSeconds }) => {
     let Seconds = Math.floor(playedSeconds);
-    console.log(Seconds);
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
