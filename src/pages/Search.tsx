@@ -22,7 +22,7 @@ const Search = () => {
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setUserInput(e.target.value.toLowerCase());
-    console.log(userInput);
+    // console.log(userInput);
 
     // setsearched(() => {
 

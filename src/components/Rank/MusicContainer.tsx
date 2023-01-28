@@ -10,6 +10,7 @@ import { moodStorage } from "../common/MoodStorage";
 import "aos/dist/aos.css";
 import { getMusicNum, togglePlay } from "../../redux/modules/musicplayer";
 import { resetMusic, getCurrentMusic } from "../../redux/modules/musicplayer";
+import { requestPlaylist } from "../../redux/modules/musics";
 
 interface MusicdataType {
   id: string;
@@ -24,13 +25,8 @@ interface Type {
   Imgurl: string;
 }
 
-const MusicContainer = ({ data, index, showModal }: any) => {
+const MusicContainer = ({ data, index, showModal, genre }: any) => {
   const [modalOpen, setModalOpen] = useState(false);
-
-  // 모달창 노출
-  // const showModal = () => {
-  //   setModalOpen(true);
-  // };
   const dispatch = useAppDispatch();
   const [overdiplay, setOverdisplay] = useState(false);
   const { isPlay, musicnum, currentmusic, musicreseted } = useAppSelector(
@@ -38,6 +34,7 @@ const MusicContainer = ({ data, index, showModal }: any) => {
   );
 
   const OnPlay = () => {
+    dispatch(requestPlaylist(genre));
     dispatch(resetMusic(!musicreseted));
     dispatch(getMusicNum(index));
     dispatch(PlayerToggle(true));
@@ -149,6 +146,7 @@ const MusicContainerWrap = styled.div`
     background: #1d160f;
   }
 `;
+
 const RankNumber = styled.div<any>`
   position: relative;
   left: ${(props) =>
@@ -161,6 +159,7 @@ const RankNumber = styled.div<any>`
   justify-content: center;
   align-items: center;
 `;
+
 const MusicInfo = styled.div<any>`
   position: relative;
   left: ${(props) =>

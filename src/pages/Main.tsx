@@ -12,8 +12,9 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const datas = useAppSelector((state) => state.categories);
-  const { musics, isLoading } = useAppSelector((state) => state.musics);
+  const musicsdata = useAppSelector((state) => state.musics);
   const buttonState = useAppSelector((state) => state.Navbar);
+  const [genre, setGenre] = useState("");
 
   interface IMap {
     [key: string]: string;
@@ -33,8 +34,7 @@ const Main = () => {
   };
 
   const onClickHandler = (data: any) => {
-    const id = idMap[data];
-    dispatch(getMusic(id));
+    setGenre(data);
   };
   const [modalOpen, setModalOpen] = useState(false);
   const [videoData, setVideoData] = useState({});
@@ -43,9 +43,7 @@ const Main = () => {
     setModalOpen(true);
     setVideoData(data);
   };
-  useEffect((): any => {
-    return () => dispatch(resetPlaylist());
-  }, []);
+  useEffect((): any => {}, []);
 
   return (
     <StyleBackground>
@@ -78,17 +76,18 @@ const Main = () => {
               })}
             </StyleCategoryWrap>
             <MusicListWrap>
-              {isLoading ? (
+              {musicsdata.isLoading ? (
                 <LoadingWrap>
                   <BeatLoader color="#FF830A" />
                 </LoadingWrap>
               ) : (
                 <>
-                  {musics.map((data, index) => (
+                  {musicsdata[genre]?.map((data: any, index: any) => (
                     <MusicContainer
                       key={index}
                       index={index}
                       data={data}
+                      genre={genre}
                     ></MusicContainer>
                   ))}
                 </>
