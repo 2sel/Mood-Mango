@@ -164,8 +164,6 @@ const Musicplayer = () => {
     setSoundBarWidth(centersoundBar);
   }, [soundpercentage]);
 
-  console.log(windowSize);
-
   return (
     <>
       {playerdisplay && (
