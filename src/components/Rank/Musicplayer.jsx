@@ -58,7 +58,7 @@ const Musicplayer = () => {
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
-    if (Seconds > 3600) {
+    if (Seconds >= 3600) {
       if (min < 10) {
         if (sec < 10) {
           setDuration(`${hour}:0${min}:0${sec}`);
@@ -91,7 +91,7 @@ const Musicplayer = () => {
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
-    if (Seconds > 3600) {
+    if (Seconds >= 3600) {
       if (min < 10) {
         if (sec < 10) {
           setCurrent(`${hour}:0${min}:0${sec}`);
