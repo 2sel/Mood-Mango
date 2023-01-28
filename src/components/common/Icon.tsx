@@ -4,6 +4,7 @@ import {
   AiOutlineArrowRight,
   AiOutlineArrowLeft,
 } from "react-icons/ai";
+
 import { GiTiara, GiFruitBowl } from "react-icons/gi";
 
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
@@ -17,7 +18,7 @@ import {
   IoVolumeMute,
   IoVolumeHighOutline,
 } from "react-icons/io5";
-import { BsTrashFill } from "react-icons/bs";
+import { BsTrashFill, BsHeadphones, BsBarChart } from "react-icons/bs";
 import { RiRepeat2Fill, RiRepeatOneFill, RiShuffleFill } from "react-icons/ri";
 import { MdVideoLabel } from "react-icons/md";
 
@@ -164,6 +165,18 @@ const Icon = ({
       return (
         <StyleIconWrap style={{ height: 20 }}>
           <GiFruitBowl style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "headSet":
+      return (
+        <StyleIconWrap>
+          <BsHeadphones style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "chart":
+      return (
+        <StyleIconWrap>
+          <BsBarChart style={style} size={size} color={color} />
         </StyleIconWrap>
       );
 

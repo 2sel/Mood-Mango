@@ -97,11 +97,11 @@ const CategoryListBtn = styled.button`
   box-sizing: border-box;
   cursor: pointer;
   &:hover {
-    border: 2px #ffb52b solid;
+    border: 2px #ff830a solid;
   }
 
   &:focus {
-    background-color: #ffb52b;
+    background-color: #ff830a;
   }
 `;
 
@@ -114,7 +114,7 @@ const MoodPlayDiv = styled.div`
 const MoodPlayBtn = styled.button`
   font-family: "Noto Sans KR", sans-serif;
   width: 160px;
-  background-color: #ffb52b;
+  background-color: #ff830a;
   color: white;
   padding: 25px 20px;
   margin-top: 70px;

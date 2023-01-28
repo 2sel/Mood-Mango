@@ -87,7 +87,7 @@ const MusicContainer = ({ data, index, dataList, popItem, name }: any) => {
         onClick={() => popItem(name, data.id)}
         style={{ all: "unset", cursor: "pointer" }}
       >
-        <Icon kind={"trash"} color={"#ffb52b"} />
+        <Icon kind={"trash"} color={"#ff830a"} />
       </button>
     </MusicContainerWrap>
   );
