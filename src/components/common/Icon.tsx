@@ -4,7 +4,7 @@ import {
   AiOutlineArrowRight,
   AiOutlineArrowLeft,
 } from "react-icons/ai";
-import { GiTiara } from "react-icons/gi";
+import { GiTiara, GiFruitBowl } from "react-icons/gi";
 
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
 import {
@@ -160,6 +160,13 @@ const Icon = ({
           <GiTiara style={style} size={size} color={color} />
         </StyleIconWrap>
       );
+    case "mango":
+      return (
+        <StyleIconWrap style={{ height: 20 }}>
+          <GiFruitBowl style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+
     default:
       return <p>"케이스문 확인욤~"</p>;
   }

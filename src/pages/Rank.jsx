@@ -1,5 +1,5 @@
 import Icon from "../components/common/Icon";
-import Modal from "../components/Rank/Modal";
+import Modal from "../components/common/Modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMusic, resetPlaylist } from "../redux/modules/musics";
@@ -19,7 +19,7 @@ const Rank = () => {
   useEffect(() => {
     dispatch(getMusic(playlistId));
     Aos.init();
-    return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
+    return () => dispatch(resetPlaylist());
   }, []);
   const [modalOpen, setModalOpen] = useState(false);
   const [videoData, setVideoData] = useState({});
@@ -33,6 +33,7 @@ const Rank = () => {
       {modalOpen && <Modal setModalOpen={setModalOpen} data={videoData} />}
       <RankWrap data-aos="fade-up">
         <TitleWrap>인기차트</TitleWrap>
+
         <MusicListWrap>
           {isLoading ? (
             <LoadingWrap>
