@@ -9,27 +9,16 @@ import { useAppDispatch } from "../../hooks/hooks";
 import "aos/dist/aos.css";
 
 const MyPlayList = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  // const playlistId = "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP";
-  //const playlistId = "PLSUHIk4VSHCUT6yEZuwVRuXjjOUeQqxhl";
-
-  // useEffect(() => {
-  //   dispatch(getaddMusic(playlistId));
-  //   Aos.init();
-  // }, []);
-
-  const [foldersNameData, setFoldersNameData] = useState(
+  const [playList, setPlayList] = useState(
     Object.keys(moodStorage.getMangoPlayList())
   );
-  const [folderListData, setFolderListData] = useState(
+  const [playListData, setPlayListData] = useState(
     Object.values(moodStorage.getMangoPlayList())
   );
 
-  const [showList, setShowList] = useState(true);
-
   const initList = () => {
-    setFoldersNameData(Object.keys(moodStorage.getMangoPlayList()));
-    setFolderListData(Object.values(moodStorage.getMangoPlayList()));
+    setPlayList(Object.keys(moodStorage.getMangoPlayList()));
+    setPlayListData(Object.values(moodStorage.getMangoPlayList()));
   };
   const clearFolder = (folderName: string) => {
     moodStorage.clearMangoPlay(folderName);
@@ -46,68 +35,49 @@ const MyPlayList = (): JSX.Element => {
     initList();
   };
 
-  useEffect(() => {
-    Aos.init();
-  }, []);
-
   return (
     <>
-      <div>내 플레이 리스트</div>
+      <div>마이 플레이 리스트</div>
       <ThisContents>
-        {foldersNameData.length > 0 ? (
+        {playList.length > 0 ? (
           <>
-            {foldersNameData.map((name, index) => {
+            {playList.map((playListName, index) => {
               return (
-                <PlayList key={index}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <p style={{ color: "#ffb52b", fontSize: 20, margin: 15 }}>
-                      {name}
-                    </p>
-                    <p
-                      style={{ color: "grey", fontSize: 15, margin: 15 }}
-                      onClick={() => popFolder(name)}
-                    >
+                <PlayListWrap key={index}>
+                  <PlayList>
+                    <PlayListName>{playListName}</PlayListName>
+                    <Clear onClick={() => popFolder(playListName)} display={1}>
                       폴더 삭제
-                    </p>
-                    <p
-                      style={{
-                        color: "grey",
-                        fontSize: 15,
-                        margin: 15,
-                        display:
-                          folderListData[index].length === 0 ? "none" : "flex",
-                      }}
-                      onClick={() => clearFolder(name)}
+                    </Clear>
+                    <Clear
+                      display={playList[index].length}
+                      onClick={() => clearFolder(playListName)}
                     >
                       전체삭제
-                    </p>
-                  </div>
+                    </Clear>
+                  </PlayList>
 
-                  {folderListData[index].length > 0 ? (
-                    // <div style={{ marginBottom: 40 }}>
+                  {playListData[index].length > 0 ? (
                     <>
-                      {folderListData[index].map((item, idx) => {
+                      {playListData[index].map((item, idx) => {
                         return (
-                          <div style={{ display: "flex" }}>
+                          <PlayListData>
                             <MyMusicContainer
                               data={item}
                               index={idx}
                               key={idx}
-                              dataList={folderListData[index]}
-                              name={name}
+                              dataList={playListData[index]}
+                              name={playListName}
                               popItem={popItem}
                             />
-                            {/* <button onClick={() => popItem(name, item.id)}>
-                              x
-                            </button> */}
-                          </div>
+                          </PlayListData>
                         );
                       })}
                     </>
                   ) : (
                     <>저장한 데이터가 없습니다</>
                   )}
-                </PlayList>
+                </PlayListWrap>
               );
             })}
           </>
@@ -129,11 +99,32 @@ const ThisContents = styled.div`
 `;
 
 const PlayList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+const PlayListWrap = styled.div`
   flex-direction: column;
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 50px;
 `;
-const Title = styled.div`
-  /* margin: 30px; */
+const Clear = styled.p<{ display: number }>`
+  color: grey;
+  font-size: 15px;
+  display: ${(props) => (!!props.display ? "flex" : "none")};
+  margin-top: 4px;
+
+  margin-left: 5px;
+  cursor: pointer;
+`;
+
+const PlayListName = styled.p`
+  color: #ffb52b;
+  font-size: 20;
+  margin: 15;
+`;
+
+const PlayListData = styled.div`
+  display: flex;
 `;

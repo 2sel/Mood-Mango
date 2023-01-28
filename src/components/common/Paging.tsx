@@ -11,7 +11,7 @@ const Paging = (props: any) => {
   // 예시 )
   // ㅇㅇㅇㅇㅇ|ㅇㅇㅇㅇㅇ|ㅇㅇ
   // 01234|56789|1011 (index)
-  // 1페이지  |  2페이지| 3페이지
+  // 1index  |  2index| 3index
 
   // 현재 페이지 설정, 0번 인덱스로 초기값 설정
 
@@ -24,41 +24,33 @@ const Paging = (props: any) => {
   // 이전 버튼은 처음에 보여주지 않아야함.
   const [prevPage, setPrevPage] = useState(false);
 
-  // 더보기/간략히 상태값
-  // false면 더보기가 보일꺼고 true이면 간략히 버튼이 보일꺼임
-  const [detaily, setDetaily] = useState(false);
-  // 간략히 볼때는 flex, 더보기 볼때는 block으로
-  const [howFlex, setHowFlex] = useState("flex");
-
   // 앞으로,뒤로 버튼 클릭시
-  const pageHandler = (nowPage: number) => {
-    // 지금 nowPage에서 +5, 또는 -5 로 들어올꺼임
-    // 그래야 페이지 이동이 가능함
-    props.setNowPage(nowPage);
+  const pageHandler = (indexPage: number) => {
+    props.setIndexPage(indexPage);
     // 이전 버튼 표시 여부
     setPrevPage(() => {
-      return nowPage >= 5 ? true : false;
+      return indexPage >= 1 ? true : false;
     });
     // 앞으로 버튼 표시 여부
     setNextPage(() => {
-      return nowPage < props.totalPage - 5 ? true : false;
+      return indexPage < props.totalCount / 5 - 1 ? true : false;
     });
   };
 
   useEffect(() => {
     setPrevPage(() => {
-      return props.nowPage >= 5 ? true : false;
+      return props.indexPage >= 1 ? true : false;
     });
 
     setNextPage(() => {
-      return props.nowPage < props.totalPage - 5 ? true : false;
+      return props.indexPage < props.totalCount / 5 - 1 ? true : false;
     });
-  }, [props.nowPage, props.totalPage]);
+  }, [props.indexPage, props.totalCount]);
 
   const pagingSort = () => {
     const result = [];
 
-    for (let i = props.nowPage; i < props.totalPage; i++) {
+    for (let i = props.indexPage * 5; i < props.totalCount; i++) {
       result.push(
         <div style={{ textAlign: "center", display: "block" }}>
           <Item
@@ -85,19 +77,19 @@ const Paging = (props: any) => {
     <Wrapper>
       {prevPage && (
         <button
-          onClick={() => pageHandler(props.nowPage - 5)}
+          onClick={() => pageHandler(props.indexPage - 1)}
           style={{ all: "unset" }}
         >
-          <Icon kind={"leftArrow"} color={"#ffb52b"} />
+          <Icon kind={"leftArrow"} color={"#ffb52b"} size={40} />
         </button>
       )}
       {pagingSort()}
       {nextPage && (
         <button
-          onClick={() => pageHandler(props.nowPage + 5)}
+          onClick={() => pageHandler(props.indexPage + 1)}
           style={{ all: "unset" }}
         >
-          <Icon kind={"rightArrow"} color={"#ffb52b"} />
+          <Icon kind={"rightArrow"} color={"#ffb52b"} size={40} />
         </button>
       )}
     </Wrapper>
