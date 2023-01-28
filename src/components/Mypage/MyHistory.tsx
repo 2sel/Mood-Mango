@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { DataType, moodStorage } from "../common/MoodStorage";
 import styled from "styled-components";
-
+import { Introduce, Clear, Alarm, IconArea } from "./style";
 import Paging from "../common/Paging";
+import Icon from "../common/Icon";
 
 const MyHistory = () => {
   const [mangoHistory, setMangoHistory] = useState(
@@ -14,7 +15,7 @@ const MyHistory = () => {
     moodStorage.getMangoHistory().length ?? 0
   );
 
-  const itemPopper = (data: any) => {
+  const itemPopper = (data: DataType) => {
     if (moodStorage.popMangoHistory(data.id)) {
       alert("삭제 성공");
       setMangoHistory(moodStorage.getMangoHistory());
@@ -39,8 +40,20 @@ const MyHistory = () => {
   return (
     <>
       <Introduce>
-        내가 들었던 곡
-        <Clear onClick={clearHistory} display={mangoHistory.length}>
+        내가 들었던 곡{" "}
+        <IconArea>
+          <Icon
+            kind={"headSet"}
+            size={60}
+            style={{ position: "absolute", left: 15, top: 12 }}
+            color={"white"}
+          />
+        </IconArea>
+        <Clear
+          onClick={clearHistory}
+          display={mangoHistory.length}
+          width={1350}
+        >
           전체삭제
         </Clear>
       </Introduce>
@@ -68,26 +81,8 @@ const MyHistory = () => {
 export default MyHistory;
 
 const ThisContents = styled.div`
-  width: 100%;
-  text-align: center;
+  width: 1350px;
   display: flex;
-  margin: 10px 0px;
-  flex-direction: row;
+  margin: 0 auto;
   height: 300px;
-`;
-
-const Alarm = styled.p`
-  font-size: 20px;
-`;
-
-const Introduce = styled.div`
-  display: flex;
-`;
-
-const Clear = styled.p<{ display: number }>`
-  color: grey;
-  font-size: 15px;
-  display: ${(props) => (!!props.display ? "flex" : "none")};
-  margin-top: 28px;
-  cursor: pointer;
 `;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Item from "./ImageCircle";
 import { moodStorage } from "../common/MoodStorage";
+import { Introduce, Alarm, IconArea } from "./style";
 import Icon from "../common/Icon";
 const MyRank = () => {
   const [mangoRank, setMangoRank] = useState(() => {
@@ -16,7 +17,17 @@ const MyRank = () => {
 
   return (
     <>
-      <div>가장 많이 들었던 곡</div>
+      <Introduce>
+        가장 많이 들었던 곡{" "}
+        <IconArea>
+          <Icon
+            kind={"chart"}
+            size={60}
+            style={{ position: "absolute", left: 12, top: 13 }}
+            color={"white"}
+          />
+        </IconArea>
+      </Introduce>
       <ThisContents
         style={{ justifyContent: mangoRank.length === 3 ? "center" : "left" }}
       >
@@ -29,16 +40,16 @@ const MyRank = () => {
                 item={{ ...mangoRank[2], index: 2 }}
                 storageData={mangoRank}
               />
-              <Text>조회수 : {mangoRank[2].count}</Text>
+              <Text>들은 횟수 : {mangoRank[2].count}</Text>
             </Wrapper>
             <Wrapper>
-              <Icon kind={"tiara"} color={"#ffb52b"} size={50} />
+              <Icon kind={"tiara"} size={50} color={"#ff830a"} />
               <Item // 1등
                 key={0}
                 item={{ ...mangoRank[0], index: 0 }}
                 storageData={mangoRank}
               />
-              <Text>조회수 : {mangoRank[0].count}</Text>
+              <Text>들은 횟수 : {mangoRank[0].count}</Text>
             </Wrapper>
             <Wrapper>
               <Icon kind={"tiara"} color={"silver"} />
@@ -47,7 +58,7 @@ const MyRank = () => {
                 item={{ ...mangoRank[1], index: 1 }}
                 storageData={mangoRank}
               />
-              <Text>조회수 : {mangoRank[1].count}</Text>
+              <Text>들은 횟수 : {mangoRank[1].count}</Text>
             </Wrapper>
           </>
         ) : (
@@ -62,21 +73,19 @@ export default MyRank;
 
 const ThisContents = styled.div`
   width: 100%;
-  height: 500px;
+  height: 300px;
   display: flex;
 
   flex-direction: row;
 `;
 
 const Wrapper = styled.div`
-  margin-top: 90px;
+  margin-top: 10px;
   text-align: center;
-`;
-const Alarm = styled.p`
-  font-size: 20px;
 `;
 
 const Text = styled.p`
   color: gray;
   font-size: 15px;
+  margin-top: 40px;
 `;

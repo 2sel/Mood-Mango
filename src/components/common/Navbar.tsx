@@ -37,7 +37,7 @@ const Navbar = () => {
           }}
         >
           <StyleIconWrap>
-            <BsBarChart></BsBarChart>
+            <Icon kind={"chart"} />
           </StyleIconWrap>
           <StyleText>인기차트</StyleText>
         </StyleBtnWrap>

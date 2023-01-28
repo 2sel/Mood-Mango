@@ -78,7 +78,7 @@ const Main = () => {
             <MusicListWrap>
               {musicsdata.isLoading ? (
                 <LoadingWrap>
-                  <BeatLoader color="#FF830A" />
+                  <BeatLoader color="#ff830a" />
                 </LoadingWrap>
               ) : (
                 <>
@@ -166,11 +166,11 @@ const StyleCategoryItem = styled.button`
   border-radius: 20px;
   cursor: pointer;
   &:hover {
-    border: 2px #ffb52b solid;
+    border: 2px #ff830a solid;
     transform: translateY(3px);
   }
   &:focus {
-    background-color: #ffb52b;
+    background-color: #ff830a;
   }
 `;
 
@@ -191,7 +191,7 @@ const StyleMoodTitle = styled.div`
 
 const StyleMoodButton = styled.button`
   width: 190px;
-  background-color: #ffb52b;
+  background-color: #ff830a;
   color: white;
   padding: 25px 20px;
   margin-top: 40px;

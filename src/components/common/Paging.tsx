@@ -52,22 +52,20 @@ const Paging = (props: any) => {
 
     for (let i = props.indexPage * 5; i < props.totalCount; i++) {
       result.push(
-        <div style={{ textAlign: "center", display: "block" }}>
+        <ItemArea>
           <Item
             key={i}
             storageData={props.dataList}
             item={{ ...props.dataList[i], index: i }}
-            circleStyle={{ width: 180, height: 180 }}
           />
-          <button
+          <Button
             onClick={() =>
               props.itemPopper(props.dataList[i], props.folderName)
             }
-            style={{ all: "unset" }}
           >
-            <Icon kind={"trash"} color={"#ffb52b"} />
-          </button>
-        </div>
+            <Icon kind={"trash"} color={"#ff830a"} style={{ marginTop: 35 }} />
+          </Button>
+        </ItemArea>
       );
       if (result.length === 5) break; //5개씩 뽑을꺼여서
     }
@@ -75,23 +73,21 @@ const Paging = (props: any) => {
   };
   return (
     <Wrapper>
-      {prevPage && (
-        <button
-          onClick={() => pageHandler(props.indexPage - 1)}
-          style={{ all: "unset" }}
-        >
-          <Icon kind={"leftArrow"} color={"#ffb52b"} size={40} />
-        </button>
-      )}
+      <ButtonArea>
+        {prevPage && (
+          <Button onClick={() => pageHandler(props.indexPage - 1)}>
+            <Icon kind={"leftArrow"} size={40} color={"#ff830a"} />
+          </Button>
+        )}
+      </ButtonArea>
       {pagingSort()}
-      {nextPage && (
-        <button
-          onClick={() => pageHandler(props.indexPage + 1)}
-          style={{ all: "unset" }}
-        >
-          <Icon kind={"rightArrow"} color={"#ffb52b"} size={40} />
-        </button>
-      )}
+      <ButtonArea>
+        {nextPage && (
+          <Button onClick={() => pageHandler(props.indexPage + 1)}>
+            <Icon kind={"rightArrow"} size={40} color={"#ff830a"} />
+          </Button>
+        )}
+      </ButtonArea>
     </Wrapper>
   );
 };
@@ -99,5 +95,22 @@ const Paging = (props: any) => {
 export default Paging;
 const Wrapper = styled.div`
   display: flex;
-  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 25px;
+  .button {
+    cursor: pointer;
+  }
+`;
+
+const Button = styled.button`
+  all: unset;
+  cursor: pointer;
+`;
+
+const ButtonArea = styled.div`
+  width: 50px;
+`;
+const ItemArea = styled.div`
+  display: block;
 `;
