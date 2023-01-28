@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { moodStorage } from "../common/MoodStorage";
 import MyMusicContainer from "../Rank/MyMusicContainer";
-import Aos from "aos";
-import { useAppDispatch } from "../../hooks/hooks";
+import Icon from "../common/Icon";
+import { Introduce, Clear, IconArea } from "./style";
 
 import "aos/dist/aos.css";
 
@@ -37,7 +37,17 @@ const MyPlayList = (): JSX.Element => {
 
   return (
     <>
-      <div>마이 플레이 리스트</div>
+      <Introduce>
+        마이 플레이 리스트{" "}
+        <IconArea>
+          <Icon
+            kind={"cloud"}
+            size={60}
+            style={{ position: "absolute", left: 15, top: 12 }}
+            color={"white"}
+          />
+        </IconArea>
+      </Introduce>
       <ThisContents>
         {playList.length > 0 ? (
           <>
@@ -46,12 +56,21 @@ const MyPlayList = (): JSX.Element => {
                 <PlayListWrap key={index}>
                   <PlayList>
                     <PlayListName>{playListName}</PlayListName>
-                    <Clear onClick={() => popFolder(playListName)} display={1}>
+                    <Clear
+                      onClick={() => popFolder(playListName)}
+                      display={1}
+                      marginTop={2}
+                      marginLeft={10}
+                      marginRight={1}
+                    >
                       폴더 삭제
                     </Clear>
+
                     <Clear
                       display={playList[index].length}
                       onClick={() => clearFolder(playListName)}
+                      marginTop={2}
+                      marginLeft={2}
                     >
                       전체삭제
                     </Clear>
@@ -109,18 +128,9 @@ const PlayListWrap = styled.div`
   margin-left: 15%;
   margin-top: 50px;
 `;
-const Clear = styled.p<{ display: number }>`
-  color: grey;
-  font-size: 15px;
-  display: ${(props) => (!!props.display ? "flex" : "none")};
-  margin-top: 4px;
-
-  margin-left: 5px;
-  cursor: pointer;
-`;
 
 const PlayListName = styled.p`
-  color: #ffb52b;
+  color: #ff830a;
   font-size: 20;
   margin: 15;
 `;

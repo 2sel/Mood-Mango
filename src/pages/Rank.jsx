@@ -71,6 +71,7 @@ const Background = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
+  padding-bottom: 90px;
 `;
 const RankWrap = styled.div`
   width: 100%;

@@ -54,25 +54,68 @@ const Musicplayer = () => {
   const dispatch = useAppDispatch();
 
   const durationSet = () => {
-    let seconds = Math.floor(reactplayerRef.current?.getDuration());
-
-    let min = parseInt((seconds % 3600) / 60);
-    let sec = seconds % 60;
+    let Seconds = Math.floor(reactplayerRef.current?.getDuration());
+    let hour = parseInt(Seconds / 3600);
+    let min = parseInt((Seconds % 3600) / 60);
+    let sec = Seconds % 60;
+    if (Seconds >= 3600) {
+      if (min < 10) {
+        if (sec < 10) {
+          setDuration(`${hour}:0${min}:0${sec}`);
+          return;
+        } else {
+          setDuration(`${hour}:0${min}:${sec}`);
+          return;
+        }
+      } else {
+        if (sec < 10) {
+          setDuration(`${hour}:${min}:0${sec}`);
+          return;
+        } else {
+          setDuration(`${hour}:${min}:${sec}`);
+          return;
+        }
+      }
+    }
     if (sec < 10) {
       setDuration(`${min}:0${sec}`);
+      return;
     } else {
       setDuration(`${min}:${sec}`);
+      return;
     }
   };
 
   const currentSet = ({ playedSeconds }) => {
     let Seconds = Math.floor(playedSeconds);
+    let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
+    if (Seconds >= 3600) {
+      if (min < 10) {
+        if (sec < 10) {
+          setCurrent(`${hour}:0${min}:0${sec}`);
+          return;
+        } else {
+          setCurrent(`${hour}:0${min}:${sec}`);
+          return;
+        }
+      } else {
+        if (sec < 10) {
+          setCurrent(`${hour}:${min}:0${sec}`);
+          return;
+        } else {
+          setCurrent(`${hour}:${min}:${sec}`);
+          return;
+        }
+      }
+    }
     if (sec < 10) {
       setCurrent(`${min}:0${sec}`);
+      return;
     } else {
       setCurrent(`${min}:${sec}`);
+      return;
     }
   };
 

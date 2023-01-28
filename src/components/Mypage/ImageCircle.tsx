@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useAppDispatch } from "../../hooks/hooks";
-
+import { DataType } from "../common/MoodStorage";
 import {
   PlayerToggle,
   togglePlay,
@@ -12,7 +12,13 @@ import { resetMusic } from "../../redux/modules/musicplayer";
 import { useAppSelector } from "../../hooks/hooks";
 import { moodStorage } from "../common/MoodStorage";
 
-const Item = ({ item, storageData, circleStyle }: any): JSX.Element => {
+const Item = ({
+  item,
+  storageData,
+}: {
+  item: DataType;
+  storageData: DataType[];
+}): JSX.Element => {
   const { musicreseted } = useAppSelector((state) => state.musicplayer);
   const dispatch = useAppDispatch();
   return (
