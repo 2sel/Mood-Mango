@@ -32,56 +32,13 @@ const Main = () => {
     로파이: "PL31nVK1Q1BfHDVl1BJAO2lb8cWe-9I2un",
   };
 
-  // type gengre =
-  //   | "뉴에이지"
-  //   | "발라드"
-  //   | "아이돌댄스곡"
-  //   | "시티팝"
-  //   | "인디음악"
-  //   | "RNB힙합"
-  //   | "외국힙합"
-  //   | "재즈"
-  //   | "로파이";
-
   const onClickHandler = (data: any) => {
     const id = idMap[data];
     dispatch(getMusic(id));
-    // switch (data) {
-    //   case "뉴에이지":
-    //     id = "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd";
-    //     return dispatch(getMusic(id));
-    //   case "발라드":
-    //     id = "PL31nVK1Q1BfEvIGvQqw064187wHtsUaWP";
-    //     return dispatch(getMusic(id));
-    //   case "아이돌댄스곡":
-    //     id = "PL31nVK1Q1BfFMgv_jjzaPHpPGpeh_5WdA";
-    //     return dispatch(getMusic(id));
-    //   case "시티팝":
-    //     id = "PL31nVK1Q1BfF4pgbrGpZ11hZivbnag3Ic";
-    //     return dispatch(getMusic(id));
-    //   case "인디음악":
-    //     id = "PL31nVK1Q1BfFsOJhlT2HupygWQU1L6kOv";
-    //     return dispatch(getMusic(id));
-    //   case "RNB힙합":
-    //     id = "PL31nVK1Q1BfHlnPTrRFakc6Dle9aoW6Fo";
-    //     return dispatch(getMusic(id));
-    //   case "외국힙합":
-    //     id = "PL31nVK1Q1BfHKuvkLSs_yR6YZ3sjp1qiR";
-    //     return dispatch(getMusic(id));
-    //   case "디스코펑크":
-    //     id = "PL31nVK1Q1BfHQkWyTPYxen65D_H5XaDCo";
-    //     return dispatch(getMusic(id));
-    //   case "재즈":
-    //     id = "PL31nVK1Q1BfF3rvKxLqo5FuIcMbjTf5k3";
-    //     return dispatch(getMusic(id));
-    //   case "로파이":
-    //     id = "PL31nVK1Q1BfHDVl1BJAO2lb8cWe-9I2un";
-    //     return dispatch(getMusic(id));
-    // }
   };
 
   useEffect((): any => {
-    return () => dispatch(resetPlaylist()); //unmount 될때 return문이 실행 되고 callback으로 dispatch 보내줌
+    return () => dispatch(resetPlaylist());
   }, []);
 
   return (
