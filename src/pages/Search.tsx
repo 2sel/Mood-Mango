@@ -10,53 +10,55 @@ import "aos/dist/aos.css";
 import MusicContainer from "../components/Rank/MusicContainer";
 
 const Search = () => {
-  const [userInput, setUserInput] = useState("");
+  const [search, setsearch] = useState("");
   const { musics } = useAppSelector((state) => state.musics);
   const dispatch = useAppDispatch();
   const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
-  // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
-  const [searchMusic, setsearchMusic] = useState([]);
-  const [searched, setsearched] = useState<any>([]);
-
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
-    setUserInput(e.target.value.toLowerCase());
+    setsearch(e.target.value.toLowerCase());
+    // setsearched(() => {
+    //   return musics.filter((item: any) =>
+    //     item.title.toLowerCase().includes(search)
+    //   );
+    // });
   };
+  const filterTitle = musics.filter((item: any, index: any) => {
+    return item.title
+      .toLowerCase()
+      .includes(search.toLocaleLowerCase().replace(" ", ""));
+  });
 
-  const onclickHandler =
-    // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
-    // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-    useEffect((): any => {
-      Aos.init(); // 애니메이션
-    }, []);
+  useEffect((): any => {
+    dispatch(getMusic(playlistId));
+    Aos.init();
+    return () => dispatch(resetPlaylist());
+  }, []);
 
   return (
     <Background>
       <SearchWrap>
-        <SearchTitle>듣고싶은 노래제목을 검색해보세요.</SearchTitle>
+        <SearchTitle>원하는 플레이리스트를 검색해보세요.</SearchTitle>
         <SearchInputBox>
           <SearchInput
             type="text"
-            placeholder="제목을 입력해주세요"
-            value={userInput}
+            placeholder="노래 제목을 입력해주세요"
+            value={search}
             onChange={getValue}
           />
-          <InputButton type="submit">
+          {/* <InputButton type="submit">
             <Icon kind={"search"} />
-          </InputButton>
+          </InputButton> */}
         </SearchInputBox>
       </SearchWrap>
-      {musics?.map(
-        (item: any, index: any) =>
-          item.title.toLowerCase().includes(userInput) && (
-            <MusicContainer
-              key={item.id}
-              index={index}
-              data={item}
-            ></MusicContainer>
-          )
-      )}
+      {filterTitle?.map((item: any, index: any) => (
+        <MusicContainer
+          key={item.id}
+          index={index}
+          data={item}
+        ></MusicContainer>
+      ))}
     </Background>
   );
 };
