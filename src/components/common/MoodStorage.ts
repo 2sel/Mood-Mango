@@ -19,6 +19,7 @@ export class moodStorage {
   private static storageHistory = localStorage.getItem("mangoHistory");
   private static storagePlayList = localStorage.getItem("mangoPlayList");
   private static storageSearch = localStorage.getItem("mangoSearchList");
+  private static storageRank = localStorage.getItem("mangoRank");
 
   // 로컬 스토리지 데이터를 static 변수에 할당
   private static mangoHistory: DataType[] =
@@ -27,6 +28,8 @@ export class moodStorage {
     this.storagePlayList !== null ? JSON.parse(this.storagePlayList) : {}; // 데이터 interface 사용하기
   private static mangoSearchList: string[] =
     this.storageSearch !== null ? JSON.parse(this.storageSearch) : [];
+  private static mangoRank: DataType[] =
+    this.storageRank !== null ? JSON.parse(this.storageRank) : [];
 
   /* getter functon*/
   static getMangoHistory() {
@@ -37,6 +40,9 @@ export class moodStorage {
   }
   static getMangoSearchList() {
     return this.mangoSearchList;
+  }
+  static getMangoRank() {
+    return this.mangoRank;
   }
 
   /* setter functon*/
@@ -54,6 +60,7 @@ export class moodStorage {
       const newHistory = this.mangoHistory.filter(
         (item) => item.id !== param.id
       );
+      const newRank = this.mangoRank.filter((item) => item.id !== param.id);
       // 배열 맨 앞으로 생성후 count+1 을 한다(가장 많이 들은 음악 작업하기위해).
 
       this.mangoHistory = [
@@ -63,10 +70,13 @@ export class moodStorage {
         },
         ...newHistory,
       ];
+      this.mangoRank = [{ ...param, count: data.count + 1 }, ...newRank];
     } else {
       // 처음 들음
       this.mangoHistory = [{ ...param, count: 1 }, ...this.mangoHistory];
+      this.mangoRank = [{ ...param, count: 1 }, ...this.mangoRank];
     }
+    localStorage.setItem("mangoRank", JSON.stringify(this.mangoRank));
     localStorage.setItem("mangoHistory", JSON.stringify(this.mangoHistory));
   }
 

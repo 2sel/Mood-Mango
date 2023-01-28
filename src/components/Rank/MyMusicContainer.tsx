@@ -83,7 +83,10 @@ const MusicContainer = ({ data, index, dataList, popItem, name }: any) => {
         <MusicViewCount>{data.viewconut} 회</MusicViewCount>
       </MusicInfo>
       <ChannelTitle>{data.channeltitle}</ChannelTitle>
-      <button onClick={() => popItem(name, data.id)} style={{ all: "unset" }}>
+      <button
+        onClick={() => popItem(name, data.id)}
+        style={{ all: "unset", cursor: "pointer" }}
+      >
         <Icon kind={"trash"} color={"#ffb52b"} />
       </button>
     </MusicContainerWrap>
