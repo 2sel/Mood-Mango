@@ -1,6 +1,6 @@
 # Mood Mango🥭
 
-![로고](https://github.com/2sel/Mood-Mango/public/logo.png)  
+![로고](https://github.com/2sel/Mood-Mango/blob/main/public/logo.png)  
 
 ## Mood Mango
 team 알보칠에서 제작했습니다:)!
@@ -16,7 +16,7 @@ team 알보칠에서 제작했습니다:)!
     - 무드를 선택하여 원하는 장르의 음악을 선택가능
     - 선택된 노래들을 들을 수 있는 플레이어를 가동 가능
 
-*인기차트
+* 인기차트
     - api를 이용해서 가져온 정보들을 통해 조회수, 좋아요 수를 반영하여 인기 순대로 정리
     - 선택된 노래들을 들을 수 있는 플레이어를 가동 가능
     
