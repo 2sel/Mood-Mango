@@ -35,7 +35,7 @@ const ScrollToTopButton = () => {
   return (
     <>
       <StyleScrollButton showButton={showButton} onClick={scrollToTop}>
-        <Icon kind={"top-arrow"} size={40} />
+        <Icon kind={"top-arrow"} size={20} />
       </StyleScrollButton>
     </>
   );
@@ -44,20 +44,19 @@ const ScrollToTopButton = () => {
 const StyleScrollButton = styled.div`
   z-index: 10;
   position: fixed;
-  /* border: solid 2px #ff830a; */
-  background-color: transparent;
-  bottom: 100px;
+  background-color: #5f3408;
+  border-radius: 25px;
+  bottom: ${({ showButton }: Props) => (showButton ? "100px" : "-60px")};
   margin: 0 auto;
   right: 0;
   left: 0;
   width: 50px;
-  height: 40px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
   cursor: pointer;
-  display: ${({ showButton }: Props) => (showButton ? "flex" : "none")};
+  transition: all 0.2s;
 `;
 
 export default ScrollToTopButton;
