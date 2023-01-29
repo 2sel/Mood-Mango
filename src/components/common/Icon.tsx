@@ -5,7 +5,7 @@ import {
   AiOutlineArrowLeft,
   AiOutlineArrowUp,
 } from "react-icons/ai";
-
+import { ImBoxAdd } from "react-icons/im";
 import { GiTiara, GiFruitBowl } from "react-icons/gi";
 
 import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
@@ -19,6 +19,7 @@ import {
   IoVolumeMute,
   IoVolumeHighOutline,
 } from "react-icons/io5";
+import { IoMdClose, IoIosAddCircleOutline } from "react-icons/io";
 import { BsTrashFill, BsHeadphones, BsBarChart } from "react-icons/bs";
 import { RiRepeat2Fill, RiRepeatOneFill, RiShuffleFill } from "react-icons/ri";
 import { MdVideoLabel } from "react-icons/md";
@@ -38,7 +39,7 @@ const Icon = ({
   style,
   size = 25,
   handler,
-  color = "#ff830a",
+  color = "#ffffff",
 }: IconType) => {
   switch (kind) {
     case "smile":
@@ -184,6 +185,20 @@ const Icon = ({
       return (
         <StyleIconWrap>
           <AiOutlineArrowUp style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+
+    case "close":
+      return (
+        <StyleIconWrap>
+          <IoMdClose style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+
+    case "add":
+      return (
+        <StyleIconWrap>
+          <ImBoxAdd style={style} size={size} color={color} />
         </StyleIconWrap>
       );
 

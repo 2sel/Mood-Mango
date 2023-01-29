@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { moodStorage } from "../common/MoodStorage";
 import MyMusicContainer from "../Rank/MyMusicContainer";
 import Icon from "../common/Icon";
-import { Introduce, Clear, IconArea } from "./style";
+import { Introduce, Clear, IconArea, Alarm } from "./style";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import "aos/dist/aos.css";
 
@@ -38,7 +39,7 @@ const MyPlayList = (): JSX.Element => {
   return (
     <>
       <Introduce>
-        마이 플레이 리스트{" "}
+        내 무드 저장소
         <IconArea>
           <Icon
             kind={"cloud"}
@@ -48,13 +49,18 @@ const MyPlayList = (): JSX.Element => {
           />
         </IconArea>
       </Introduce>
-      <ThisContents>
+      <ThisContents
+        playList={playList}
+        height={playList.length}
+        data-aos="fade-up"
+        id="scrollableDiv"
+      >
         {playList.length > 0 ? (
           <>
             {playList.map((playListName, index) => {
               return (
-                <PlayListWrap key={index}>
-                  <PlayList>
+                <PlayListWrap>
+                  <PlayList key={index}>
                     <PlayListName>{playListName}</PlayListName>
                     <Clear
                       onClick={() => popFolder(playListName)}
@@ -101,7 +107,7 @@ const MyPlayList = (): JSX.Element => {
             })}
           </>
         ) : (
-          <>저장한 플레이 리스트가 없습니다</>
+          <Alarm>저장한 플레이 리스트가 없습니다</Alarm>
         )}
       </ThisContents>
     </>
@@ -110,11 +116,15 @@ const MyPlayList = (): JSX.Element => {
 
 export default MyPlayList;
 
-const ThisContents = styled.div`
-  width: 100%;
-  height: 400px;
+const ThisContents = styled.div<{
+  playList: string[];
+  height?: number;
+}>`
+  width: 1350px;
+  height: ${(props) => (!!props.height ? `${props.height * 300}px` : "300px")};
   font-size: 20px;
-  margin-bottom: 100px;
+  margin: 0 auto;
+  text-align: center;
 `;
 
 const PlayList = styled.div`

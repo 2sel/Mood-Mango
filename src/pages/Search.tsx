@@ -51,14 +51,18 @@ const Search = () => {
             <Icon kind={"search"} />
           </InputButton> */}
         </SearchInputBox>
+        <SearchResult>
+          {filterTitle?.map((item: any, index: any) =>
+            getValue.length !== 0 ? (
+              <MusicContainer
+                key={item.id}
+                index={index}
+                data={item}
+              ></MusicContainer>
+            ) : null
+          )}
+        </SearchResult>
       </SearchWrap>
-      {filterTitle?.map((item: any, index: any) => (
-        <MusicContainer
-          key={item.id}
-          index={index}
-          data={item}
-        ></MusicContainer>
-      ))}
     </Background>
   );
 };
@@ -69,9 +73,13 @@ const Background = styled.div`
   background-color: #000000;
   min-height: 100vh;
   width: 100%;
+  padding: 50px 0px 0 0px;
 `;
 const SearchWrap = styled.div`
-  padding: 100px 100px 0px 100px;
+  width: 100%;
+  margin: 50px 50px 0 50px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SearchTitle = styled.div`
@@ -92,7 +100,7 @@ const SearchInputBox = styled.form`
 const SearchInput = styled.input`
   width: 90%;
   height: 65px;
-  margin-top: 35px;
+  margin: 35px 0 35px 0;
   background-color: #2a2a2a;
   border-radius: 15px;
   font-size: 20px;
@@ -110,4 +118,11 @@ const InputButton = styled.button`
   border: none;
   border-radius: 15px;
   background-color: #2a2a2a;
+`;
+
+const SearchResult = styled.div`
+  width: 100%;
+  padding-right: 200px;
+  display: flex;
+  flex-direction: column;
 `;

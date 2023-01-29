@@ -8,7 +8,8 @@ interface IMap {
 }
 
 const idMap: any = [
-  { playlistId: "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy", location: "popular" },
+  // { playlistId: "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy", location: "popular" },
+  { playlistId: "PLWTycz4el4t4l6uuriz3OhqR2aKy86EEP", location: "popular" },
   { playlistId: "PL31nVK1Q1BfFRnClXGE5CoHp6UlXqX6Pd", location: "뉴에이지" },
   { playlistId: "PL31nVK1Q1BfEvIGvQqw064187wHtsUaWP", location: "발라드" },
   {

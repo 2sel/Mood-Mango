@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { moodStorage } from "./MoodStorage";
+import { DataType, moodStorage } from "./MoodStorage";
 import Icon from "./Icon";
 const Modal = ({
   setModalOpen,
@@ -21,17 +21,31 @@ const Modal = ({
     setPlayListName(e.target.value);
   };
 
+  const addPlayListData = (playListName: string, data: DataType) => {
+    moodStorage.addMangoPlayList(playListName, data);
+    setPlayList({ ...moodStorage.getMangoPlayList() });
+  };
+
   return (
     <Container>
-      <Close onClick={close}>완료</Close>
+      <Close onClick={close}>
+        <Icon kind="close" size={30} />
+      </Close>
 
-      <Title>플레이 리스트</Title>
+      <Title>
+        <Icon kind={"cloud"} size={70} />
+      </Title>
       <div style={{ position: "relative" }}>
         <input
           type="text"
           value={playListName}
           onChange={(event) => playListNameHandler(event)}
-          style={{ borderRadius: 10, border: "0 solid black", height: 20 }}
+          style={{
+            borderRadius: 10,
+            border: "0 solid black",
+            height: 25,
+            marginBottom: 20,
+          }}
         ></input>
         <button
           onClick={() => {
@@ -41,31 +55,31 @@ const Modal = ({
             }
           }}
           style={{
-            border: "0 solid black",
-            borderRadius: 10,
-            top: 2,
-            right: 5,
-            position: "absolute",
+            all: "unset",
+            cursor: "pointer",
+            height: 25,
           }}
         >
-          +
+          <Icon
+            kind="cloud"
+            style={{ position: "absolute", bottom: 22, right: 110 }}
+          />
         </button>
       </div>
       <PlayList>
-        {Object.keys(playList).map((playListName) => {
+        {Object.keys(playList).map((playListName, index) => {
           return (
-            <PlayListInner>
-              <div style={{ width: 50 }}>
-                <button
-                  onClick={() =>
-                    moodStorage.addMangoPlayList(playListName, data)
-                  }
-                  style={{ border: "0 solid black", borderRadius: 10 }}
-                >
-                  +
-                </button>
-              </div>
-              <div style={{ width: 100 }}>{playListName}</div>
+            <PlayListInner key={index}>
+              <PlayListItem onClick={() => addPlayListData(playListName, data)}>
+                <ImgList>
+                  <ImgItem src={playList[playListName][0]?.thumbnail} />
+                  <ImgItem src={playList[playListName][1]?.thumbnail} />
+                  <ImgItem src={playList[playListName][2]?.thumbnail} />
+                  <ImgItem src={playList[playListName][3]?.thumbnail} />
+                </ImgList>
+
+                <PlayListName>{playListName}</PlayListName>
+              </PlayListItem>
             </PlayListInner>
           );
         })}
@@ -77,50 +91,77 @@ const Modal = ({
 export default Modal;
 
 const Container = styled.div`
-  /* 모달창 크기 */
-  width: 200px;
-  height: 300px;
+  width: 460px;
+  height: 700px;
   overflow: auto;
-  /* 최상단 위치 */
   z-index: 999;
-
-  /* 중앙 배치 */
-  /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
-  /* translate는 본인의 크기 기준으로 작동한다. */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  /* 모달창 디자인 */
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
-  /* color: #ffb52b; */
-
   background-color: #ffb52b;
-  /* background-color: white; */
-  border: 1px solid black;
-  border-radius: 8px;
-`;
-
-/* 모달창 내부 X버튼 */
-const Close = styled.div`
-  position: absolute;
-  font-size: 14px;
-  right: 10px;
-  top: 10px;
-`;
-const Title = styled.div`
-  margin-top: 35px;
-  margin-bottom: 20px;
 `;
 
 const PlayList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 440px;
+  margin: 0 auto;
+  padding: 10px;
+`;
+
+const PlayListItem = styled.div`
+  width: 140px;
+  height: 190px;
   display: block;
+  margin-top: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 10%;
+  background-color: #ff830a;
+`;
+const Close = styled.div`
+  position: absolute;
+  cursor: pointer;
+`;
+
+const Title = styled.div`
+  margin-top: 40px;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 80px;
 `;
 
 const PlayListInner = styled.div`
-  display: flex;
-
+  display: block;
+  text-align: center;
   margin-top: 10px;
+`;
+const ImgList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 106px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+const ImgItem = styled.img<{ src: string }>`
+  width: 51px;
+  height: 51px;
+  display: block;
+  src: ${(props) => (!!props.src ? props.src : "")};
+  border: 0 none #ff830a;
+  border-radius: 50%;
+`;
+
+const PlayListName = styled.p`
+  width: 140px;
+  height: 35%;
+  margin-top: 6px;
+  font-size: 17px;
 `;
