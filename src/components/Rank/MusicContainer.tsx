@@ -116,6 +116,7 @@ const MusicContainer = ({ data, index, showModal, genre }: any) => {
         size={25}
         style={{
           height: "60px",
+          cursor: "pointer",
         }}
         handler={() => showModal({ ...data })}
       />
