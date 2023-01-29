@@ -28,7 +28,7 @@ const Musicplayer = () => {
   const [soundpercentage, setSoundPercentage] = useState(50);
   const [soundposition, setSoundPosition] = useState(0);
   const [soundmarginLeft, setSoundMarginLeft] = useState(0);
-  const [soundBarWidth, setSoundBarWidth] = useState(0);
+  const [soundBarWidth, setSoundBarWidth] = useState(72);
 
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -54,7 +54,7 @@ const Musicplayer = () => {
   const dispatch = useAppDispatch();
 
   const durationSet = () => {
-    let Seconds = Math.floor(reactplayerRef.current?.getDuration());
+    let Seconds = Math.floor(reactplayerRef.current?.getDuration()) - 1;
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
@@ -205,7 +205,7 @@ const Musicplayer = () => {
     setSoundPosition(soundpercentage);
     setSoundMarginLeft(soundcenterThumb);
     setSoundBarWidth(centersoundBar);
-  }, [soundpercentage]);
+  }, [soundpercentage, percentage]);
 
   return (
     <>
@@ -369,7 +369,6 @@ const Musicplayer = () => {
               playing={isPlay}
               width={720}
               height={480}
-              pip={true}
             ></ReactPlayer>
             <PlayerList musicsdata={musicdata} />
           </PlayerandList>

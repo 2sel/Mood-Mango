@@ -37,7 +37,7 @@ const Icon = ({
   style,
   size = 25,
   handler,
-  color = "#ff830a",
+  color = "#ffffff",
 }: IconType) => {
   switch (kind) {
     case "smile":
