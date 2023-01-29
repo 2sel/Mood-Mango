@@ -11,7 +11,8 @@ import MusicContainer from "../components/Rank/MusicContainer";
 
 const Search = () => {
   const [search, setsearch] = useState("");
-  const { musics } = useAppSelector((state) => state.musics);
+  const [result, setResult] = useState("");
+  const musicsdata = useAppSelector((state) => state.musics);
   const dispatch = useAppDispatch();
   const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
@@ -24,10 +25,11 @@ const Search = () => {
     //   );
     // });
   };
-  const filterTitle = musics.filter((item: any, index: any) => {
+
+  const filterTitle = musicsdata.popular.filter((item: any, index: any) => {
     return item.title
       .toLowerCase()
-      .includes(search.toLocaleLowerCase().replace(" ", ""));
+      .includes(result.toLocaleLowerCase().replace(" ", ""));
   });
 
   useEffect((): any => {
@@ -47,21 +49,25 @@ const Search = () => {
             value={search}
             onChange={getValue}
           />
-          {/* <InputButton type="submit">
-            <Icon kind={"search"} />
-          </InputButton> */}
+
+          <SearchButton
+            onClick={() => {
+              setResult(search);
+            }}
+          >
+            <Icon kind="search" color="#ffffff"></Icon>
+          </SearchButton>
         </SearchInputBox>
-        <SearchResult>
-          {filterTitle?.map((item: any, index: any) =>
-            getValue.length !== 0 ? (
-              <MusicContainer
-                key={item.id}
-                index={index}
-                data={item}
-              ></MusicContainer>
-            ) : null
-          )}
-        </SearchResult>
+
+        {filterTitle?.map((item: any, index: any) =>
+          getValue.length !== 0 ? (
+            <MusicContainer
+              key={item.id}
+              index={index}
+              data={item}
+            ></MusicContainer>
+          ) : null
+        )}
       </SearchWrap>
     </Background>
   );
@@ -73,11 +79,14 @@ const Background = styled.div`
   background-color: #000000;
   min-height: 100vh;
   width: 100%;
-  padding: 50px 0px 0 0px;
+`;
+const SearchButton = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
 `;
 const SearchWrap = styled.div`
-  width: 100%;
-  margin: 50px 50px 0 50px;
+  margin: 50px;
   display: flex;
   flex-direction: column;
 `;
@@ -96,9 +105,13 @@ const SearchTitle = styled.div`
 const SearchInputBox = styled.form`
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 const SearchInput = styled.input`
-  width: 90%;
+  color: white;
+  width: 100%;
   height: 65px;
   margin: 35px 0 35px 0;
   background-color: #2a2a2a;
@@ -118,11 +131,4 @@ const InputButton = styled.button`
   border: none;
   border-radius: 15px;
   background-color: #2a2a2a;
-`;
-
-const SearchResult = styled.div`
-  width: 100%;
-  padding-right: 200px;
-  display: flex;
-  flex-direction: column;
 `;
