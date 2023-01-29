@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { BiMusic, BiCloud, BiSearch } from "react-icons/bi";
 import { DataType, moodStorage } from "./MoodStorage";
 import Icon from "./Icon";
 const Modal = ({
@@ -103,6 +104,8 @@ const Container = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
   background-color: #ffb52b;
+  border: 1px solid;
+  border-radius: 2%;
 `;
 
 const PlayList = styled.div`
@@ -154,8 +157,9 @@ const ImgItem = styled.img<{ src: string }>`
   width: 51px;
   height: 51px;
   display: block;
+
   src: ${(props) => (!!props.src ? props.src : "")};
-  border: 0 none #ff830a;
+  border: 0px none;
   border-radius: 50%;
 `;
 

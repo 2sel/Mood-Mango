@@ -76,6 +76,9 @@ const Main = () => {
               })}
             </StyleCategoryWrap>
             <MusicListWrap>
+              {modalOpen && (
+                <Modal setModalOpen={setModalOpen} data={videoData} />
+              )}
               {musicsdata.isLoading ? (
                 <LoadingWrap>
                   <BeatLoader color="#ff830a" />
@@ -88,6 +91,7 @@ const Main = () => {
                       index={index}
                       data={data}
                       genre={genre}
+                      showModal={showModal}
                     ></MusicContainer>
                   ))}
                 </>
