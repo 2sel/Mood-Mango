@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Introduce = styled.div`
   display: block;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 200px;
 `;
 
 export const Clear = styled.p<{
@@ -23,13 +23,15 @@ export const Clear = styled.p<{
     !!props.marginRight ? `${props.marginRight}px` : "auto"};
 
   width: ${(props) => (!!props.width ? `${props.width}px` : "60px")};
+  cursor: pointer;
   /* margin-left: auto;
   margin-right: auto; */
   /* width: 400px;1350px */
 `;
 
 export const Alarm = styled.p`
-  font-size: 20px;
+  font-size: 30px;
+  color: gray;
 `;
 export const IconArea = styled.div`
   border-radius: 50%;
@@ -38,5 +40,5 @@ export const IconArea = styled.div`
   border: 1px solid #ff830a;
   width: 90px;
   height: 90px;
-  margin: 90px auto;
+  margin: 80px auto;
 `;

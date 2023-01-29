@@ -28,9 +28,7 @@ const MyRank = () => {
           />
         </IconArea>
       </Introduce>
-      <ThisContents
-        style={{ justifyContent: mangoRank.length === 3 ? "center" : "left" }}
-      >
+      <ThisContents rankLength={mangoRank.length}>
         {mangoRank.length === 3 ? (
           <>
             <Wrapper>
@@ -71,16 +69,18 @@ const MyRank = () => {
 
 export default MyRank;
 
-const ThisContents = styled.div`
+const ThisContents = styled.div<{
+  rankLength: number;
+}>`
   width: 100%;
   height: 300px;
+  margin: 140px auto;
   display: flex;
-
+  justify-content: center;
   flex-direction: row;
 `;
 
 const Wrapper = styled.div`
-  margin-top: 10px;
   text-align: center;
 `;
 

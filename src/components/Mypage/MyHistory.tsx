@@ -48,16 +48,19 @@ const MyHistory = () => {
             style={{ position: "absolute", left: 15, top: 12 }}
             color={"white"}
           />
+          <Clear
+            onClick={clearHistory}
+            display={mangoHistory.length}
+            width={1350}
+            marginTop={110}
+            marginLeft={15}
+          >
+            전체삭제
+          </Clear>
         </IconArea>
-        <Clear
-          onClick={clearHistory}
-          display={mangoHistory.length}
-          width={1350}
-        >
-          전체삭제
-        </Clear>
       </Introduce>
-      <ThisContents>
+
+      <ThisContents historyLength={mangoHistory.length}>
         {mangoHistory.length !== 0 ? (
           <>
             <Paging
@@ -80,9 +83,13 @@ const MyHistory = () => {
 
 export default MyHistory;
 
-const ThisContents = styled.div`
+const ThisContents = styled.div<{
+  historyLength: number;
+}>`
   width: 1350px;
   display: flex;
-  margin: 0 auto;
+  margin: 140px auto;
   height: 300px;
+  justify-content: ${(props) =>
+    props.historyLength === 0 ? "center" : "none"};
 `;
