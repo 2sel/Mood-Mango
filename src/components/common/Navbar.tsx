@@ -79,7 +79,8 @@ const StyleNav = styled.div`
 
 const LogoWrap = styled.div`
   position: fixed;
-  height: 90%;
+  top: 25px;
+  left: 25px;
 `;
 const Logo = styled.img`
   width: 50px;
