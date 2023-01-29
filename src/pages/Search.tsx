@@ -18,7 +18,7 @@ const Search = () => {
   const getValue = (e: any) => {
     setsearch(e.target.value.toLowerCase());
   };
-
+  // 띄어쓰기하지 않아도 검색할 수 있게 변경
   const filterTitle = musicsdata.popular.filter((item: any, index: any) => {
     return item.title
       .toLowerCase()
@@ -72,11 +72,7 @@ const Background = styled.div`
   background-color: #000000;
   min-height: 100vh;
   width: 100%;
-`;
-const SearchButton = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
+  padding: 50px 0px 0 0px;
 `;
 const SearchWrap = styled.div`
   margin: 50px;
@@ -114,12 +110,12 @@ const SearchInput = styled.input`
   border: none;
 `;
 
-const InputButton = styled.button`
-  width: 6%;
-  height: 65px;
+const SearchButton = styled.button`
+  width: 60px;
+  height: 60px;
   position: absolute;
-  top: 35%;
-  right: 2%;
+  top: 28%;
+  right: 1%;
   cursor: pointer;
   border: none;
   border-radius: 15px;
