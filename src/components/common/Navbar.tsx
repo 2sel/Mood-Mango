@@ -47,7 +47,7 @@ const Navbar = () => {
           }}
         >
           <Icon kind={"cloud"} />
-          <StyleText>마이플레이</StyleText>
+          <StyleText>무드저장소</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
           onClick={() => {
