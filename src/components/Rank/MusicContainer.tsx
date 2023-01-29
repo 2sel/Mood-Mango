@@ -130,7 +130,6 @@ const MusicContainerWrap = styled.div`
   font-weight: 300;
   color: white;
   background: #121212;
-  width: 100%;
   height: 60px;
   display: flex;
   flex-direction: row;

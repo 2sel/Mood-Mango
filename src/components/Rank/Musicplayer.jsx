@@ -10,6 +10,7 @@ import {
   getMusicNum,
   getCurrentMusic,
 } from "../../redux/modules/musicplayer";
+import { changeVideoiPlay } from "../../redux/modules/toTopState";
 import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
 import { resetMusic } from "../../redux/modules/musicplayer";
@@ -17,7 +18,13 @@ import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
   const [mute, setMute] = useState(false);
-  const [videodiplay, setVideodiplay] = useState(false);
+  // const [videodiplay, setVideodiplay] = useState(false);
+  const videodiplay = useAppSelector((state) => state.toTop);
+
+  const setVideodiplay = (boolean) => {
+    console.log(boolean);
+    dispatch(changeVideoiPlay(boolean));
+  };
   const [repeatestate, setRepeateState] = useState(false);
 
   const [percentage, setPercentage] = useState(0);
@@ -28,7 +35,7 @@ const Musicplayer = () => {
   const [soundpercentage, setSoundPercentage] = useState(50);
   const [soundposition, setSoundPosition] = useState(0);
   const [soundmarginLeft, setSoundMarginLeft] = useState(0);
-  const [soundBarWidth, setSoundBarWidth] = useState(0);
+  const [soundBarWidth, setSoundBarWidth] = useState(72);
 
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -54,7 +61,7 @@ const Musicplayer = () => {
   const dispatch = useAppDispatch();
 
   const durationSet = () => {
-    let Seconds = Math.floor(reactplayerRef.current?.getDuration());
+    let Seconds = Math.floor(reactplayerRef.current?.getDuration()) - 1;
     let hour = parseInt(Seconds / 3600);
     let min = parseInt((Seconds % 3600) / 60);
     let sec = Seconds % 60;
@@ -205,7 +212,7 @@ const Musicplayer = () => {
     setSoundPosition(soundpercentage);
     setSoundMarginLeft(soundcenterThumb);
     setSoundBarWidth(centersoundBar);
-  }, [soundpercentage]);
+  }, [soundpercentage, percentage]);
 
   return (
     <>
@@ -270,7 +277,7 @@ const Musicplayer = () => {
             <SoundWrap>
               <Toggle
                 onClick={() => {
-                  setVideodiplay((e) => !e);
+                  setVideodiplay(!videodiplay);
                 }}
               >
                 <Icon
@@ -369,7 +376,6 @@ const Musicplayer = () => {
               playing={isPlay}
               width={720}
               height={480}
-              pip={true}
             ></ReactPlayer>
             <PlayerList musicsdata={musicdata} />
           </PlayerandList>

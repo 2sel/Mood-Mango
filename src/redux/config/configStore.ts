@@ -5,9 +5,10 @@ import musics from "../modules/musics";
 import musicplayer from "../modules/musicplayer";
 import categories from "../modules/categories";
 import Navbar from "../modules/Navbar";
+import toTop from "../modules/toTopState";
 
 const store = configureStore({
-  reducer: { musics, musicplayer, categories, Navbar },
+  reducer: { musics, musicplayer, categories, Navbar, toTop },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

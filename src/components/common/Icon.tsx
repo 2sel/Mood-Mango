@@ -3,6 +3,7 @@ import {
   AiFillSmile,
   AiOutlineArrowRight,
   AiOutlineArrowLeft,
+  AiOutlineArrowUp,
 } from "react-icons/ai";
 import { ImBoxAdd } from "react-icons/im";
 import { GiTiara, GiFruitBowl } from "react-icons/gi";
@@ -38,7 +39,7 @@ const Icon = ({
   style,
   size = 25,
   handler,
-  color = "#ff830a",
+  color = "#ffffff",
 }: IconType) => {
   switch (kind) {
     case "smile":
@@ -178,6 +179,12 @@ const Icon = ({
       return (
         <StyleIconWrap>
           <BsBarChart style={style} size={size} color={color} />
+        </StyleIconWrap>
+      );
+    case "top-arrow":
+      return (
+        <StyleIconWrap>
+          <AiOutlineArrowUp style={style} size={size} color={color} />
         </StyleIconWrap>
       );
 

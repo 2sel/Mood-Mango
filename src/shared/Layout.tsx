@@ -26,7 +26,7 @@ const StyledWrap = styled.div`
 
 const StyleChildWrap = styled.div`
   padding-left: 100px;
-  width: 100%;
+  width: calc(100% - 100px);
 `;
 
 export default Layout;
