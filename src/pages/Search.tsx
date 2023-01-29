@@ -13,7 +13,6 @@ const Search = () => {
   const [result, setResult] = useState("");
   const musicsdata = useAppSelector((state) => state.musics);
   const dispatch = useAppDispatch();
-  const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
@@ -27,7 +26,6 @@ const Search = () => {
   });
 
   useEffect((): any => {
-    dispatch(getMusic(playlistId));
     Aos.init();
     return () => dispatch(resetPlaylist());
   }, []);
@@ -59,6 +57,7 @@ const Search = () => {
               key={item.id}
               index={index}
               data={item}
+              genre="popular"
             ></MusicContainer>
           ) : null
         )}
