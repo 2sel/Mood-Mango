@@ -73,7 +73,7 @@ const Background = styled.div`
   background-color: #000000;
   min-height: 100vh;
   width: 100%;
-  padding: 50px 0px 0 0px;
+  padding: 50px 50px 0 0px;
 `;
 const SearchWrap = styled.div`
   width: 100%;
