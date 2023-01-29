@@ -1,6 +1,6 @@
 # Mood Mango🥭
 
-![로고](https://github.com/dwg787/6candoit/blob/main/src/images/candyFabicon.png)  
+![로고](https://github.com/2sel/Mood-Mango/public/logo.png)  
 
 ## Mood Mango
 team 알보칠에서 제작했습니다:)!
