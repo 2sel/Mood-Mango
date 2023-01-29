@@ -9,8 +9,11 @@ import Search from "../pages/Search";
 import { moodStorage } from "../components/common/MoodStorage";
 import Musicplayer from "../components/Rank/Musicplayer";
 import SearchList from "./../components/Search/SearchList";
+import ScrollToTopButton from "../components/ScrollToTop/ScrollToTop";
+import { useAppSelector } from "../hooks/hooks";
 
 const Routers = () => {
+  const videodiplay = useAppSelector((state) => state.toTop);
   return (
     <BrowserRouter>
       <Layout>
@@ -21,6 +24,7 @@ const Routers = () => {
           <Route path="/rank" element={<Rank />} />
           <Route path="/search" element={<Search />} />
         </Routes>
+        {videodiplay === false && <ScrollToTopButton />}
         <Musicplayer></Musicplayer>
       </Layout>
     </BrowserRouter>

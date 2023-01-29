@@ -10,6 +10,7 @@ import {
   getMusicNum,
   getCurrentMusic,
 } from "../../redux/modules/musicplayer";
+import { changeVideoiPlay } from "../../redux/modules/toTopState";
 import Icon from "../common/Icon";
 import Marquee from "react-fast-marquee";
 import { resetMusic } from "../../redux/modules/musicplayer";
@@ -17,7 +18,13 @@ import PlayerList from "./PlayerList";
 
 const Musicplayer = () => {
   const [mute, setMute] = useState(false);
-  const [videodiplay, setVideodiplay] = useState(false);
+  // const [videodiplay, setVideodiplay] = useState(false);
+  const videodiplay = useAppSelector((state) => state.toTop);
+
+  const setVideodiplay = (boolean) => {
+    console.log(boolean);
+    dispatch(changeVideoiPlay(boolean));
+  };
   const [repeatestate, setRepeateState] = useState(false);
 
   const [percentage, setPercentage] = useState(0);
@@ -270,7 +277,7 @@ const Musicplayer = () => {
             <SoundWrap>
               <Toggle
                 onClick={() => {
-                  setVideodiplay((e) => !e);
+                  setVideodiplay(!videodiplay);
                 }}
               >
                 <Icon
