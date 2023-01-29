@@ -428,7 +428,7 @@ const MusicplayerWrap = styled.div`
   flex-direction: row;
   background-color: #000000;
   align-items: center;
-  z-index: 1;
+  z-index: 15;
   img {
     width: 168px;
     height: 100%;

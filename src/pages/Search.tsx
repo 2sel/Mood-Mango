@@ -4,7 +4,6 @@ import { getMusic, resetPlaylist } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import Icon from "./../components/common/Icon";
-import SearchList from "./../components/Search/SearchList";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import MusicContainer from "../components/Rank/MusicContainer";
@@ -14,16 +13,10 @@ const Search = () => {
   const [result, setResult] = useState("");
   const musicsdata = useAppSelector((state) => state.musics);
   const dispatch = useAppDispatch();
-  const playlistId = "PL31nVK1Q1BfHHZoHxUq5LeIUVLQ3ELQYy";
 
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setsearch(e.target.value.toLowerCase());
-    // setsearched(() => {
-    //   return musics.filter((item: any) =>
-    //     item.title.toLowerCase().includes(search)
-    //   );
-    // });
   };
 
   const filterTitle = musicsdata.popular.filter((item: any, index: any) => {
@@ -33,7 +26,6 @@ const Search = () => {
   });
 
   useEffect((): any => {
-    dispatch(getMusic(playlistId));
     Aos.init();
     return () => dispatch(resetPlaylist());
   }, []);
@@ -65,6 +57,7 @@ const Search = () => {
               key={item.id}
               index={index}
               data={item}
+              genre="popular"
             ></MusicContainer>
           ) : null
         )}
