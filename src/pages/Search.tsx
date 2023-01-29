@@ -19,13 +19,8 @@ const Search = () => {
   // 입력값을 가져와서 소문자로변경
   const getValue = (e: any) => {
     setsearch(e.target.value.toLowerCase());
-    // setsearched(() => {
-    //   return musics.filter((item: any) =>
-    //     item.title.toLowerCase().includes(search)
-    //   );
-    // });
   };
-
+  // 띄어쓰기하지 않아도 검색할 수 있게 변경
   const filterTitle = musicsdata.popular.filter((item: any, index: any) => {
     return item.title
       .toLowerCase()
@@ -117,12 +112,12 @@ const SearchInput = styled.input`
   border: none;
 `;
 
-const InputButton = styled.button`
-  width: 6%;
-  height: 65px;
+const SearchButton = styled.button`
+  width: 60px;
+  height: 60px;
   position: absolute;
-  top: 35%;
-  right: 2%;
+  top: 28%;
+  right: 1%;
   cursor: pointer;
   border: none;
   border-radius: 15px;
