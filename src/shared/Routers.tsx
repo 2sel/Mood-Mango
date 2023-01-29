@@ -8,7 +8,6 @@ import Mypage from "../pages/Mypage";
 import Search from "../pages/Search";
 import { moodStorage } from "../components/common/MoodStorage";
 import Musicplayer from "../components/Rank/Musicplayer";
-import SearchList from "./../components/Search/SearchList";
 import ScrollToTopButton from "../components/ScrollToTop/ScrollToTop";
 import { useAppSelector } from "../hooks/hooks";
 

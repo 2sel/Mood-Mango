@@ -4,7 +4,6 @@ import { getMusic, resetPlaylist } from "../redux/modules/musics";
 import { useAppDispatch } from "../hooks/hooks";
 import { useAppSelector } from "../hooks/hooks";
 import Icon from "./../components/common/Icon";
-import SearchList from "./../components/Search/SearchList";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import MusicContainer from "../components/Rank/MusicContainer";
