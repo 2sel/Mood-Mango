@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Mood-Mango/static/css/main.fc0706bd.css",
+    "main.js": "/Mood-Mango/static/js/main.c600013d.js",
+    "index.html": "/Mood-Mango/index.html",
+    "main.fc0706bd.css.map": "/Mood-Mango/static/css/main.fc0706bd.css.map",
+    "main.c600013d.js.map": "/Mood-Mango/static/js/main.c600013d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fc0706bd.css",
+    "static/js/main.c600013d.js"
+  ]
+}
