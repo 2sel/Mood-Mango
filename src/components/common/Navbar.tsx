@@ -14,6 +14,9 @@ const Navbar = () => {
 
   return (
     <StyleNav>
+      <LogoWrap>
+        <Logo src="logo.png" alt="logo" />
+      </LogoWrap>
       <StyleNavWrap>
         <StyleBtnWrap
           onClick={() => {
@@ -72,6 +75,15 @@ const StyleNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const LogoWrap = styled.div`
+  position: fixed;
+  height: 90%;
+`;
+const Logo = styled.img`
+  width: 50px;
+  height: 50px;
 `;
 
 const StyleNavWrap = styled.div`
