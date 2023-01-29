@@ -20,7 +20,7 @@ const Navbar = () => {
             navigate("/");
           }}
         >
-          <Icon kind={"smile"} />
+          <Icon kind={"smile"} color="#ff830a" />
           <StyleText>무드선택</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
@@ -28,7 +28,7 @@ const Navbar = () => {
             navigate("/Main");
           }}
         >
-          <Icon kind={"music"} />
+          <Icon kind={"music"} color="#ff830a" />
           <StyleText>무드플레이</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
@@ -37,7 +37,7 @@ const Navbar = () => {
           }}
         >
           <StyleIconWrap>
-            <BsBarChart></BsBarChart>
+            <BsBarChart color="#ff830a"></BsBarChart>
           </StyleIconWrap>
           <StyleText>인기차트</StyleText>
         </StyleBtnWrap>
@@ -46,7 +46,7 @@ const Navbar = () => {
             navigate("/MyPage");
           }}
         >
-          <Icon kind={"cloud"} />
+          <Icon kind={"cloud"} color="#ff830a" />
           <StyleText>마이플레이</StyleText>
         </StyleBtnWrap>
         <StyleBtnWrap
@@ -54,7 +54,7 @@ const Navbar = () => {
             navigate("/search");
           }}
         >
-          <Icon kind={"search"} />
+          <Icon kind={"search"} color="#ff830a" />
           <StyleText>검색</StyleText>
         </StyleBtnWrap>
       </StyleNavWrap>
