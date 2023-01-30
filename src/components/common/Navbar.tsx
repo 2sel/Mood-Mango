@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <StyleNav>
       <LogoWrap>
-        <Logo src="logo.png" alt="logo" />
+        <img src="./log.png" alt="logo" />
       </LogoWrap>
       <StyleNavWrap>
         <StyleBtnWrap
