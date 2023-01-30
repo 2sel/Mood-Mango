@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Mood-Mango/static/css/main.fc0706bd.css",
-    "main.js": "/Mood-Mango/static/js/main.47b853fa.js",
-    "index.html": "/Mood-Mango/index.html",
-    "main.fc0706bd.css.map": "/Mood-Mango/static/css/main.fc0706bd.css.map",
-    "main.47b853fa.js.map": "/Mood-Mango/static/js/main.47b853fa.js.map"
+    "main.css": "/Mood-Mango/index.html/static/css/main.fc0706bd.css",
+    "main.js": "/Mood-Mango/index.html/static/js/main.bb553435.js",
+    "index.html": "/Mood-Mango/index.html/index.html",
+    "main.fc0706bd.css.map": "/Mood-Mango/index.html/static/css/main.fc0706bd.css.map",
+    "main.bb553435.js.map": "/Mood-Mango/index.html/static/js/main.bb553435.js.map"
   },
   "entrypoints": [
     "static/css/main.fc0706bd.css",
-    "static/js/main.47b853fa.js"
+    "static/js/main.bb553435.js"
   ]
 }
