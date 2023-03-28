@@ -7,7 +7,7 @@
 유튜브 api를 사용하여 활용하는 상황에 따라 재생 목록 내의 노래를 뮤직 플레이어을 통해 필터링하여 들을 수 있고 해당 노래들의 인기 순, 기록, 검색 등을 통해 노래의 현황을 알 수 있는 웹페이지를 만들었습니다
 <br />
 
-[배포링크](https://2sel.github.io/Mood-Mango/)
+[배포링크](https://mood-mango-re.vercel.app/)
 
 [시연영상](https://www.youtube.com/watch?v=s-vX3oWpU94)
 
